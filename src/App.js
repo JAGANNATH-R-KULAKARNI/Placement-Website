@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { supabase } from "./Supabase";
 import React from "react";
+import AdminUI from "./components/Admin";
 
 function App() {
   const navigate = useNavigate();
@@ -70,7 +71,6 @@ function App() {
     const data = await supabase.auth.user();
 
     if (data) {
-      console.log(data);
       setData(data);
     }
   }
@@ -95,6 +95,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeUI />} />
         <Route path="/signin" element={<SignInUI />} />
+        <Route path="/admin" element={<AdminUI />} />
       </Routes>
     </div>
   );

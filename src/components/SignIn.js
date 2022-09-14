@@ -34,7 +34,8 @@ export default function SignIn() {
     const data = await supabase.auth.user();
 
     if (data) {
-      navigate("/");
+      if (data.email == process.env.REACT_APP_ADMIN) navigate("/admin");
+      else navigate("/");
     }
   }
 
