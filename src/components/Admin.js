@@ -3,10 +3,12 @@ import { supabase } from "../Supabase";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import PrivilagesUI from "./coordinators/Privilages";
+import SkeletonUI from "./utilities/Skeleton";
 
 export default function Admin() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [data, setData] = React.useState(null);
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -14,6 +16,7 @@ export default function Admin() {
     if (data) {
       if (data.email == process.env.REACT_APP_ADMIN) navigate("/admin");
       else navigate("/");
+      setData(data);
     }
   }
 
@@ -23,10 +26,5 @@ export default function Admin() {
     }, 1000);
   }, []);
 
-  return (
-    <div>
-      {" "}
-      <PrivilagesUI />{" "}
-    </div>
-  );
+  return <div>{data ? <PrivilagesUI /> : null}</div>;
 }
