@@ -50,7 +50,7 @@ function App() {
     setInterval(() => {
       fetchTheProfile();
       checkUser();
-    }, 100);
+    }, 1000);
   }, []);
 
   async function LoginChangeHandler(event, session) {

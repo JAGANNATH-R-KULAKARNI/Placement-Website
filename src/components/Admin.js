@@ -2,6 +2,7 @@ import React from "react";
 import { supabase } from "../Supabase";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import PrivilagesUI from "./coordinators/Privilages";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -19,12 +20,13 @@ export default function Admin() {
   React.useEffect(() => {
     setInterval(() => {
       fetchTheProfile();
-    }, 100);
-  });
+    }, 1000);
+  }, []);
 
   return (
     <div>
-      <div style={{ height: "200px" }}>Admin page</div>
+      {" "}
+      <PrivilagesUI />{" "}
     </div>
   );
 }
