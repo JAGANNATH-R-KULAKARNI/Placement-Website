@@ -167,7 +167,7 @@ export default function Privileges() {
                     variant="contained"
                     style={{ backgroundColor: "#2E7D32" }}
                   >
-                    Open It
+                    Open
                   </Button>
                 </Card>
               </Grid>

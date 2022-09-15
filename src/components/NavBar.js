@@ -3,44 +3,19 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import logo from "./images/Logo.png";
 import "./Hover.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Badge from "@mui/material/Badge";
-import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-
-const pages = ["NIE", "Placements", "Contact Us"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { useNavigate } from "react-router-dom";
 
 const ResponsiveAppBar = (props) => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const m1 = useMediaQuery("(min-width:600px)");
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const navigate = useNavigate();
 
   return (
     <AppBar
@@ -56,21 +31,27 @@ const ResponsiveAppBar = (props) => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img
-            src={logo}
-            alt="Logo"
-            style={{
-              width: m1 ? "50px" : "30px",
-              height: "auto",
-              backgroundColor: "white",
-              padding: "5px",
-              borderTopLeftRadius: "40px",
-              borderTopRightRadius: "40px",
-              borderBottomLeftRadius: "70px",
-              borderBottomRightRadius: "70px",
+          <div
+            onClick={() => {
+              navigate("/");
             }}
-            className="hoverr2"
-          />
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                width: m1 ? "50px" : "30px",
+                height: "auto",
+                backgroundColor: "white",
+                padding: "5px",
+                borderTopLeftRadius: "40px",
+                borderTopRightRadius: "40px",
+                borderBottomLeftRadius: "70px",
+                borderBottomRightRadius: "70px",
+              }}
+              className="hoverr2"
+            />
+          </div>
           <h3
             style={{
               color: "white",
@@ -78,6 +59,9 @@ const ResponsiveAppBar = (props) => {
               marginLeft: m1 ? "30px" : "19px",
             }}
             className="hoverr2"
+            onClick={() => {
+              navigate("/");
+            }}
           >
             {m1 ? "Training & Placements Cell" : "Placements"}
           </h3>
@@ -104,7 +88,7 @@ const ResponsiveAppBar = (props) => {
                 backgroundColor: "green",
               }}
               startIcon={
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton onClick={null} sx={{ p: 0 }}>
                   <Avatar
                     alt={props.data && props.data.user_metadata.full_name}
                     src={props.data && props.data.user_metadata.avatar_url}
@@ -128,24 +112,7 @@ const ResponsiveAppBar = (props) => {
               display: { xs: "none", md: "flex" },
               marginLeft: "30px",
             }}
-          >
-            {/* {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                  fontFamily: "inherit",
-                  fontWeight: 700,
-                }}
-                className="hoverr"
-              >
-                {page}
-              </Button>
-            ))} */}
-          </Box>
+          ></Box>
           {m1 ? (
             <Badge
               badgeContent={3}
@@ -165,7 +132,7 @@ const ResponsiveAppBar = (props) => {
                 marginLeft: "50px",
               }}
               startIcon={
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton onClick={null} sx={{ p: 0 }}>
                   <Avatar
                     alt={props.data && props.data.user_metadata.full_name}
                     src={props.data && props.data.user_metadata.avatar_url}
