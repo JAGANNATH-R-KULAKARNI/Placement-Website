@@ -1,0 +1,16 @@
+.hoverr {
+}
+
+.hoverr:hover {
+  cursor: pointer;
+  zoom: 1.01;
+  color: #2db079;
+}
+
+.hoverr2 {
+}
+
+.hoverr2:hover {
+  cursor: pointer;
+  zoom: 1.003;
+}
