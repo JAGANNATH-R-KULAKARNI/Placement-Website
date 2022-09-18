@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import CompanyUI from "./utilities2/Company";
+import StudentUI from "./utilities2/Student";
 import Fab from "@mui/material/Fab";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import RegisterUI from "./utilities2/Register";
@@ -38,6 +38,8 @@ export default function AnnounceACompany() {
   const [fCompanies, setFCompanies] = React.useState([]);
   const [sCResult, setSCResult] = React.useState(null);
   const [control, setControl] = React.useState(false);
+  const [students, setStudents] = React.useState([]);
+  const [fStudents, setFStudents] = React.useState([]);
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -48,35 +50,21 @@ export default function AnnounceACompany() {
     }
   }
 
-  async function filterCompanies1(str) {
+  async function filterStudents1(str) {
     const temp = [];
 
-    for (let i = 0; i < companies.length; i++) {
+    for (let i = 0; i < students.length; i++) {
       if (str) {
-        if (str === companies[i].name) temp.push(companies[i]);
+        if (str === students[i].name) temp.push(students[i]);
       } else {
-        temp.push(companies[i]);
+        temp.push(students[i]);
       }
     }
 
-    setFCompanies(temp);
+    setFStudents(temp);
   }
 
-  async function filterCompanies2() {
-    const temp = [];
-
-    for (let i = 0; i < companies.length; i++) {
-      if (sCResult) {
-        if (sCResult === companies[i].name) temp.push(companies[i]);
-      } else {
-        temp.push(companies[i]);
-      }
-    }
-
-    setFCompanies(temp);
-  }
-
-  async function filterCompanies3(compis) {
+  async function filterStudents3(compis) {
     const temp = [];
     console.log("here");
     console.log(sCResult);
@@ -88,14 +76,14 @@ export default function AnnounceACompany() {
       }
     }
 
-    setFCompanies(temp);
+    setFStudents(temp);
   }
 
-  async function searchCompanyResults(str) {
-    console.log("Seach company result");
+  async function searchStudentResults(str) {
+    console.log("Seach student result");
     console.log(str);
     await setSCResult(str);
-    filterCompanies1(str);
+    filterStudents1(str);
   }
 
   async function fetchTheCompanies() {
@@ -108,18 +96,27 @@ export default function AnnounceACompany() {
 
     if (data) {
       setCompanies(data);
-      filterCompanies3(data);
+    }
+  }
+
+  async function fetchTheStudents() {
+    const { data, error } = await supabase
+      .from("students")
+      .select("*,companies(*)");
+
+    if (data) {
+      console.log("Students Data");
+      console.log(data);
+      setStudents(data);
+      filterStudents3(data);
     }
   }
 
   React.useEffect(() => {
     if (companies.length === 0) {
       fetchTheCompanies();
+      fetchTheStudents();
     }
-
-    // setInterval(() => {
-    //   fetchTheCompanies();
-    // }, 5000);
   }, []);
 
   React.useEffect(() => {
@@ -132,9 +129,10 @@ export default function AnnounceACompany() {
     <div>
       {data ? (
         <div>
-          {registerModal ? (
+          {registerModal && companies ? (
             <RegisterUI
               registerModalHandler={() => setRegisterModal(!registerModal)}
+              companies={companies}
             />
           ) : null}
           <CssBaseline />
@@ -171,20 +169,22 @@ export default function AnnounceACompany() {
                     marginBottom: "-20px",
                   }}
                 >
-                  <Fab
-                    variant="extended"
-                    style={{
-                      backgroundColor: "#541554",
-                      color: "white",
-                      paddingRight: "20px",
-                    }}
-                    onClick={() => {
-                      setRegisterModal(!registerModal);
-                    }}
-                  >
-                    <VpnKeyIcon sx={{ mr: 1 }} />
-                    Register Student
-                  </Fab>
+                  {students.length > 0 ? (
+                    <Fab
+                      variant="extended"
+                      style={{
+                        backgroundColor: "#541554",
+                        color: "white",
+                        paddingRight: "20px",
+                      }}
+                      onClick={() => {
+                        setRegisterModal(!registerModal);
+                      }}
+                    >
+                      <VpnKeyIcon sx={{ mr: 1 }} />
+                      Register Student
+                    </Fab>
+                  ) : null}
                 </div>
               </Container>
             </Box>
@@ -213,15 +213,15 @@ export default function AnnounceACompany() {
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    paddingLeft: "5%",
-                    paddingRight: "5%",
+                    paddingLeft: "10%",
+                    paddingRight: "10%",
                   }}
                 >
                   <div style={{ minWidth: "60%", minWidth: "80%" }}>
                     {companies && (
                       <SearchUI
-                        companies={companies}
-                        searchCompanyResults={searchCompanyResults}
+                        students={students}
+                        searchStudentResults={searchStudentResults}
                       />
                     )}
                   </div>
@@ -244,12 +244,12 @@ export default function AnnounceACompany() {
                 </div>
                 <br />
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <div style={{ width: "100%" }}>
-                    {fCompanies &&
-                      fCompanies.map((item) => {
+                  <div style={{ width: "95%" }}>
+                    {fStudents &&
+                      fStudents.map((item) => {
                         return (
                           <div key={item}>
-                            <CompanyUI data={item} />{" "}
+                            <StudentUI data={item} />{" "}
                           </div>
                         );
                       })}

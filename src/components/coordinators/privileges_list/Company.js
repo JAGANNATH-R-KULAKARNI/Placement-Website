@@ -247,11 +247,13 @@ export default function AnnounceACompany() {
                   <div style={{ width: "100%" }}>
                     {fCompanies &&
                       fCompanies.map((item) => {
-                        return (
-                          <div key={item}>
-                            <CompanyUI data={item} />{" "}
-                          </div>
-                        );
+                        if (item["id"] != 0) {
+                          return (
+                            <div key={item}>
+                              <CompanyUI data={item} />{" "}
+                            </div>
+                          );
+                        }
                       })}
                   </div>
                 </div>

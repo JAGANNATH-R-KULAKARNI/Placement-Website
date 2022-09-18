@@ -34,6 +34,7 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { ContentPasteGoSharp } from "@mui/icons-material";
+import SeacrUI from "./Search2";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -65,6 +66,8 @@ export default function Register(props) {
   const [policy, setPolicy] = React.useState(false);
   const [credits, setCredits] = React.useState(0);
   const [cgpa, setCGPA] = React.useState(0);
+  const [company, setCompany] = React.useState(0);
+  const [ccontrol, setCControl] = React.useState(false);
 
   const registerCompany = async () => {
     if (!policy) {
@@ -123,6 +126,7 @@ export default function Register(props) {
       documents: urls,
       credits: credits,
       cgpa: cgpa,
+      company: company,
     };
 
     console.log("Upload Data Bro");
@@ -148,6 +152,20 @@ export default function Register(props) {
   const handleClose = () => {
     setOpen(false);
     props.registerModalHandler();
+  };
+
+  const searchCompanyResults = (com) => {
+    console.log("Compnay");
+    console.log(com);
+
+    for (let i = 0; i < props.companies.length; i++) {
+      if (props.companies[i]["name"] == com) {
+        setCompany(props.companies[i]["id"]);
+        console.log(props.companies[i]);
+        console.log(props.companies[i]["id"]);
+        break;
+      }
+    }
   };
 
   const handleUpload = async (e) => {
@@ -282,11 +300,36 @@ export default function Register(props) {
                       setEmail(e.target.value);
                     }}
                   />
+                  <div style={{ marginTop: "30px" }}>
+                    {ccontrol ? null : (
+                      <SeacrUI
+                        companies={props.companies}
+                        searchCompanyResults={searchCompanyResults}
+                      />
+                    )}
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            style={{ color: "#541554" }}
+                            checked={ccontrol}
+                            onChange={(e) => {
+                              setCControl(e.target.checked);
+                              if (e.target.checked) {
+                                setCompany(0);
+                              }
+                            }}
+                          />
+                        }
+                        label="Not Yet Placed"
+                      />
+                    </FormGroup>
+                  </div>
                   <TextField
                     id="standard-basic"
                     label="Date Of Birth"
                     variant="standard"
-                    style={{ width: "100%", marginTop: "20px" }}
+                    style={{ width: "100%", marginTop: "15px" }}
                     value={dob}
                     onChange={(e) => {
                       setDob(e.target.value);

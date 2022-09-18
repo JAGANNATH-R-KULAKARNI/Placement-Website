@@ -39,7 +39,6 @@ export default function MoreDetails(props) {
                 <span style={{ fontWeight: 900, fontSize: "24px" }}>
                   {props.ctc}{" "}
                 </span>{" "}
-                LPA
               </Item>
               <Button
                 variant="contained"

@@ -37,30 +37,38 @@ export default function CompanyList(props) {
         >
           <Typography
             sx={{
-              width: "58%",
+              width: "50%",
               flexShrink: 0,
-              fontSize: "15px",
+              fontSize: "12px",
               marginTop: "5px",
+              maxWidth: "50%",
             }}
           >
             {props.data.name}{" "}
           </Typography>
           <span
             style={{
-              fontSize: "12px",
-              marginLeft: props.data.type == "Open Dream" ? "0px" : "30px",
+              fontSize: "10px",
+              marginLeft: "20px",
               float: "right",
-              marginRight: props.data.type == "Open Dream" ? "60px" : "30px",
+              marginRight: "30px",
+              width: "50%",
+              maxWidth: "50%",
             }}
           >
             <Chip
-              label={props.data.type.length == 0 ? "--------" : props.data.type}
+              label={
+                props.data.companies.id == 0
+                  ? "Not Placed"
+                  : props.data.companies.name.substr(0, 11) +
+                    (props.data.companies.name.length > 11 ? "..." : "")
+              }
               color="success"
               style={{
                 backgroundColor:
-                  props.data.type.length == 0
+                  props.data.companies.type == 0
                     ? "black"
-                    : colors[props.data.type],
+                    : colors[props.data.companies.type],
               }}
             />
           </span>
@@ -77,7 +85,7 @@ export default function CompanyList(props) {
         </AccordionSummary>
         <AccordionDetails>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <DetailsUI ctc={props.data.ctc} />
+            <DetailsUI ctc={props.data.usn} />
           </div>
         </AccordionDetails>
       </Accordion>

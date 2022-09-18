@@ -26,7 +26,7 @@ export default function Asynchronous(props) {
       await sleep(1e3); // For demo purposes.
 
       if (active) {
-        setOptions([...props.students]);
+        setOptions([...props.companies]);
       }
     })();
 
@@ -58,13 +58,13 @@ export default function Asynchronous(props) {
       loading={loading}
       onChange={(e) => {
         if (e.target.innerHTML.substr(0, 5) === "<path")
-          props.searchStudentResults(null);
-        else props.searchStudentResults(e.target.innerHTML);
+          props.searchCompanyResults("Not Placed");
+        else props.searchCompanyResults(e.target.innerHTML);
       }}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Search Student"
+          label="Search Company"
           InputProps={{
             ...params.InputProps,
             endAdornment: (
