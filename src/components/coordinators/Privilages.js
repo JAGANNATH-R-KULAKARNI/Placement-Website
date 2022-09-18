@@ -62,14 +62,6 @@ export default function Privileges() {
       goto: "/admin/students",
     },
     {
-      text: "Edit a Student",
-      subtext:
-        "Edit the details of student when he/she got placed or due to some error correction",
-      image:
-        "https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXBkYXRlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      goto: "/admin/companies",
-    },
-    {
       text: "Download details",
       subtext: "Download the details of applicatents for a particular company",
       image:

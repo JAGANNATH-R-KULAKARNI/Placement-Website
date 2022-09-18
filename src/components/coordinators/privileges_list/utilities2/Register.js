@@ -33,6 +33,7 @@ import Box from "@mui/material/Box";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import { ContentPasteGoSharp } from "@mui/icons-material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -45,58 +46,90 @@ export default function Register(props) {
   const [uploading, setUploading] = React.useState(false);
 
   const [name, setName] = React.useState("");
-
-  const [ctc, setCTC] = React.useState(0);
-  const [ctcDisclosed, setCTCDisclosed] = React.useState(false);
-  const [type, setType] = React.useState("");
-  const [intDate, setIntDate] = React.useState("");
-  const [intDateDisclosure, setIntDateDisclosure] = React.useState("");
-  const [eligibleBranches, setEligibleBranches] = React.useState([]);
-  const [minMInTen, setMinMInTen] = React.useState(0);
-  const [minMInTwelve, setMinMInTwelve] = React.useState(0);
-  const [eduGap, setEduGap] = React.useState(0);
-  const [backlogs, setBacklogs] = React.useState(false);
-  const [arears, setArears] = React.useState(false);
-  const [description, setDescription] = React.useState("");
+  const [usn, setUSN] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [dob, setDob] = React.useState("");
+  const [gender, setGender] = React.useState(0);
+  const [category, setCategory] = React.useState("");
+  const [tenth, setTenth] = React.useState([null, "", null]);
+  const [twelth, setTwelth] = React.useState([null, "", null]);
+  const [diplomo, setDiplomo] = React.useState([null, "", null]);
+  const [branch, setBranch] = React.useState("");
+  const [section, setSection] = React.useState("");
+  const [year, setYear] = React.useState(3);
+  const [grades, setGrades] = React.useState([0, 0, 0, 0, 0, 0, 0, 0]);
+  const [arears, setArears] = React.useState([0, 0]);
+  const [backlogs, setBacklogs] = React.useState([0, 0]);
+  const [phone, setPhone] = React.useState([0, 0]);
+  const [address, setAddress] = React.useState(["", ""]);
+  const [policy, setPolicy] = React.useState(false);
+  const [credits, setCredits] = React.useState(0);
+  const [cgpa, setCGPA] = React.useState(0);
 
   const registerCompany = async () => {
-    if (name.length == 0) {
-      alert("Name is required");
+    if (!policy) {
+      alert("Please accept the Terms & Conditions");
       return;
-    } else if (!ctcDisclosed && ctc <= 0) {
-      alert("CTC should be valid or else disable");
-      return;
-    } else if (type.length == 0) {
-      alert("Type of company is required");
-      return;
-    } else if (!intDateDisclosure && intDate.length == 0) {
-      alert("Tentative dates are required or else disable");
-      return;
-    } else if (eligibleBranches.length == 0) {
-      alert("If no branches are eligible, then why the company is coming ? ");
-      return;
+    }
+
+    if (
+      name.length == 0 ||
+      usn.length == 0 ||
+      email.length == 0 ||
+      dob.length == 0 ||
+      gender == 0 ||
+      category.length == 0 ||
+      !tenth[0] ||
+      tenth[1].length == 0 ||
+      !tenth[1] ||
+      !twelth[2] ||
+      twelth[1].length == 0 ||
+      !twelth[2] ||
+      branch.length == 0 ||
+      section.length == 0 ||
+      address[0].length == 0 ||
+      address[1].length == 0
+    ) {
+      alert("All fields should be filled");
     }
 
     const uploadData = {
       name: name,
-      ctc: !ctcDisclosed ? ctc : "---",
-      type: type == "nyd" ? "" : type,
-      tentative_interview_dates: !intDateDisclosure ? intDate : "---",
-      eligible_branches: eligibleBranches,
-      min_in_ten: minMInTen,
-      min_in_twelve: minMInTwelve,
-      max_year_education_gap: eduGap,
-      active_backlogs_allowed: backlogs,
-      active_arears_allowed: arears,
-      description: description,
-      jds: urls,
-      time_posted: Date.now(),
+      usn: usn,
+      email: email,
+      dob: dob,
+      gender: gender,
+      category: category,
+      tenth_percentage: tenth[0],
+      tenth_board: tenth[1],
+      tenth_passed_year: tenth[2],
+      twelth_percentage: twelth[0],
+      twelth_board: twelth[1],
+      twelth_passed_year: twelth[2],
+      diplomo_percentage: diplomo[0],
+      diplomo_board: diplomo[1],
+      diplomo_passed_year: diplomo[2],
+      branch: branch,
+      year: year,
+      grades: grades,
+      current_arears: arears[0],
+      cleared_arears: arears[1],
+      current_backlogs: backlogs[0],
+      cleared_backlogs: backlogs[1],
+      phone_num: phone[0],
+      parent_phone_num: phone[1],
+      home_addr: address[0],
+      permanent_addr: address[1],
+      documents: urls,
+      credits: credits,
+      cgpa: cgpa,
     };
 
     console.log("Upload Data Bro");
     console.log(uploadData);
+
     const { data, error } = await supabase
-      .from("companies")
+      .from("students")
       .insert([uploadData]);
 
     if (data) {
@@ -221,7 +254,7 @@ export default function Register(props) {
                 <div style={{ width: "90%" }}>
                   <TextField
                     id="standard-basic"
-                    label="Company Name"
+                    label="Full Name"
                     variant="standard"
                     style={{ width: "100%" }}
                     value={name}
@@ -231,187 +264,525 @@ export default function Register(props) {
                   />
                   <TextField
                     id="standard-basic"
-                    label="CTC (in LPA)"
+                    label="USN"
                     variant="standard"
-                    type="number"
                     style={{ width: "100%", marginTop: "20px" }}
-                    value={ctc}
+                    value={usn}
                     onChange={(e) => {
-                      setCTC(e.target.value);
+                      setUSN(e.target.value);
                     }}
-                    disabled={ctcDisclosed}
                   />
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          style={{ color: "#541554" }}
-                          value={ctcDisclosed}
-                          onChange={(e) => {
-                            setCTCDisclosed(e.target.checked);
-                            if (e.target.checked) setCTC(0);
-                          }}
-                        />
-                      }
-                      label="Not yet disclosed"
-                    />
-                  </FormGroup>
-
+                  <TextField
+                    id="standard-basic"
+                    label="Email"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Date Of Birth"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={dob}
+                    onChange={(e) => {
+                      setDob(e.target.value);
+                    }}
+                  />
                   <FormControl
                     variant="standard"
-                    sx={{ width: "100%", marginTop: "10px" }}
+                    sx={{ width: "100%", marginTop: "20px" }}
                   >
                     <InputLabel id="demo-simple-select-standard-label">
-                      Company Type
+                      Gender
                     </InputLabel>
                     <Select
                       labelId="demo-simple-select-standard-label"
                       id="demo-simple-select-standard"
-                      value={type}
+                      value={gender}
                       onChange={(e) => {
-                        setType(e.target.value);
+                        setGender(e.target.value);
                       }}
-                      label="Company Type"
+                      label="Gender"
                     >
-                      <MenuItem value="nyd">
-                        <em>Not yet disclosed</em>
-                      </MenuItem>
-                      <MenuItem value="Mass">Mass</MenuItem>
-                      <MenuItem value="Core">Core</MenuItem>
-                      <MenuItem value="Dream">Dream</MenuItem>
-                      <MenuItem value="Open Dream">Open Dream</MenuItem>
+                      <MenuItem value={1}>Female</MenuItem>
+                      <MenuItem value={2}>Male</MenuItem>
+                      <MenuItem value={3}>Others</MenuItem>
                     </Select>
                   </FormControl>
                   <TextField
                     id="standard-basic"
-                    label="Tentative Interview Dates"
+                    label="Category"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={category}
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="10th/SSLC Percentage"
+                    variant="standard"
+                    type="number"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={tenth[0]}
+                    onChange={(e) => {
+                      const temp = [...tenth];
+                      console.log(temp);
+                      temp[0] = e.target.value;
+                      console.log(temp);
+                      setTenth(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="10th/SSLC Board"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={tenth[1]}
+                    onChange={(e) => {
+                      const temp = [...tenth];
+                      temp[1] = e.target.value;
+                      console.log(temp);
+                      setTenth(temp);
+                    }}
+                    type="text"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="10th/SSLC Qualified Year"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={tenth[2]}
+                    onChange={(e) => {
+                      const temp = [...tenth];
+                      temp[2] = e.target.value;
+
+                      setTenth(temp);
+                    }}
+                    type="number"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="12th/PUC Percentage"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={twelth[0]}
+                    onChange={(e) => {
+                      const temp = [...twelth];
+                      temp[0] = e.target.value;
+
+                      setTwelth(temp);
+                    }}
+                    type="number"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="12th/PUC Board"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={twelth[1]}
+                    onChange={(e) => {
+                      const temp = [...twelth];
+                      temp[1] = e.target.value;
+
+                      setTwelth(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="12th/PUC Qualified Year"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={twelth[2]}
+                    onChange={(e) => {
+                      const temp = [...twelth];
+                      temp[2] = e.target.value;
+
+                      setTwelth(temp);
+                    }}
+                    type="number"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Diplomo Percentage (If Lateral Entry)"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={diplomo[0]}
+                    onChange={(e) => {
+                      const temp = [...diplomo];
+                      temp[0] = e.target.value;
+
+                      setDiplomo(temp);
+                    }}
+                    type="number"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Diplomo Board (If Lateral Entry)"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={diplomo[1]}
+                    onChange={(e) => {
+                      const temp = [...diplomo];
+                      temp[1] = e.target.value;
+
+                      setDiplomo(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Diplomo Qualified Year (If Lateral Entry)"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={diplomo[2]}
+                    onChange={(e) => {
+                      const temp = [...diplomo];
+                      temp[2] = e.target.value;
+
+                      setDiplomo(temp);
+                    }}
+                    type="number"
+                  />
+
+                  <FormControl
+                    variant="standard"
+                    sx={{ width: "100%", marginTop: "20px" }}
+                  >
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Engineering Branch
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      value={branch}
+                      onChange={(e) => {
+                        setBranch(e.target.value);
+                      }}
+                      label="Branch"
+                    >
+                      <MenuItem value="CSE">Computer Science</MenuItem>
+                      <MenuItem value="ISE">Information Science</MenuItem>
+                      <MenuItem value="ECE">
+                        Electronic & Communication
+                      </MenuItem>
+                      <MenuItem value="EEE">Electronic & Electrical</MenuItem>
+                      <MenuItem value="ME">Mechanical Engineering</MenuItem>
+                      <MenuItem value="CIVIL">Civil Engineering</MenuItem>
+                      <MenuItem value="IP">Industrial Production</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <TextField
+                    id="standard-basic"
+                    label="Section"
+                    variant="standard"
+                    type="text"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    value={section}
+                    onChange={(e) => {
+                      setSection(e.target.value);
+                    }}
+                  />
+                  <FormControl
+                    variant="standard"
+                    sx={{ width: "100%", marginTop: "20px" }}
+                  >
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Current Year
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      label="Year"
+                      value={year}
+                      onChange={(e) => {
+                        setYear(e.target.value);
+                      }}
+                    >
+                      <MenuItem value={1}>First Year</MenuItem>
+                      <MenuItem value={2}>Second Year</MenuItem>
+                      <MenuItem value={3}>Third Year</MenuItem>
+                      <MenuItem value={4}>Fourth Year</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <TextField
+                    id="standard-basic"
+                    label="1st Sem SGPA"
+                    variant="standard"
+                    type="number"
+                    style={{ width: "47%", marginTop: "20px" }}
+                    value={grades[0]}
+                    onChange={(e) => {
+                      const temp = [...grades];
+                      temp[0] = e.target.value;
+                      setGrades(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="2nd Sem SGPA"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "47%",
+                      marginTop: "20px",
+                      marginLeft: "6%",
+                    }}
+                    value={grades[1]}
+                    onChange={(e) => {
+                      const temp = [...grades];
+                      temp[1] = e.target.value;
+                      setGrades(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="3rd Sem SGPA"
+                    variant="standard"
+                    type="number"
+                    style={{ width: "47%", marginTop: "20px" }}
+                    value={grades[2]}
+                    onChange={(e) => {
+                      const temp = [...grades];
+                      temp[2] = e.target.value;
+                      setGrades(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="4th Sem SGPA"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "47%",
+                      marginTop: "20px",
+                      marginLeft: "6%",
+                    }}
+                    value={grades[3]}
+                    onChange={(e) => {
+                      const temp = [...grades];
+                      temp[3] = e.target.value;
+                      setGrades(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="5th Sem SGPA"
+                    variant="standard"
+                    type="number"
+                    style={{ width: "47%", marginTop: "20px" }}
+                    value={grades[4]}
+                    onChange={(e) => {
+                      const temp = [...grades];
+                      temp[4] = e.target.value;
+                      setGrades(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="6th Sem SGPA"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "47%",
+                      marginTop: "20px",
+                      marginLeft: "6%",
+                    }}
+                    value={grades[5]}
+                    onChange={(e) => {
+                      const temp = [...grades];
+                      temp[5] = e.target.value;
+                      setGrades(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="7th Sem SGPA"
+                    variant="standard"
+                    type="number"
+                    style={{ width: "47%", marginTop: "20px" }}
+                    value={grades[6]}
+                    onChange={(e) => {
+                      const temp = [...grades];
+                      temp[6] = e.target.value;
+                      setGrades(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="8th Sem SGPA"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "47%",
+                      marginTop: "20px",
+                      marginLeft: "6%",
+                    }}
+                    value={grades[7]}
+                    onChange={(e) => {
+                      const temp = [...grades];
+                      temp[7] = e.target.value;
+                      setGrades(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Total CGPA (until current semester)"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    value={cgpa}
+                    onChange={(e) => {
+                      setCGPA(e.target.value);
+                    }}
+                  />
+
+                  <TextField
+                    id="standard-basic"
+                    label="Total Credits Earned"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    value={credits}
+                    onChange={(e) => {
+                      setCredits(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="No Of Current Arears"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    value={arears[0]}
+                    onChange={(e) => {
+                      const temp = [...arears];
+                      temp[0] = e.target.value;
+                      setArears(temp);
+                    }}
+                  />
+
+                  <TextField
+                    id="standard-basic"
+                    label="No Of Cleared Arears"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    value={arears[1]}
+                    onChange={(e) => {
+                      const temp = [...arears];
+                      temp[1] = e.target.value;
+                      setArears(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="No Of Current Backlogs"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    value={backlogs[0]}
+                    onChange={(e) => {
+                      const temp = [...backlogs];
+                      temp[0] = e.target.value;
+                      setBacklogs(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="No Of Cleared Backlogs"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    value={backlogs[1]}
+                    onChange={(e) => {
+                      const temp = [...backlogs];
+                      temp[1] = e.target.value;
+                      setBacklogs(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Phone No"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    value={phone[0]}
+                    onChange={(e) => {
+                      const temp = [...phone];
+                      temp[0] = e.target.value;
+                      setPhone(temp);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Parents Phone No"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    value={phone[1]}
+                    onChange={(e) => {
+                      const temp = [...phone];
+                      temp[1] = e.target.value;
+                      setPhone(temp);
+                    }}
+                  />
+
+                  <TextField
+                    id="standard-basic"
+                    label="Home Address"
                     variant="standard"
                     type="text"
                     style={{ width: "100%", marginTop: "15px" }}
-                    disabled={intDateDisclosure}
-                    value={intDate}
+                    value={address[0]}
                     onChange={(e) => {
-                      setIntDate(e.target.value);
-                    }}
-                  />
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          style={{ color: "#541554" }}
-                          value={intDateDisclosure}
-                          onChange={(e) => {
-                            setIntDateDisclosure(e.target.checked);
-                            setIntDate("");
-                          }}
-                        />
-                      }
-                      label="Not yet disclosed"
-                    />
-                  </FormGroup>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "30px",
-                    }}
-                  >
-                    <BranchesUI setEligibleBranches={setEligibleBranches} />
-                  </div>
-                  <TextField
-                    id="standard-basic"
-                    label="Min % in 10th"
-                    variant="standard"
-                    style={{ width: "100%", marginTop: "20px" }}
-                    type="number"
-                    value={minMInTen}
-                    focused={true}
-                    onChange={(e) => {
-                      setMinMInTen(e.target.value);
+                      const temp = [...address];
+                      temp[0] = e.target.value;
+                      setAddress(temp);
                     }}
                   />
                   <TextField
                     id="standard-basic"
-                    label="Min % in 12th"
+                    label="Permanent Address"
                     variant="standard"
-                    style={{ width: "100%", marginTop: "20px" }}
-                    type="number"
-                    value={minMInTwelve}
-                    focused={true}
+                    type="text"
+                    style={{ width: "100%", marginTop: "15px" }}
+                    value={address[1]}
                     onChange={(e) => {
-                      setMinMInTwelve(e.target.value);
+                      const temp = [...address];
+                      temp[1] = e.target.value;
+                      setAddress(temp);
                     }}
                   />
-                  <TextField
-                    id="standard-basic"
-                    label="Max Year Education Gap"
-                    variant="standard"
-                    style={{ width: "100%", marginTop: "20px" }}
-                    type="number"
-                    value={eduGap}
-                    focused={true}
-                    onChange={(e) => {
-                      setEduGap(e.target.value);
-                    }}
-                  />
-                  <div style={{ width: "100%" }}>
-                    <FormGroup
-                      style={{
-                        float: "left",
-                        marginLeft: "-17px",
-                        marginTop: "20px",
-                      }}
-                    >
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            style={{ color: "#541554" }}
-                            checked={backlogs}
-                            onChange={(e) => {
-                              setBacklogs(e.target.checked);
-                            }}
-                          />
-                        }
-                        label="Active backlogs allowed ?"
-                        labelPlacement="start"
-                      />
-                    </FormGroup>
-                    <FormGroup
-                      style={{
-                        float: "left",
-                        marginLeft: "-17px",
-                        marginTop: "0px",
-                      }}
-                    >
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={arears}
-                            onChange={(e) => {
-                              setArears(e.target.checked);
-                            }}
-                            style={{ color: "#541554" }}
-                          />
-                        }
-                        label="Active arears allowed ?"
-                        labelPlacement="start"
-                      />
-                    </FormGroup>
-                  </div>
 
-                  <TextField
-                    id="standard-multiline-static"
-                    label="Extra description (optional)"
-                    multiline
-                    rows={4}
-                    placeholder="3 Years of Service agreement & additional benefits on top."
-                    variant="standard"
-                    style={{ width: "100%", marginTop: "10px" }}
-                    value={description}
-                    onChange={(e) => {
-                      setDescription(e.target.value);
-                    }}
-                  />
                   <div
                     style={{
                       display: "flex",
@@ -425,7 +796,7 @@ export default function Register(props) {
                       style={{ backgroundColor: "#541554" }}
                       // onClick={handleOpenPicker}
                     >
-                      {uploading ? "Uploading...Wait" : "Upload JD (optional)"}
+                      {uploading ? "Uploading...Wait" : "Upload Resume"}
 
                       <input
                         hidden
@@ -460,12 +831,31 @@ export default function Register(props) {
                         ></iframe>
                       );
                     })}
-
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          style={{ color: "#541554" }}
+                          checked={policy}
+                          onChange={(e) => {
+                            setPolicy(e.target.checked);
+                          }}
+                        />
+                      }
+                      label={
+                        <h6 style={{ fontWeight: 500 }}>
+                          I have read and understood the placement policy and
+                          the Process. I will adhere to all the rules and
+                          regulation of training and placement department.
+                        </h6>
+                      }
+                    />
+                  </FormGroup>
                   <div
                     style={{
                       display: "flex",
                       justifyContent: "center",
-                      marginTop: "30px",
+                      marginTop: "0px",
                     }}
                   >
                     <Button

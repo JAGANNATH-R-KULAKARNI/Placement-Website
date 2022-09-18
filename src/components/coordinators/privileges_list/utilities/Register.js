@@ -58,6 +58,8 @@ export default function Register(props) {
   const [backlogs, setBacklogs] = React.useState(false);
   const [arears, setArears] = React.useState(false);
   const [description, setDescription] = React.useState("");
+  const [gender, setGender] = React.useState(0);
+  const [cgpa, setCGPA] = React.useState(0);
 
   const registerCompany = async () => {
     if (name.length == 0) {
@@ -87,10 +89,12 @@ export default function Register(props) {
       min_in_twelve: minMInTwelve,
       max_year_education_gap: eduGap,
       active_backlogs_allowed: backlogs,
-      active_arears_allowed: arears,
+      history_backlogs_allowed: arears,
       description: description,
       jds: urls,
       time_posted: Date.now(),
+      gender: gender,
+      min_cgpa: cgpa,
     };
 
     console.log("Upload Data Bro");
@@ -320,6 +324,18 @@ export default function Register(props) {
                   </div>
                   <TextField
                     id="standard-basic"
+                    label="Min CGPA"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    type="number"
+                    value={cgpa}
+                    focused={true}
+                    onChange={(e) => {
+                      setCGPA(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
                     label="Min % in 10th"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
@@ -354,12 +370,15 @@ export default function Register(props) {
                       setEduGap(e.target.value);
                     }}
                   />
-                  <div style={{ width: "100%" }}>
+                  <div
+                    style={{ width: "100%", marginTop: m1 ? "20px" : "0px" }}
+                  >
                     <FormGroup
                       style={{
                         float: "left",
                         marginLeft: "-17px",
-                        marginTop: "20px",
+                        marginTop: m1 ? "0px" : "20px",
+                        marginRight: m1 ? "40px" : "0px",
                       }}
                     >
                       <FormControlLabel
@@ -381,6 +400,7 @@ export default function Register(props) {
                         float: "left",
                         marginLeft: "-17px",
                         marginTop: "0px",
+                        marginRight: m1 ? "40px" : "0px",
                       }}
                     >
                       <FormControlLabel
@@ -393,7 +413,58 @@ export default function Register(props) {
                             style={{ color: "#541554" }}
                           />
                         }
-                        label="Active arears allowed ?"
+                        label="History of Backlogs allowed ?"
+                        labelPlacement="start"
+                      />
+                    </FormGroup>
+                    <FormGroup
+                      style={{
+                        float: "left",
+                        marginLeft: "-17px",
+                        marginTop: "0px",
+                        marginRight: m1 ? "40px" : "0px",
+                      }}
+                    >
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={gender === 1}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setGender(1);
+                              } else {
+                                setGender(0);
+                              }
+                            }}
+                            style={{ color: "#541554" }}
+                          />
+                        }
+                        label="Female Candidates Only ?"
+                        labelPlacement="start"
+                      />
+                    </FormGroup>
+                    <FormGroup
+                      style={{
+                        float: "left",
+                        marginLeft: "-17px",
+                        marginTop: "0px",
+                      }}
+                    >
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={gender === 2}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setGender(2);
+                              } else {
+                                setGender(0);
+                              }
+                            }}
+                            style={{ color: "#541554" }}
+                          />
+                        }
+                        label="Male Candidates Only ?"
                         labelPlacement="start"
                       />
                     </FormGroup>

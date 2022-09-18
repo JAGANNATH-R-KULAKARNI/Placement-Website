@@ -29,7 +29,7 @@ const ResponsiveAppBar = () => {
         <Toolbar disableGutters>
           <div
             onClick={() => {
-              navigate("/");
+              navigate("/admin");
             }}
           >
             <img
@@ -57,7 +57,7 @@ const ResponsiveAppBar = () => {
             }}
             className="hoverr2"
             onClick={() => {
-              navigate("/");
+              navigate("/admin");
             }}
           >
             Training & Placement Cell

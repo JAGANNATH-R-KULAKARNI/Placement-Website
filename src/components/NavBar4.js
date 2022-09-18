@@ -34,7 +34,7 @@ const ResponsiveAppBar = (props) => {
         <Toolbar disableGutters>
           <div
             onClick={() => {
-              navigate("/");
+              navigate("/admin");
             }}
           >
             <img

@@ -33,7 +33,7 @@ const ResponsiveAppBar = (props) => {
         <Toolbar disableGutters>
           <div
             onClick={() => {
-              navigate("/");
+              navigate("/admin");
             }}
           >
             <img
@@ -60,7 +60,7 @@ const ResponsiveAppBar = (props) => {
             }}
             className="hoverr2"
             onClick={() => {
-              navigate("/");
+              navigate("/admin");
             }}
           >
             {m1 ? "Training & Placements Cell" : "Placements"}

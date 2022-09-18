@@ -173,7 +173,11 @@ export default function AnnounceACompany() {
                 >
                   <Fab
                     variant="extended"
-                    style={{ backgroundColor: "#541554", color: "white" }}
+                    style={{
+                      backgroundColor: "#541554",
+                      color: "white",
+                      paddingRight: "20px",
+                    }}
                     onClick={() => {
                       setRegisterModal(!registerModal);
                     }}
