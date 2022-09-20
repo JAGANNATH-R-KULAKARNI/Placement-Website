@@ -51,7 +51,7 @@ export default function Privileges() {
       subtext: "Send an email to the students or the particular students",
       image:
         "https://images.unsplash.com/photo-1629560987034-341204a8af87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      goto: "/admin/companies",
+      goto: "/admin/announce",
     },
     {
       text: "Students",
