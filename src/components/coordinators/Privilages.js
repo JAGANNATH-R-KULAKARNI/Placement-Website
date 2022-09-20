@@ -76,13 +76,6 @@ export default function Privileges() {
         "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Z3JhcGh8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
       goto: "/admin/companies",
     },
-    {
-      text: "Student Queries",
-      subtext: "Respond to the queries raised by students",
-      image:
-        "https://images.unsplash.com/photo-1542107617-e760dc92dcdd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cXVlcmllc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      goto: "/admin/companies",
-    },
   ];
 
   return (

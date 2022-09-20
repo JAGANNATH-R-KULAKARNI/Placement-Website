@@ -330,8 +330,28 @@ export default function AnnounceACompany() {
     // };
     setSending(true);
 
+    const { data, error } = await supabase.from("emails").insert([
+      {
+        subject: uploadData.subject,
+        description: uploadData.text,
+        to: uploadData.to,
+        attachments: uploadData.attachments,
+        time_posted: Date.now(),
+      },
+    ]);
+
+    if (data) {
+      console.log("Data uploaded to supabase");
+    }
+
+    if (error) {
+      console.log("Something went wrong");
+
+      console.log(error.message);
+    }
+
     await axios
-      .post("https://nie-placements.herokuapp.com/sendmail", {
+      .post("http://localhost:3001/sendmail", {
         htm: ` <div>
         <i>${uploadData.text}</i>
         <br />
@@ -359,6 +379,11 @@ export default function AnnounceACompany() {
     console.log("Handle Filter");
     console.log(students);
     const to = [];
+
+    if (subject.length == 0 || description.length == 0) {
+      alert("Fill all the fields");
+      return;
+    }
 
     if (selectCompany) {
       let hash = {};
