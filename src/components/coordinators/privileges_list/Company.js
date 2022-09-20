@@ -58,43 +58,14 @@ export default function AnnounceACompany() {
         temp.push(companies[i]);
       }
     }
-
-    setFCompanies(temp);
-  }
-
-  async function filterCompanies2() {
-    const temp = [];
-
-    for (let i = 0; i < companies.length; i++) {
-      if (sCResult) {
-        if (sCResult === companies[i].name) temp.push(companies[i]);
-      } else {
-        temp.push(companies[i]);
-      }
-    }
-
-    setFCompanies(temp);
-  }
-
-  async function filterCompanies3(compis) {
-    const temp = [];
-    console.log("here");
-    console.log(sCResult);
-    for (let i = 0; i < compis.length; i++) {
-      if (sCResult) {
-        if (sCResult === compis[i].name) temp.push(compis[i]);
-      } else {
-        temp.push(compis[i]);
-      }
-    }
-
+    console.log("After filter");
+    console.log(temp);
     setFCompanies(temp);
   }
 
   async function searchCompanyResults(str) {
     console.log("Seach company result");
     console.log(str);
-    await setSCResult(str);
     filterCompanies1(str);
   }
 
@@ -107,8 +78,13 @@ export default function AnnounceACompany() {
       });
 
     if (data) {
-      setCompanies(data);
-      filterCompanies3(data);
+      const temp = [];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i]["id"] !== 0) temp.push(data[i]);
+      }
+      setFCompanies(temp);
+      setCompanies(temp);
+      // filterCompanies3(data);
     }
   }
 
@@ -247,13 +223,11 @@ export default function AnnounceACompany() {
                   <div style={{ width: "100%" }}>
                     {fCompanies &&
                       fCompanies.map((item) => {
-                        if (item["id"] != 0) {
-                          return (
-                            <div key={item}>
-                              <CompanyUI data={item} />{" "}
-                            </div>
-                          );
-                        }
+                        return (
+                          <div key={item}>
+                            <CompanyUI data={item} />{" "}
+                          </div>
+                        );
                       })}
                   </div>
                 </div>
