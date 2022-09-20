@@ -25,6 +25,7 @@ import { autocompleteClasses } from "@mui/material/Autocomplete";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SpinnerUI from "./utilities/Spinner";
 import Button from "@mui/material/Button";
+import BackDropUI from "./utilities3/Backdrop";
 
 const Root = styled("div")(
   ({ theme }) => `
@@ -198,6 +199,7 @@ export default function AnnounceACompany() {
   const [urls, setUrls] = React.useState([]);
   const [fileNames, setFileNames] = React.useState([]);
   const [uploading, setUploading] = React.useState(false);
+  const [sending, setSending] = React.useState(false);
 
   const handleUpload = async (e) => {
     console.log("files upload bro");
@@ -326,12 +328,14 @@ export default function AnnounceACompany() {
     //   attachments: attachments,
     //   to: to,
     // };
+    setSending(true);
+
     await axios
       .post("https://nie-placements.herokuapp.com/sendmail", {
         htm: ` <div>
         <i>${uploadData.text}</i>
         <br />
-        <b>- Placements NIE</b>
+        <h3 style="text-align:right;marin-top:10px;"><b>- Placements NIE</b></h3>
       </div>`,
         text: uploadData.text,
         subject: uploadData.subject,
@@ -340,9 +344,15 @@ export default function AnnounceACompany() {
       })
       .then((u) => {
         console.log(u);
+        if (u["data"].success) alert("Email sent successfully");
+        else alert("Something went wrong :( try again later");
+
+        setSending(false);
       })
       .catch((err) => {
         console.log(err);
+        alert("Something went wrong :( try again later");
+        setSending(false);
       });
   };
 
@@ -404,6 +414,7 @@ export default function AnnounceACompany() {
     <div>
       {data ? (
         <div>
+          {sending ? <BackDropUI /> : null}
           <CssBaseline />
           <div style={{ height: m1 ? "70px" : "40px" }}></div>
           <main>
