@@ -35,6 +35,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { ContentPasteGoSharp } from "@mui/icons-material";
 import SeacrUI from "./Search2";
+import BackdropUI from "./Backdrop";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -68,6 +69,8 @@ export default function Register(props) {
   const [cgpa, setCGPA] = React.useState(0);
   const [company, setCompany] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
+
+  const [sending, setSending] = React.useState(false);
 
   const registerCompany = async () => {
     if (!policy) {
@@ -231,6 +234,7 @@ export default function Register(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
+        {sending ? <BackdropUI /> : null}
         <div
           style={{
             backgroundImage: `url(${bg})`,

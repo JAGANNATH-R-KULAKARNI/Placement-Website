@@ -34,6 +34,7 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import BackDropUI from "./Backdrop";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -62,6 +63,8 @@ export default function Register(props) {
   const [gender, setGender] = React.useState(0);
   const [cgpa, setCGPA] = React.useState(0);
 
+  const [sending, setSending] = React.useState(false);
+
   const registerCompany = async () => {
     if (name.length == 0) {
       alert("Name is required");
@@ -79,6 +82,8 @@ export default function Register(props) {
       alert("If no branches are eligible, then why the company is coming ? ");
       return;
     }
+
+    setSending(true);
 
     const uploadData = {
       name: name,
@@ -107,12 +112,14 @@ export default function Register(props) {
     if (data) {
       console.log("Success");
       console.log(data);
+      setSending(false);
       alert("Successfully Uploaded");
     }
 
     if (error) {
       console.log("Error");
       console.log(error);
+      setSending(false);
       alert(error.message);
     }
   };
@@ -185,6 +192,7 @@ export default function Register(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
+        {sending ? <BackDropUI /> : false}
         <div
           style={{
             backgroundImage: `url(${bg})`,

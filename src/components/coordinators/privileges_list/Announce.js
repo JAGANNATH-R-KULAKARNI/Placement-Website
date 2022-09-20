@@ -344,15 +344,14 @@ export default function AnnounceACompany() {
       })
       .then((u) => {
         console.log(u);
+        setSending(false);
         if (u["data"].success) alert("Email sent successfully");
         else alert("Something went wrong :( try again later");
-
-        setSending(false);
       })
       .catch((err) => {
         console.log(err);
-        alert("Something went wrong :( try again later");
         setSending(false);
+        alert("Something went wrong :( try again later");
       });
   };
 
