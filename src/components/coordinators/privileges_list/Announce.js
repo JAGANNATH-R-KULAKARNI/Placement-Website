@@ -327,7 +327,7 @@ export default function AnnounceACompany() {
     //   to: to,
     // };
     await axios
-      .post("http://localhost:3001/sendmail", {
+      .post("https://nie-placements.herokuapp.com/sendmail", {
         htm: ` <div>
         <i>${uploadData.text}</i>
         <br />
