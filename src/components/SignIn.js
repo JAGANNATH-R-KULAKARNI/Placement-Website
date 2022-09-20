@@ -6,6 +6,7 @@ import { supabase } from "../Supabase";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
+import Cookies from "js-cookie";
 
 export default function SignIn() {
   const m1 = useMediaQuery("(min-width:600px)");
@@ -33,6 +34,7 @@ export default function SignIn() {
     const data = await supabase.auth.user();
 
     if (data) {
+      Cookies.set("refresh_twice", true);
       setData(false);
       if (data.email === process.env.REACT_APP_ADMIN) navigate("/admin");
       else navigate("/");

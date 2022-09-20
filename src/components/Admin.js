@@ -5,6 +5,8 @@ import { useLocation } from "react-router-dom";
 import PrivilagesUI from "./coordinators/Privilages";
 import Skeleton from "@mui/material/Skeleton";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Cookies from "js-cookie";
+import { Cookie } from "@mui/icons-material";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -18,6 +20,12 @@ export default function Admin() {
 
     if (data) {
       if (data.email !== process.env.REACT_APP_ADMIN) navigate("/");
+
+      if (Cookies.get("refresh_twice")) {
+        Cookies.remove("refresh_twice");
+        window.location.reload();
+      }
+
       setData(data);
     }
   }
