@@ -31,6 +31,13 @@ export default function Privileges() {
 
   const powers = [
     {
+      text: "Send an Email",
+      subtext: "Send an email to the students or the particular students",
+      image:
+        "https://images.unsplash.com/photo-1637593992672-ed85a851fdc3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=862&q=80",
+      goto: "/admin/announce",
+    },
+    {
       text: "Companies",
       subtext: "Let the students know about the company",
       image:
@@ -46,13 +53,7 @@ export default function Privileges() {
         "https://images.unsplash.com/photo-1579444741963-5ae219cfe27c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9ybXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
       goto: "/admin/companies",
     },
-    {
-      text: "Make an Announcement",
-      subtext: "Send an email to the students or the particular students",
-      image:
-        "https://images.unsplash.com/photo-1629560987034-341204a8af87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      goto: "/admin/announce",
-    },
+
     {
       text: "Students",
       subtext:

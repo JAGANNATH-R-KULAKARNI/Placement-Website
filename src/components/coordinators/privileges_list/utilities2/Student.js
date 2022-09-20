@@ -66,7 +66,7 @@ export default function CompanyList(props) {
               color="success"
               style={{
                 backgroundColor:
-                  props.data.companies.type == 0
+                  props.data.companies.id == 0
                     ? "black"
                     : colors[props.data.companies.type],
               }}

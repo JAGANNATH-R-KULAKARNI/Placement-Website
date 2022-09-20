@@ -33,6 +33,7 @@ import Box from "@mui/material/Box";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -495,6 +496,7 @@ export default function Register(props) {
                       component="label"
                       style={{ backgroundColor: "#541554" }}
                       // onClick={handleOpenPicker}
+                      startIcon={<AttachFileIcon />}
                     >
                       {uploading ? "Uploading...Wait" : "Upload JD (optional)"}
 
