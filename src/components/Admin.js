@@ -19,7 +19,10 @@ export default function Admin() {
     const data = await supabase.auth.user();
 
     if (data) {
-      if (data.email !== process.env.REACT_APP_ADMIN) navigate("/");
+      if (data.email !== process.env.REACT_APP_ADMIN) {
+        Cookies.set("refresh_twice2", true);
+        navigate("/");
+      }
 
       if (Cookies.get("refresh_twice")) {
         Cookies.remove("refresh_twice");

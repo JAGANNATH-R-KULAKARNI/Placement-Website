@@ -34,10 +34,14 @@ export default function SignIn() {
     const data = await supabase.auth.user();
 
     if (data) {
-      Cookies.set("refresh_twice", true);
       setData(false);
-      if (data.email === process.env.REACT_APP_ADMIN) navigate("/admin");
-      else navigate("/");
+      if (data.email === process.env.REACT_APP_ADMIN) {
+        Cookies.set("refresh_twice", true);
+        navigate("/admin");
+      } else {
+        Cookies.set("refresh_twice2", true);
+        navigate("/");
+      }
     } else setData(true);
   }
 
@@ -59,7 +63,7 @@ export default function SignIn() {
         <div
           style={{
             marginTop: m1 ? "300px" : "270px",
-            marginBottom: m1 ? "360px" : "320px",
+            marginBottom: m1 ? "360px" : "420px",
             justifyContent: "center",
             display: "block",
           }}
