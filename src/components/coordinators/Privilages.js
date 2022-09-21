@@ -51,7 +51,7 @@ export default function Privileges() {
         "Create a form to get the applications from students for a particular company",
       image:
         "https://images.unsplash.com/photo-1579444741963-5ae219cfe27c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9ybXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      goto: "/admin/companies",
+      goto: "/admin/forms",
     },
 
     {
