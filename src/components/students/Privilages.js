@@ -197,7 +197,7 @@ export default function Privileges(props) {
                       }}
                       href={student && student[0].documents[0]}
                     >
-                      Download
+                      Resume
                     </a>
                   </div>
                 </div>
