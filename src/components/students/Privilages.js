@@ -46,8 +46,7 @@ export default function Privileges(props) {
     },
     {
       text: "Interview experiences",
-      subtext:
-        "Read about the past interview experiences, and prepare for the interviews",
+      subtext: "Read about the past interview experiences",
       image:
         "https://images.unsplash.com/photo-1579444741963-5ae219cfe27c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9ybXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
       goto: "/interviews",
@@ -70,8 +69,6 @@ export default function Privileges(props) {
       .eq("email", props.data.email);
 
     if (data) {
-      console.log("Student Data");
-      console.log(data);
       setStudent(data);
     }
 

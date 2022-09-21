@@ -8,9 +8,20 @@ import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import Cookies from "js-cookie";
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+}
+
 export default function SignIn() {
   const m1 = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
 
   const [data, setData] = React.useState(null);
 
@@ -32,7 +43,7 @@ export default function SignIn() {
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
-
+    console.log(windowDimensions);
     if (data) {
       setData(false);
       if (data.email === process.env.REACT_APP_ADMIN) {
@@ -62,8 +73,10 @@ export default function SignIn() {
       >
         <div
           style={{
-            marginTop: m1 ? "300px" : "300px",
-            marginBottom: m1 ? "360px" : "420px",
+            marginTop: m1 ? "300px" : `${windowDimensions.height / 2 - 30}px`,
+            marginBottom: m1
+              ? "360px"
+              : `${windowDimensions.height / 2 - 20}px`,
             justifyContent: "center",
             display: "block",
           }}
@@ -77,6 +90,7 @@ export default function SignIn() {
                 fontWeight: 700,
                 fontFamily: "inherit",
                 fontSize: m1 ? "30px" : "17px",
+                height: "50px",
               }}
               startIcon={
                 <div

@@ -19,6 +19,7 @@ import AdminUI from "./components/Admin";
 import AdminAnnounceCompanyUI from "./components/coordinators/privileges_list/Company";
 import AdminStudentUI from "./components/coordinators/privileges_list/Students";
 import AnnounceUI from "./components/coordinators/privileges_list/Announce";
+import CompanyUI from "./components/students/privileges_list/Company";
 
 function App() {
   const navigate = useNavigate();
@@ -110,6 +111,7 @@ function App() {
         <Route path="/admin/companies" element={<AdminAnnounceCompanyUI />} />
         <Route path="/admin/students" element={<AdminStudentUI />} />
         <Route path="/admin/announce" element={<AnnounceUI />} />
+        <Route path="/companies" element={<CompanyUI />} />
       </Routes>
     </div>
   );

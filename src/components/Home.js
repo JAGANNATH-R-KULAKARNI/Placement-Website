@@ -30,7 +30,6 @@ export default function Home() {
         window.location.reload();
       }
       setData(data);
-      console.log(data);
     }
   }
 
