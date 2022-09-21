@@ -43,7 +43,7 @@ export default function SignIn() {
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
-    console.log(windowDimensions);
+
     if (data) {
       setData(false);
       if (data.email === process.env.REACT_APP_ADMIN) {
@@ -73,10 +73,10 @@ export default function SignIn() {
       >
         <div
           style={{
-            marginTop: m1 ? "300px" : `${windowDimensions.height / 2 - 30}px`,
+            marginTop: m1 ? "300px" : `${windowDimensions.height / 2 - 40}px`,
             marginBottom: m1
               ? "360px"
-              : `${windowDimensions.height / 2 - 20}px`,
+              : `${windowDimensions.height / 2 - 10}px`,
             justifyContent: "center",
             display: "block",
           }}

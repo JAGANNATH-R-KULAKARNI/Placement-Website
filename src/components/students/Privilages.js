@@ -25,6 +25,7 @@ import "./tick.css";
 import { supabase } from "../../Supabase";
 import FaceIcon from "@mui/icons-material/Face";
 import Face2Icon from "@mui/icons-material/Face2";
+import pdfi from "../images/pdf.png";
 
 const theme = createTheme();
 
@@ -166,28 +167,39 @@ export default function Privileges(props) {
               }}
             >
               {student.length === 1 ? (
-                <div style={{ width: "50%" }}>
-                  {/* <iframe
-                    src={student.length === 1 ? student[0].documents[0] : null}
-                    style={{
-                      width: m1 ? "50%" : "90%",
-                      height: m1 ? "100px" : "100px",
-                      overflow: "hidden",
-                      borderRadius: "25px",
-                    }}
-                    scrolling="no"
-                  ></iframe> */}
-                  <iframe
-                    src={student.length === 1 ? student[0].documents[0] : null}
-                    style={{
-                      width: m1 ? "90%" : "90%",
-                      height: m1 ? "150px" : "100px",
-                      overflow: "hidden",
-                      borderRadius: "25px",
-                    }}
-                    scrolling="no"
-                    title="Resume"
-                  ></iframe>
+                <div
+                  style={{
+                    width: "50%",
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "-10px",
+                  }}
+                >
+                  <div>
+                    <a
+                      href={student && student[0].documents[0]}
+                      style={{ justifyContent: "center", display: "flex" }}
+                    >
+                      <img
+                        src={pdfi}
+                        alt="filei"
+                        style={{ width: "80%", height: "auto" }}
+                      />
+                    </a>
+                    <a
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        marginTop: "-10px",
+                        color: "black",
+                      }}
+                      href={student && student[0].documents[0]}
+                    >
+                      Download
+                    </a>
+                  </div>
                 </div>
               ) : null}
               <div style={{ width: "50%" }}>
@@ -201,10 +213,10 @@ export default function Privileges(props) {
                       backgroundColor: "black",
                       width: "100%",
                       marginBottom: "15px",
-                      marginTop: m1 ? "25px" : "0px",
+                      marginTop: m1 ? "25px" : "17px",
                     }}
                     onClick={() => {
-                      window.location.reload();
+                      navigate("/profile");
                     }}
                   >
                     {student[0].gender == 2 ? (

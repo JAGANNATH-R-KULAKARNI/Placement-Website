@@ -44,7 +44,7 @@ export default function AnnounceACompany() {
 
     if (data) {
       setData(data);
-      // if (data.email !== process.env.REACT_APP_ADMIN) navigate("/");
+      if (data.email === process.env.REACT_APP_ADMIN) navigate("/admin");
     }
   }
 
@@ -147,20 +147,10 @@ export default function AnnounceACompany() {
                     marginBottom: "-20px",
                   }}
                 >
-                  <Fab
-                    variant="extended"
-                    style={{
-                      backgroundColor: "#541554",
-                      color: "white",
-                      paddingRight: "20px",
-                    }}
-                    onClick={() => {
-                      setRegisterModal(!registerModal);
-                    }}
-                  >
-                    <VpnKeyIcon sx={{ mr: 1 }} />
-                    Register Company
-                  </Fab>
+                  <i style={{ textAlign: "center" }}>
+                    "Have a look at the different companies based on your
+                    eligibility"
+                  </i>
                 </div>
               </Container>
             </Box>
