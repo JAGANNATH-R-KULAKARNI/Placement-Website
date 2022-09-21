@@ -62,7 +62,7 @@ export default function SignIn() {
       >
         <div
           style={{
-            marginTop: m1 ? "300px" : "270px",
+            marginTop: m1 ? "300px" : "300px",
             marginBottom: m1 ? "360px" : "420px",
             justifyContent: "center",
             display: "block",
