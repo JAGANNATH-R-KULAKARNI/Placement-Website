@@ -192,7 +192,7 @@ export default function Privileges(props) {
                         display: "flex",
                         justifyContent: "center",
                         textAlign: "center",
-                        marginTop: "-10px",
+                        marginTop: m1 ? "-20px" : "-10px",
                         color: "black",
                       }}
                       href={student && student[0].documents[0]}
@@ -213,7 +213,7 @@ export default function Privileges(props) {
                       backgroundColor: "black",
                       width: "100%",
                       marginBottom: "15px",
-                      marginTop: m1 ? "25px" : "17px",
+                      marginTop: m1 ? "50px" : "17px",
                     }}
                     onClick={() => {
                       navigate("/profile");
