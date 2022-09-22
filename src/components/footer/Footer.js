@@ -8,14 +8,13 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import * as c from "./Colors";
 
 function Footer() {
   const m1 = useMediaQuery("(min-width:430px)");
 
   return (
     <div>
-      {/* <Footer2 /> */}
+      <Footer2 />
       <div
         style={{
           display: "flex",
@@ -178,7 +177,7 @@ function Footer() {
                     e.target.style.textDecoration = "none";
                   }}
                 >
-                  {"Refunds"}
+                  {"Placements"}
                 </li>
               </ul>
             </div>

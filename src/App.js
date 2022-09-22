@@ -23,11 +23,13 @@ import CompanyUI from "./components/students/privileges_list/Company";
 import ProfileUI from "./components/students/privileges_list/Profile";
 import FormUI from "./components/coordinators/privileges_list/Form";
 import FooterUI from "./components/footer/Footer";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const [data, setData] = React.useState(null);
+  const m1 = useMediaQuery("(min-width:600px)");
 
   React.useEffect(() => {
     setInterval(() => {
@@ -119,7 +121,7 @@ function App() {
         <Route path="/home/companies" element={<CompanyUI />} />
         <Route path="/home/profile" element={<ProfileUI />} />
       </Routes>
-      <div style={{ height: "100px" }}></div>
+      <div style={{ height: m1 ? "340px" : "170px" }}></div>
       <FooterUI />
     </div>
   );

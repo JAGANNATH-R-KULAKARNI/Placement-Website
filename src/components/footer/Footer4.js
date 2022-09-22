@@ -2,43 +2,38 @@ import React from "react";
 import styles from "./Footer.css";
 import * as c from "./Colors";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import stu from "../images/stu.png";
 
 function Footer() {
   const m1 = useMediaQuery("(min-width:430px)");
 
   return (
-    <div className={styles.container}>
-      <div className={styles.contents_top} style={{ backgroundColor: c.c4 }}>
-        <div className={styles.img_container}>
-          <div className={styles.img_absolute} style={{ marginTop: "-150px" }}>
+    <div style={{ width: "100%" }}>
+      <div
+        style={{
+          backgroundColor: "#00C1C1",
+          width: "100%",
+        }}
+      >
+        <div className={styles.img_container} style={{ width: "100%" }}>
+          <div
+            className={styles.img_absolute}
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <img
-              src="/images/dance2.webp"
+              src={stu}
               alt=""
               style={{
-                height: m1 ? "400px" : "300px",
-                width: "auto",
-                marginTop: m1 ? "0px" : "100px",
+                marginTop: m1 ? "-300px" : "-140px",
+                width: m1 ? "40%" : "80%",
+                height: "auto",
               }}
             ></img>
           </div>
-        </div>
-        <div className={styles.desc}>
-          <h1
-            style={{
-              margin: "10px 0",
-              color: "white",
-              textShadow: "2px 0 white",
-              letterSpacing: "3px",
-              fontSize: 38,
-              fontWeight: "bold",
-              fontFamily: "Bungee",
-            }}
-          >
-            ತ್ರಯಾಗ್ನಿ Trayagnie
-            <br />
-            2022
-          </h1>
-          <div style={{ height: "50px" }}></div>
         </div>
       </div>
       <br />
