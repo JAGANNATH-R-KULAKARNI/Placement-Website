@@ -54,13 +54,12 @@ function Footer() {
                   wordSpacing: m1 ? "5px" : "3px",
                 }}
               >
-                The New Year Trayagnie promises a period of joy and celebrations
-                unlike the past two years Sarvari and Plava where people faced
-                the Corona pandemic and loss of life. This year is best for
-                performing auspicious events like weddings, construction of new
-                homes, housewarming etc. People born in this Trayagnie year will
-                be principled ones. trying to do good to others. They will also
-                learn many sciences and live long.
+                Since the academic year 2021-22 we had the privilege of being
+                visited by 450+ companies including 260+ IT companies and 150+
+                core companies each year. A total of 3126 students have been
+                placed through campus recruitment in the last five years. Every
+                year the placement cell plans the training activities related to
+                placement and overall personality development.
               </p>
             </div>
           </Grid>
