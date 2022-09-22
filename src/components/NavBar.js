@@ -21,7 +21,7 @@ const ResponsiveAppBar = (props) => {
     <AppBar
       position="fixed"
       style={{
-        backgroundColor: "#541554",
+        backgroundColor: "#017E7E",
         color: "white",
         fontFamily: "inherit",
         paddingTop: "10px",

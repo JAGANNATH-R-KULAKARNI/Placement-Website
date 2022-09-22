@@ -21,7 +21,7 @@ export default function Admin() {
     if (data) {
       if (data.email !== process.env.REACT_APP_ADMIN) {
         Cookies.set("refresh_twice2", true);
-        navigate("/");
+        navigate("/home");
       }
 
       if (Cookies.get("refresh_twice")) {

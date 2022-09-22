@@ -42,7 +42,7 @@ export default function Privileges(props) {
       image:
         "https://images.unsplash.com/photo-1560179707-f14e90ef3623?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80",
 
-      goto: "/companies",
+      goto: "/home/companies",
       junior: true,
     },
     {
@@ -50,7 +50,7 @@ export default function Privileges(props) {
       subtext: "Read about the past interview experiences",
       image:
         "https://images.unsplash.com/photo-1579444741963-5ae219cfe27c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9ybXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      goto: "/interviews",
+      goto: "/home/interviews",
       junior: true,
     },
     {
