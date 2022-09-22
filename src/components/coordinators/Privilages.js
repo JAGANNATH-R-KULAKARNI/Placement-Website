@@ -81,8 +81,7 @@ export default function Privileges() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div style={{ height: m1 ? "70px" : "40px" }}></div>
-      <main>
+      <main style={{ marginTop: m1 ? "-30px" : "-70px" }}>
         <Box
           sx={{
             bgcolor: "background.paper",
@@ -90,6 +89,7 @@ export default function Privileges() {
             pb: 6,
             borderBottomRightRadius: "50px",
             borderBottomLeftRadius: "50px",
+            backgroundColor: "#EDFFFF",
           }}
         >
           <Container maxWidth="sm">
@@ -101,8 +101,9 @@ export default function Privileges() {
               gutterBottom
               style={{
                 fontFamily: "inherit",
-                fontSize: m1 ? "60px" : "50px",
-                fontWeight: 500,
+                fontSize: m1 ? "60px" : "45px",
+                fontWeight: 700,
+                color: "#007C7C",
               }}
             >
               Admins Only
@@ -115,6 +116,7 @@ export default function Privileges() {
               style={{
                 fontSize: m1 ? "17px" : "16px",
                 marginBottom: "-17px",
+                color: "black",
               }}
             >
               <i>
