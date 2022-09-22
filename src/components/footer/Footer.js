@@ -363,7 +363,6 @@ function Footer() {
         style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: m1 ? "-10px" : "-15px",
           paddingLeft: "10%",
           paddingRight: "10%",
           backgroundColor: "#045D5D",
