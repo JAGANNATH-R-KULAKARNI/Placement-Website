@@ -33,7 +33,14 @@ function getStyles(name, personName, theme) {
 export default function MultipleSelectChip(props) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
-
+  const [initialize, setInitialize] = React.useState(false);
+  React.useEffect(() => {
+    if (!initialize) {
+      setInitialize(true);
+      setPersonName([props.el[0],props.el[1],props.el[2],props.el[3]]);
+      setInitialize(false);
+    }
+  });
   const handleChange = (event) => {
     const {
       target: { value },

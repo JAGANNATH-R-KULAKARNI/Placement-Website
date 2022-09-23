@@ -221,6 +221,7 @@ export default function AnnounceACompany() {
                     {companies && (
                       <SearchUI
                         students={students}
+                        companies={companies}
                         searchStudentResults={searchStudentResults}
                       />
                     )}
@@ -249,7 +250,9 @@ export default function AnnounceACompany() {
                       fStudents.map((item) => {
                         return (
                           <div key={item}>
-                            <StudentUI data={item} />{" "}
+                            <StudentUI 
+                            companies={companies}
+                            data={item} />{" "}
                           </div>
                         );
                       })}

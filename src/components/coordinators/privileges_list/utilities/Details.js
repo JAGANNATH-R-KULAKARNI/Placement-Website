@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-
+import DialogUI from "./Update";
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   textAlign: "center",
@@ -16,6 +16,11 @@ const Item = styled(Paper)(({ theme }) => ({
 const darkTheme = createTheme({ palette: { mode: "dark" } });
 
 export default function MoreDetails(props) {
+  const [model, setModel] = React.useState(false);
+
+  const toggleModel = () => {
+    setModel(!model);
+  };
   return (
     <Grid container spacing={2}>
       {[darkTheme].map((theme, index) => (
@@ -48,11 +53,31 @@ export default function MoreDetails(props) {
                   color: "white",
                   borderRadius: "15px",
                 }}
+                onClick={toggleModel}
               >
                 View More Details
               </Button>
             </Box>
           </ThemeProvider>
+          {model ? (
+        <DialogUI
+          name={props.name1}
+          ctc={props.ctc}
+          type={props.type}
+          el={props.el}
+          t={props.t}
+          mt={props.mt}
+          mtw={props.mtw}
+          max={props.max}
+          ba={props.ba}
+          hba={props.hba}
+          cgpa={props.cgpa}
+          gender={props.gender}
+          desc={props.desc}
+          id={props.id}
+          toggleModel={toggleModel}
+        />
+      ) : null}
         </Grid>
       ))}
     </Grid>
