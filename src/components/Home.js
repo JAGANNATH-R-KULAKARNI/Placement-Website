@@ -8,6 +8,8 @@ import { supabase } from "../Supabase";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
+import Cookies from "js-cookie";
+import PrivilegesUI from "./students/Privilages";
 
 export default function Home() {
   const m1 = useMediaQuery("(min-width:600px)");
@@ -19,8 +21,14 @@ export default function Home() {
     const data = await supabase.auth.user();
 
     if (data) {
-      if (data.email === process.env.REACT_APP_ADMIN) navigate("/admin");
-
+      if (data.email === process.env.REACT_APP_ADMIN) {
+        Cookies.set("refresh_twice", true);
+        navigate("/admin");
+      }
+      if (Cookies.get("refresh_twice2")) {
+        Cookies.remove("refresh_twice2");
+        window.location.reload();
+      }
       setData(data);
     }
   }
@@ -32,11 +40,10 @@ export default function Home() {
   });
 
   return (
-    <div style={{ color: "white", marginTop: m1 ? "100px" : "80px" }}>
+    <div style={{ color: "white", marginTop: m1 ? "0px" : "00px" }}>
       {data ? (
         <div>
-          {" "}
-          <StepperUI />{" "}
+          <PrivilegesUI data={data} />
         </div>
       ) : (
         <div

@@ -19,11 +19,17 @@ import AdminUI from "./components/Admin";
 import AdminAnnounceCompanyUI from "./components/coordinators/privileges_list/Company";
 import AdminStudentUI from "./components/coordinators/privileges_list/Students";
 import AnnounceUI from "./components/coordinators/privileges_list/Announce";
+import CompanyUI from "./components/students/privileges_list/Company";
+import ProfileUI from "./components/students/privileges_list/Profile";
+import FormUI from "./components/coordinators/privileges_list/Form";
+import FooterUI from "./components/footer/Footer";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const [data, setData] = React.useState(null);
+  const m1 = useMediaQuery("(min-width:600px)");
 
   React.useEffect(() => {
     setInterval(() => {
@@ -88,7 +94,8 @@ function App() {
 
   return (
     <div
-      style={{ backgroundImage: `url(${bg})`, backgroundAttachment: "fixed" }}
+      // style={{ backgroundImage: `url(${bg})`, backgroundAttachment: "fixed" }}
+      style={{ backgroundAttachment: "fixed", backgroundColor: "#F6F6F6" }}
     >
       {location && location.pathname === "/signin" ? <NavBarUI2 /> : null}
       {location &&
@@ -102,15 +109,20 @@ function App() {
       data ? (
         <NavBarUI3 logOut={logOut} data={data} />
       ) : null}
-
+      <div style={{ height: "120px" }}></div>
       <Routes>
-        <Route path="/" element={<HomeUI />} />
+        <Route path="/home" element={<HomeUI />} />
         <Route path="/signin" element={<SignInUI />} />
         <Route path="/admin" element={<AdminUI />} />
         <Route path="/admin/companies" element={<AdminAnnounceCompanyUI />} />
         <Route path="/admin/students" element={<AdminStudentUI />} />
         <Route path="/admin/announce" element={<AnnounceUI />} />
+        <Route path="/admin/forms" element={<FormUI />} />
+        <Route path="/home/companies" element={<CompanyUI />} />
+        <Route path="/home/profile" element={<ProfileUI />} />
       </Routes>
+      <div style={{ height: m1 ? "340px" : "170px" }}></div>
+      <FooterUI />
     </div>
   );
 }

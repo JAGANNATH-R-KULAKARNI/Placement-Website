@@ -45,6 +45,7 @@ export default function Asynchronous(props) {
     <Autocomplete
       id="asynchronous-demo"
       open={open}
+      sx={{ width: "100%" }}
       onOpen={() => {
         setOpen(true);
       }}
@@ -63,7 +64,7 @@ export default function Asynchronous(props) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Search Company"
+          label="Select Company"
           InputProps={{
             ...params.InputProps,
             endAdornment: (

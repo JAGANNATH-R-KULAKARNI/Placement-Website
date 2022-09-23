@@ -321,15 +321,13 @@ export default function AnnounceACompany() {
   });
 
   const submitHandler = async (uploadData) => {
+    //https://nie-placements.herokuapp.com/sendmail
     // const uploadData = {
     //   subject: subject,
     //   text: description,
     //   attachments: attachments,
     //   to: to,
     // };
-    if (!process.env.REACT_APP_API_ENDPOINT) {
-      return;
-    }
     setSending(true);
 
     const { data, error } = await supabase.from("emails").insert([
@@ -353,7 +351,7 @@ export default function AnnounceACompany() {
     }
 
     await axios
-      .post(process.env.REACT_APP_API_ENDPOINT, {
+      .post("https://nie-placements.herokuapp.com/sendmail", {
         htm: ` <div>
         <i>${uploadData.text}</i>
         <br />

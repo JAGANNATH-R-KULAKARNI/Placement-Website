@@ -1,0 +1,18 @@
+.footer {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.footer:hover {
+  color: #fcbf02;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.linkedinIcon {
+}
+
+.linkedinIcon:hover {
+  cursor: pointer;
+  color: "blue";
+}

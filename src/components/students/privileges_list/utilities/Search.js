@@ -44,6 +44,7 @@ export default function Asynchronous(props) {
   return (
     <Autocomplete
       id="asynchronous-demo"
+      sx={{}}
       open={open}
       onOpen={() => {
         setOpen(true);

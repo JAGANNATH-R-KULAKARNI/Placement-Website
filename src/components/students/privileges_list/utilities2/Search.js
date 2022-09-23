@@ -26,7 +26,7 @@ export default function Asynchronous(props) {
       await sleep(1e3); // For demo purposes.
 
       if (active) {
-        setOptions([...props.companies]);
+        setOptions([...props.students]);
       }
     })();
 
@@ -44,6 +44,7 @@ export default function Asynchronous(props) {
   return (
     <Autocomplete
       id="asynchronous-demo"
+      sx={{}}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -57,13 +58,13 @@ export default function Asynchronous(props) {
       loading={loading}
       onChange={(e) => {
         if (e.target.innerHTML.substr(0, 5) === "<path")
-          props.searchCompanyResults(null);
-        else props.searchCompanyResults(e.target.innerHTML);
+          props.searchStudentResults(null);
+        else props.searchStudentResults(e.target.innerHTML);
       }}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Search Company"
+          label="Search Student"
           InputProps={{
             ...params.InputProps,
             endAdornment: (
