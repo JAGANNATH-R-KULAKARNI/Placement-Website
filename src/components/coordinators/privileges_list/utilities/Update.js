@@ -71,6 +71,7 @@ export default function Register(props) {
     if (!initialize) {
       setInitialize(true);
       setName(props.name);
+      setEligibleBranches(props.el);
       setCTC(props.ctc)
       setType(props.type);
       setIntDate(props.t);
@@ -83,6 +84,7 @@ export default function Register(props) {
       setGender(props.gender);
       setDescription(props.desc);
       setCompanyId(props.id);
+      setUrls(props.jds);
     }
   });
   const registerCompany = async () => {
@@ -147,7 +149,8 @@ export default function Register(props) {
 
   const handleClose = () => {
     setOpen(false);
-    props.registerModalHandler();
+    props.toggleModel();
+    
   };
 
   const handleUpload = async (e) => {

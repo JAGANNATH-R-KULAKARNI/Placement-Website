@@ -90,7 +90,8 @@ export default function CompanyList(props) {
              cgpa={props.data.min_cgpa}
              gender={props.data.gender}
              desc={props.data.description} 
-             id={props.data.id}/>
+             id={props.data.id}
+             jds={props.data.jds}/>
           </div>
         </AccordionDetails>
       </Accordion>

@@ -75,6 +75,7 @@ export default function MoreDetails(props) {
           gender={props.gender}
           desc={props.desc}
           id={props.id}
+          jds={props.jds}
           toggleModel={toggleModel}
         />
       ) : null}

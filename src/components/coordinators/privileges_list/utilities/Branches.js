@@ -37,8 +37,11 @@ export default function MultipleSelectChip(props) {
   React.useEffect(() => {
     if (!initialize) {
       setInitialize(true);
-      setPersonName([props.el[0],props.el[1],props.el[2],props.el[3]]);
-      setInitialize(false);
+      
+    setPersonName([...props.el]);
+      console.log(props.el);
+    
+      //setInitialize(false);
     }
   });
   const handleChange = (event) => {

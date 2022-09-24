@@ -829,6 +829,19 @@ export default function Register(props) {
                       setAddress(temp);
                     }}
                   />
+                   {/* <TextField
+                    id="standard-basic"
+                    label="Resume link (*Make Public)"
+                    variant="standard"
+                    type="text"
+                    style={{ width: "100%", marginTop: "15px" }}
+                    value={address[1]}
+                    onChange={(e) => {
+                      const temp = [...address];
+                      temp[1] = e.target.value;
+                      setAddress(temp);
+                    }}
+                  /> */}
 
                   <div
                     style={{
@@ -856,8 +869,8 @@ export default function Register(props) {
                       />
                     </Button>
                   </div>
-                  <br />
-                  {uploading ? (
+                  <br /> 
+                   {uploading ? (
                     <div>
                       <SpinnerUI />
                     </div>
@@ -877,7 +890,7 @@ export default function Register(props) {
                           key={item}
                         ></iframe>
                       );
-                    })}
+                    })} 
                   <FormGroup>
                     <FormControlLabel
                       control={
