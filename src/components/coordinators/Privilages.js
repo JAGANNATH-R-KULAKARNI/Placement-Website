@@ -155,7 +155,7 @@ export default function Privileges() {
         <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
           <Grid container spacing={4}>
             {powers.map((power) => (
-              <Grid item key={Date.now()} xs={12} sm={6} md={4}>
+              <Grid item key={power.text} xs={12} sm={6} md={4}>
                 <Card
                   sx={{
                     display: "flex",
