@@ -10,7 +10,31 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 
 export default function MaterialUIPickers(props) {
-  const [value, setValue] = React.useState(dayjs("2014-08-18T21:11:54"));
+  const [value, setValue] = React.useState(dayjs("2022-09-15T21:11:54"));
+  const [control, setControl] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!control) {
+      setControl(control);
+      let date = new Date();
+      let d = date.getDate();
+      let m = date.getMonth() + 1;
+      let y = date.getFullYear();
+      let d1 = d;
+      let m1 = m;
+
+      if (d / 10 == 0) {
+        d1 = "0" + d1;
+      }
+
+      if (m1 / 10 == 0) {
+        m1 = "0" + m1;
+      }
+
+      console.log(y + "-" + m1 + "-" + d1);
+      setValue(dayjs(`${y + "-" + m1 + "-" + d1}T21:11:54`));
+    }
+  }, []);
 
   const handleChange = (newValue) => {
     var date = new Date(newValue["$d"]);

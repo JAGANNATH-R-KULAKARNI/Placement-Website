@@ -75,17 +75,20 @@ const ResponsiveAppBar = (props) => {
           >
             <Badge
               badgeContent={3}
-              color="success"
-              style={{ marginTop: "8px" }}
+              color="secondary"
+              style={{
+                marginTop: "8px",
+              }}
             >
               <NotificationsIcon />
             </Badge>
+
             <Button
               variant="contained"
               style={{
                 fontSize: "10px",
                 marginLeft: "20px",
-                backgroundColor: "green",
+                backgroundColor: "black",
               }}
               startIcon={
                 <IconButton onClick={null} sx={{ p: 0 }}>
