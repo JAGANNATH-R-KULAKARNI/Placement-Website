@@ -21,6 +21,8 @@ import { useLocation } from "react-router-dom";
 import Fab from "@mui/material/Fab";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import Paper from "@mui/material/Paper";
+import emailogo from "../images/email.webp";
 
 const theme = createTheme();
 
@@ -33,8 +35,7 @@ export default function Privileges() {
     {
       text: "Send an Email",
       subtext: "Send an email to the students or the particular students",
-      image:
-        "https://images.unsplash.com/photo-1637593992672-ed85a851fdc3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=862&q=80",
+      image: emailogo,
       goto: "/admin/announce",
     },
     {
@@ -82,15 +83,16 @@ export default function Privileges() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <main style={{ marginTop: m1 ? "-30px" : "-70px" }}>
-        <Box
+        <Paper
           sx={{
             bgcolor: "background.paper",
             pt: 8,
             pb: 6,
             borderBottomRightRadius: "50px",
             borderBottomLeftRadius: "50px",
-            backgroundColor: "#EDFFFF",
+            // backgroundColor: "#EDFFFF",
           }}
+          elevation={2}
         >
           <Container maxWidth="sm">
             <Typography
@@ -148,17 +150,17 @@ export default function Privileges() {
               </Fab>
             </div>
           </Container>
-        </Box>
+        </Paper>
 
         <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
           <Grid container spacing={4}>
             {powers.map((power) => (
-              <Grid item key={power} xs={12} sm={6} md={4}>
+              <Grid item key={Date.now()} xs={12} sm={6} md={4}>
                 <Card
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    borderRadius: "50px",
+                    borderRadius: "20px",
                     minHeight: m1 ? "300px" : "150px",
                   }}
                 >
@@ -193,7 +195,7 @@ export default function Privileges() {
 
                   <Button
                     variant="contained"
-                    style={{ backgroundColor: "#2E7D32" }}
+                    style={{ backgroundColor: "black" }}
                     onClick={() => {
                       navigate(power.goto);
                     }}

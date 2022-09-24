@@ -20,6 +20,9 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
+import axios from "axios";
+import BackdropUI from "./utilities3/Backdrop";
+import DialogUI from "./utilities4/Dialog";
 
 export default function AnnounceACompany() {
   const m1 = useMediaQuery("(min-width:600px)");
@@ -34,6 +37,11 @@ export default function AnnounceACompany() {
   const [sstart, setSStart] = React.useState("");
   const [send, setSEnd] = React.useState("");
   const [control, setControl] = React.useState(false);
+  const [students, setStudents] = React.useState([]);
+
+  const [loading, setLoading] = React.useState(false);
+  const [dialog, setDialog] = React.useState(false);
+  const [link, setLink] = React.useState("");
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -62,8 +70,23 @@ export default function AnnounceACompany() {
     }
   }
 
+  async function fetchTheStudents() {
+    const { data, error } = await supabase.from("students").select("*");
+
+    if (data) {
+      setStudents(data);
+    }
+  }
+
   async function openFormsHandler() {
     let comp = null;
+    console.log(students);
+    const emails = [];
+    setLoading(true);
+
+    for (let i = 0; i < students.length; i++) {
+      emails.push(students[i].email);
+    }
 
     if (end - start <= 0) {
       alert("Invalid Start and end time");
@@ -89,26 +112,74 @@ export default function AnnounceACompany() {
       if (company[j] == " ") continue;
       uniid = uniid + company[j];
     }
+
+    let t = Date.now();
+    setLink(
+      window.location.href.substr(0, window.location.href.length - 11) +
+        "company/" +
+        uniid +
+        t
+    );
+
     const uploadData = {
       company_id: comp.id,
       start_time: start,
       end_time: end,
       start: sstart,
       end: send,
-      route_id: uniid + Date.now(),
-      time_created: Date.now(),
+      route_id: uniid + t,
+      time_created: t,
+      url:
+        window.location.href.substr(0, window.location.href.length - 11) +
+        "company/" +
+        uniid +
+        t,
     };
 
     console.log(uploadData);
 
+    await axios
+      .post(process.env.REACT_APP_API_ENDPOINT, {
+        htm: ` <div>
+        <i>Apply for <b>${company}</b> Now !</i>
+        <p></p>
+        <a href="${
+          window.location.href.substr(0, window.location.href.length - 11) +
+          "company/" +
+          uniid +
+          t
+        }" style="margin-top:10px;">${
+          window.location.href.substr(0, window.location.href.length - 11) +
+          "company/" +
+          uniid +
+          t
+        }</a>
+        <h3 style="text-align:right;marin-top:10px;"><b>- Placements NIE</b></h3>
+      </div>`,
+        text: `Apply for ${company} Now`,
+        subject: `${company} - Campus Placements`,
+        to: emails,
+        attachments: [],
+      })
+      .then((u) => {
+        console.log("Success");
+        console.log(u);
+      })
+      .catch((err) => {
+        console.log("Error");
+        console.log(err);
+      });
+
     const { data, error } = await supabase.from("forms").insert([uploadData]);
 
     if (data) {
-      alert("Forms has been successfully created");
+      setLoading(false);
+      setDialog(true);
       return;
     }
 
     if (error) {
+      setLoading(false);
       alert(error.message);
     }
   }
@@ -122,6 +193,7 @@ export default function AnnounceACompany() {
   React.useEffect(() => {
     if (companies.length === 0) {
       fetchTheCompanies();
+      fetchTheStudents();
     }
 
     setInterval(() => {
@@ -134,6 +206,16 @@ export default function AnnounceACompany() {
       {data ? (
         <div>
           <CssBaseline />
+          {loading ? <BackdropUI /> : null}
+          {dialog ? (
+            <DialogUI
+              company={company}
+              link={link}
+              handlerClose={() => {
+                navigate(-1);
+              }}
+            />
+          ) : null}
           <div style={{ height: m1 ? "70px" : "40px" }}></div>
           <main>
             <Box

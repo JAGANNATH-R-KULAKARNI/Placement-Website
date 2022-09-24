@@ -120,6 +120,7 @@ function App() {
         <Route path="/admin/forms" element={<FormUI />} />
         <Route path="/home/companies" element={<CompanyUI />} />
         <Route path="/home/profile" element={<ProfileUI />} />
+        <Route path="/company/:id" element={<div>Registration page</div>} />
       </Routes>
       <div style={{ height: m1 ? "340px" : "170px" }}></div>
       <FooterUI />
