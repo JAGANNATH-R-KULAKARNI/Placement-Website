@@ -23,6 +23,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import BackdropUI from "./utilities3/Backdrop";
 import DialogUI from "./utilities4/Dialog";
+import UpdateUI from "./utilities/Update";
 
 export default function AnnounceACompany() {
   const m1 = useMediaQuery("(min-width:600px)");
@@ -32,6 +33,7 @@ export default function AnnounceACompany() {
   const [data, setData] = React.useState(null);
   const [companies, setCompanies] = React.useState([]);
   const [company, setCompany] = React.useState(null);
+  const [currcompany, setCurrcompany] = React.useState(null);
   const [start, setStart] = React.useState(0);
   const [end, setEnd] = React.useState(0);
   const [sstart, setSStart] = React.useState("");
@@ -42,7 +44,11 @@ export default function AnnounceACompany() {
   const [loading, setLoading] = React.useState(false);
   const [dialog, setDialog] = React.useState(false);
   const [link, setLink] = React.useState("");
-
+  const [model, setModel] = React.useState(false);
+  
+  const toggleModel = () => {
+    setModel(!model);
+  };
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
 
@@ -187,6 +193,17 @@ export default function AnnounceACompany() {
   async function searchCompanyResults(str) {
     console.log("Seach company result");
     console.log(str);
+    // let com = null;
+
+    for (let i = 0; i < companies.length; i++) {
+      if (str == companies[i].name) {
+        
+       setCurrcompany(companies[i]);
+        break;
+      }
+    }
+    
+    
     setCompany(str);
   }
 
@@ -300,7 +317,7 @@ export default function AnnounceACompany() {
                     marginTop: "20px",
                   }}
                 >
-                  <Accordion style={{ width: "85%" }} elevation={1}>
+                  {/* <Accordion style={{ width: "85%" }} elevation={1}>
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon />}
                       aria-controls="panel1a-content"
@@ -313,9 +330,44 @@ export default function AnnounceACompany() {
                         Details about compnay should be displayed
                       </Typography>
                     </AccordionDetails>
-                  </Accordion>
+                  </Accordion> */}
+               <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#541554",
+                  color: "white",
+                  borderRadius: "15px",
+                }}
+                onClick={toggleModel}
+              >
+                View More Details
+              </Button>
                 </div>
               ) : null}
+
+{model && currcompany ? (
+       
+        <UpdateUI
+        name={currcompany.name}
+        ctc={currcompany.ctc}
+        type={currcompany.type}
+        el={currcompany.eligible_branches}
+        t={currcompany.tentative_interview_dates}
+        mt={currcompany.min_in_ten}
+        mtw={currcompany.min_in_twelve}
+        max={currcompany.max_year_education_gap}
+        ba={currcompany.active_backlogs_allowed}
+        hba={currcompany.history_backlogs_allowed}
+        cgpa={currcompany.min_cgpa}
+        gender={currcompany.gender}
+        desc={currcompany.description}
+        id={currcompany.id}
+        jds={currcompany.jds}
+          toggleModel={toggleModel}
+        />
+       
+    
+      ) : null}
               <div
                 style={{
                   display: "flex",

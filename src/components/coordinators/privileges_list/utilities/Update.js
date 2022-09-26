@@ -260,7 +260,7 @@ export default function Register(props) {
                     }}
                   />
                   <TextField
-                    id="standard-basic"
+                    id="standard-basic ctc update companies"
                     label="CTC (in LPA)"
                     variant="standard"
                     type="number"
