@@ -107,6 +107,7 @@ export default function MoreDetails(props) {
           addr1={props.addr1}
           companies={props.companies}
           id={props.id}
+          yg={props.yg}
           toggleModel={toggleModel}
         />
       ) : null}

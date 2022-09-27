@@ -114,6 +114,7 @@ export default function CompanyList(props) {
              addr1={props.data.permanent_addr}
              sec={props.data.section}
              companies={props.companies}
+             yg={props.data.m_e_g}
              id={props.data.id}
              />
           </div>

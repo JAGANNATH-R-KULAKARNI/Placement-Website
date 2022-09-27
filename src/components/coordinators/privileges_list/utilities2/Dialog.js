@@ -71,7 +71,7 @@ export default function Register(props) {
   const [ccontrol, setCControl] = React.useState(false);
   const [studentId, setStudentId] = React.useState(0);
   const [sending, setSending] = React.useState(false);
-
+  const [year_gap, setYearGap] =React.useState(0);
   React.useEffect(() => {
     if (!initialize) {
       setInitialize(true);
@@ -95,6 +95,7 @@ export default function Register(props) {
       setPhone([props.ph,props.ph1]);
       setAddress([props.addr,props.addr1]);
       setStudentId(props.id);
+      setYearGap(props.yg);
     }
   });
 
@@ -111,6 +112,7 @@ export default function Register(props) {
       dob.length == 0 ||
       gender == 0 ||
       category.length == 0 ||
+      year_gap.length == 0 ||
       !tenth[0] ||
       tenth[1].length == 0 ||
       !tenth[1] ||
@@ -148,6 +150,7 @@ export default function Register(props) {
       cleared_arears: arears[1],
       current_backlogs: backlogs[0],
       cleared_backlogs: backlogs[1],
+      m_e_g: year_gap,
       phone_num: phone[0],
       parent_phone_num: phone[1],
       home_addr: address[0],
@@ -806,6 +809,21 @@ export default function Register(props) {
                       const temp = [...backlogs];
                       temp[1] = e.target.value;
                       setBacklogs(temp);
+                    }}
+                  />
+                   <TextField
+                    id="standard-basic"
+                    label="Max year Education gap"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    value={year_gap}
+                    onChange={(e) => {
+                      
+                      setYearGap(e.target.value);
                     }}
                   />
                   <TextField

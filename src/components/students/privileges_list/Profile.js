@@ -9,13 +9,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 
-export default function AnnounceACompany() {
+export default function AnnounceACompany(props) {
+  console.log(props.data);
   const m1 = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const location = useLocation();
 
   const [data, setData] = React.useState(null);
-
+  const [acc,setAcc]=React.useState(null);
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
 
@@ -23,11 +24,26 @@ export default function AnnounceACompany() {
       setData(data);
       if (data.email === process.env.REACT_APP_ADMIN) navigate("/admin");
     }
+   
+  }
+  
+  async function fetchTheStudents() {
+    const { data, error } = await supabase
+      .from("students")
+      .select("*,companies(*)");
+
+    if (data) {
+      console.log("Students Data");
+      console.log(data);
+      setAcc(data);
+      //filterStudents3(data);
+    }
   }
 
   React.useEffect(() => {
     setInterval(() => {
       fetchTheProfile();
+      fetchTheStudents();
     }, 1000);
   });
 
@@ -73,6 +89,7 @@ export default function AnnounceACompany() {
                   }}
                 >
                   <i>
+                    
                     “Keep your resume updated before applying for any company.
                     If any of the details is incorrect, please contact placement
                     coordinators”

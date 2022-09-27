@@ -26,7 +26,7 @@ import { supabase } from "../../Supabase";
 import FaceIcon from "@mui/icons-material/Face";
 import Face2Icon from "@mui/icons-material/Face2";
 import pdfi from "../images/pdf.png";
-
+//import ProfileUI from "./privileges_list/Profile";
 const theme = createTheme();
 
 export default function Privileges(props) {
@@ -77,7 +77,11 @@ export default function Privileges(props) {
       console.log(error.message);
     }
   }
-
+  // async function profilePage() {
+  //   <ProfileUI
+  //     data={props.data}
+  //     />
+  // }
   React.useEffect(() => {
     setInterval(() => {
       fetchStudentDetails();
@@ -216,7 +220,9 @@ export default function Privileges(props) {
                       marginTop: m1 ? "50px" : "17px",
                     }}
                     onClick={() => {
-                      navigate("/profile");
+                      navigate("/home/profile",{
+                        data: props.data.email,
+                      });
                     }}
                   >
                     {student[0].gender == 2 ? (
