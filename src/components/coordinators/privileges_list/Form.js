@@ -148,7 +148,7 @@ export default function AnnounceACompany() {
           "company/" +
           uniid +
           t
-        }" style="margin-top:10px;">${
+        }" style="margin-top:10px;width:100%;">${
           window.location.href.substr(0, window.location.href.length - 11) +
           "company/" +
           uniid +
