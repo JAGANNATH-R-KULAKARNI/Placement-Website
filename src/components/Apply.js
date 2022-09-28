@@ -73,15 +73,15 @@ export default function Home() {
 
       // console.log("Students data");
       if (stuData.data) {
-        console.log(stuData.data);
+        //    console.log(stuData.data);
         setStudent(stuData.data[0]);
-        console.log(stuData.data);
+        //   console.log(stuData.data);
       }
       if (stuData.error) {
-        console.log(stuData.error.message);
+        //   console.log(stuData.error.message);
       }
       setData(data);
-      console.log(data);
+      //  console.log(data);
     }
   }
 
@@ -95,7 +95,7 @@ export default function Home() {
       .eq("route_id", location.pathname.substr(9));
 
     if (error) {
-      console.log(error.message);
+      // console.log(error.message);
       return;
     }
     if (data) {
@@ -108,15 +108,15 @@ export default function Home() {
       // console.log(student);
 
       if (companyData.error) {
-        console.log(companyData.error);
+        // console.log(companyData.error);
         return;
       }
-      console.log(data[0]);
-      console.log(companyData.data);
+      // console.log(data[0]);
+      // console.log(companyData.data);
       // console.log(location.pathname.substr(9));
       let com = data[0];
       com["companies"] = companyData.data[0];
-      console.log(com);
+      // console.log(com);
       setCompany(com);
       let messages = [];
 
@@ -231,7 +231,7 @@ export default function Home() {
     ]);
 
     if (data) {
-      console.log(data);
+      //  console.log(data);
       alert(
         `Successfull applied for ${company.companies.name}. All the best :)`
       );
@@ -247,8 +247,11 @@ export default function Home() {
   React.useEffect(() => {
     setInterval(() => {
       fetchTheProfile();
-      fetchCompany();
     }, 1000);
+
+    if (!company || !student) {
+      fetchCompany();
+    }
   });
 
   return (
