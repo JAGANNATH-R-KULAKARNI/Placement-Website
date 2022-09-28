@@ -18,6 +18,8 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import { ConstructionOutlined } from "@mui/icons-material";
 import NotEligibleUI from "./utilities/Dialog";
+import NotEligibleUI2 from "./utilities/Dialog2";
+import DialogUI from "./utilities/Dialog2";
 
 export default function Home() {
   const m1 = useMediaQuery("(min-width:600px)");
@@ -27,6 +29,35 @@ export default function Home() {
   const [company, setCompany] = React.useState(null);
   const [student, setStudent] = React.useState(null);
   const [messages, setMessages] = React.useState([]);
+  const [status, setStatus] = React.useState(1);
+  const [statusMsg, setStatusMsg] = React.useState([]);
+
+  async function timeSince(date) {
+    var seconds = Math.floor((date - new Date()) / 1000);
+
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+      return Math.floor(interval) + " year";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
+  }
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -37,36 +68,79 @@ export default function Home() {
         navigate("/admin");
       }
 
-      const stuData = await supabase
-        .from("students")
-        .select("*,companies(*)")
-        .eq("email", data.email);
+      const stuData = await supabase.from("students").select("*");
+      // .eq("email", data.email);
 
       // console.log("Students data");
       if (stuData.data) {
-        // console.log(stuData.data);
+        console.log(stuData.data);
         setStudent(stuData.data[0]);
+        console.log(stuData.data);
       }
-
+      if (stuData.error) {
+        console.log(stuData.error.message);
+      }
       setData(data);
+      console.log(data);
     }
   }
 
   async function fetchCompany() {
     if (!student) return;
     // console.log(student);
+
     const { data, error } = await supabase
       .from("forms")
-      .select("*,companies(*)")
+      .select("*")
       .eq("route_id", location.pathname.substr(9));
 
+    if (error) {
+      console.log(error.message);
+      return;
+    }
     if (data) {
+      const companyData = await supabase
+        .from("companies")
+        .select("*")
+        .eq("id", data[0].company_id);
       // console.log("Forms data");
       // console.log(data);
-      setCompany(data[0]);
+      // console.log(student);
+
+      if (companyData.error) {
+        console.log(companyData.error);
+        return;
+      }
+      console.log(data[0]);
+      console.log(companyData.data);
       // console.log(location.pathname.substr(9));
       let com = data[0];
+      com["companies"] = companyData.data[0];
+      console.log(com);
+      setCompany(com);
       let messages = [];
+
+      if (com.start_time > Date.now()) {
+        setStatus(0);
+        setStatusMsg([
+          "Form is not yet open",
+          `Form for company ${
+            com.companies.name
+          } will open after ${await timeSince(
+            new Date(parseInt(com.start_time))
+          )}`,
+        ]);
+        return;
+      }
+
+      if (com.end_time < Date.now()) {
+        setStatus(0);
+        setStatusMsg([
+          "Form is closed",
+          `Please consult placement coordinators for further queries`,
+        ]);
+        return;
+      }
 
       if (
         !com.companies.active_backlogs_allowed &&
@@ -146,6 +220,30 @@ export default function Home() {
     }
   }
 
+  async function applyForThis() {
+    const { data, error } = await supabase.from("applications").insert([
+      {
+        company_id: company.companies.id,
+        student_id: student.id,
+        form_id: company.id,
+        time_applied: Date.now(),
+      },
+    ]);
+
+    if (data) {
+      console.log(data);
+      alert(
+        `Successfull applied for ${company.companies.name}. All the best :)`
+      );
+      navigate("/home");
+    }
+
+    if (error) {
+      alert("Something went wrong");
+      alert(error.message);
+    }
+  }
+
   React.useEffect(() => {
     setInterval(() => {
       fetchTheProfile();
@@ -160,6 +258,7 @@ export default function Home() {
           {messages.length > 0 ? (
             <NotEligibleUI messages={messages} company={company} />
           ) : null}
+          {status ? null : <NotEligibleUI2 messages={statusMsg} />}
           {m1 ? (
             <h1 style={{ textAlign: "center" }}>
               {" "}
@@ -188,6 +287,7 @@ export default function Home() {
               style={{
                 backgroundColor: "#017E7E",
               }}
+              onClick={applyForThis}
             >
               Apply for {company.companies.name}
             </Button>

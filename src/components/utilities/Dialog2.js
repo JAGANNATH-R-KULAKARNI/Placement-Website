@@ -17,18 +17,14 @@ export default function NotEligible(props) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title" style={{ textAlign: "center" }}>
-          {`You are not eligible for "${props.company.companies.name}" :(`}
+          {props.messages[0]}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <b> Because, </b>
-            <ul>
-              {props.messages &&
-                props.messages.map((item, index) => {
-                  return <li key={index + item}>{item}</li>;
-                })}
-            </ul>
-            <br />
+          <DialogContentText
+            id="alert-dialog-description"
+            style={{ textAlign: "center" }}
+          >
+            {props.messages[1]}
           </DialogContentText>
         </DialogContent>
       </Dialog>

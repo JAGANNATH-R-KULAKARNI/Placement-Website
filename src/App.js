@@ -9,7 +9,6 @@ import {
   Routes,
 } from "react-router-dom";
 import SignInUI from "./components/SignIn";
-import SignInUI2 from "./components/SignIn2";
 import SignIn from "./components/SignIn";
 import bg from "./components/images/bg3.webp";
 import { useNavigate } from "react-router-dom";
