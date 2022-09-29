@@ -139,13 +139,29 @@ export default function Home() {
         // console.log(companyData.error);
         return;
       }
-      // console.log(data[0]);
-      // console.log(companyData.data);
-      // console.log(location.pathname.substr(9));
+
       let com = data[0];
       com["companies"] = companyData.data[0];
       // console.log(com);
       setCompany(com);
+      const applyData = await supabase
+        .from("applications")
+        .select("*")
+        .eq("form_id", com.id)
+        .eq("company_id", com.companies.id)
+        .eq("student_id", student.id);
+
+      if (applyData.data) {
+        setApply({
+          applied: applyData.data.length == 1 ? true : false,
+          data: applyData.data,
+        });
+      } else {
+        setApply({
+          applied: false,
+        });
+      }
+
       let messages = [];
 
       if (com.start_time > Date.now()) {
