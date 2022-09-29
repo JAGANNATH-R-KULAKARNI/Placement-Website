@@ -70,12 +70,28 @@ export default function Home() {
       }
 
       const stuData = await supabase.from("students").select("*");
+
       // .eq("email", data.email);
 
       // console.log("Students data");
       if (stuData.data) {
         //    console.log(stuData.data);
-        setStudent(stuData.data[0]);
+
+        const comData = await supabase
+          .from("companies")
+          .select("*")
+          .eq("id", stuData.data[0].company);
+
+        if (comData.data) {
+          let stucom = stuData.data[0];
+          stucom["companies"] = comData.data[0];
+          setStudent(stucom);
+        }
+
+        if (comData.error) {
+          console.log(comData.error.message);
+        }
+
         //   console.log(stuData.data);
       }
       if (stuData.error) {
@@ -249,10 +265,20 @@ export default function Home() {
         Dream: 2,
         "Open Dream": 3,
       };
+      console.log(student);
+      console.log(com);
 
       if (hash[student.companies.type] >= hash[com.companies.type]) {
         messages.push(
           `You are already placed in ${student.companies.name}, which is a ${student.companies.type} company`
+        );
+      }
+
+      if (
+        student.max_year_education_gap > com.companies.max_year_education_gap
+      ) {
+        messages.push(
+          `Maximum years of education gap allowed is ${com.companies.max_year_education_gap}`
         );
       }
 
