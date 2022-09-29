@@ -31,6 +31,7 @@ export default function Home() {
   const [messages, setMessages] = React.useState([]);
   const [status, setStatus] = React.useState(1);
   const [statusMsg, setStatusMsg] = React.useState([]);
+  const [apply, setApply] = React.useState(null);
 
   async function timeSince(date) {
     var seconds = Math.floor((date - new Date()) / 1000);
@@ -83,6 +84,33 @@ export default function Home() {
       setData(data);
       //  console.log(data);
     }
+  }
+
+  async function fetchApplications() {
+    if (!student || !company) {
+      return;
+    }
+    // console.log(student);
+    // console.log(company);
+    const { data, error } = await supabase
+      .from("applications")
+      .select("*")
+      .eq("form_id", company.id)
+      .eq("company_id", company.companies.id)
+      .eq("student_id", student.id);
+
+    if (data) {
+      setApply({
+        applied: data.length == 1 ? true : false,
+        data: data,
+      });
+
+      return;
+    }
+
+    setApply({
+      applied: false,
+    });
   }
 
   async function fetchCompany() {
@@ -251,11 +279,16 @@ export default function Home() {
 
     if (!company || !student) {
       fetchCompany();
+      fetchApplications();
+    }
+
+    if (!apply) {
+      fetchApplications();
     }
   });
 
   return (
-    <div style={{ color: "black", marginTop: m1 ? "0px" : "0px" }}>
+    <div style={{ color: "black", marginTop: m1 ? "0px" : "20px" }}>
       {data && company ? (
         <div>
           {messages.length > 0 ? (
@@ -285,15 +318,21 @@ export default function Home() {
           <p style={{ textAlign: "center" }}>--- Company Details ---</p>
           <br />
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: "#017E7E",
-              }}
-              onClick={applyForThis}
-            >
-              Apply for {company.companies.name}
-            </Button>
+            {apply ? (
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: apply["applied"] ? "black" : "#017E7E",
+                  color: "white",
+                }}
+                onClick={apply["applied"] ? null : applyForThis}
+                disabled={apply["applied"]}
+              >
+                {apply["applied"]
+                  ? `Already Applied`
+                  : `Apply for ${company.companies.name}`}
+              </Button>
+            ) : null}
           </div>
         </div>
       ) : (
