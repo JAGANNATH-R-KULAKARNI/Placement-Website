@@ -150,7 +150,7 @@ export default function Register(props) {
       cleared_arears: arears[1],
       current_backlogs: backlogs[0],
       cleared_backlogs: backlogs[1],
-      m_e_g: year_gap,
+      max_year_education_gap: year_gap,
       phone_num: phone[0],
       parent_phone_num: phone[1],
       home_addr: address[0],

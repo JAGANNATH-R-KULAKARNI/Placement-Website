@@ -114,7 +114,7 @@ export default function CompanyList(props) {
              addr1={props.data.permanent_addr}
              sec={props.data.section}
              companies={props.companies}
-             yg={props.data.m_e_g}
+             yg={props.data.max_year_education_gap}
              id={props.data.id}
              />
           </div>

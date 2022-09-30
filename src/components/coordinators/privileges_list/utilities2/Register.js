@@ -122,7 +122,7 @@ export default function Register(props) {
       grades: grades,
       current_arears: arears[0],
       cleared_arears: arears[1],
-      m_e_g: year_gap,
+      max_year_education_gap: year_gap,
       current_backlogs: backlogs[0],
       cleared_backlogs: backlogs[1],
       phone_num: phone[0],
