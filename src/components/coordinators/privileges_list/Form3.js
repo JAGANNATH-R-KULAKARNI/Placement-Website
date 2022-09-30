@@ -25,10 +25,6 @@ import BackdropUI from "./utilities3/Backdrop";
 import DialogUI from "./utilities4/Dialog";
 import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import Form2UI from "./utilities4/Create";
-import SearcUI2 from "./utilities4/Search2";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import FormUI from "./utilities4/Form";
 
 export default function AnnounceACompany() {
   const m1 = useMediaQuery("(min-width:600px)");
@@ -48,51 +44,6 @@ export default function AnnounceACompany() {
   const [loading, setLoading] = React.useState(false);
   const [dialog, setDialog] = React.useState(false);
   const [link, setLink] = React.useState("");
-  const [form2, setForm2] = React.useState(false);
-  const [forms, setForms] = React.useState(null);
-  const [activeForms, setActiveForms] = React.useState(null);
-  const [inactiveForms, setInActiveForms] = React.useState(null);
-
-  async function fetchForms() {
-    if (!companies) return;
-
-    const { data, error } = await supabase.from("forms").select("*");
-
-    if (data) {
-      const ac = [];
-      const inac = [];
-      const al = [];
-      let hash = {};
-
-      for (let j = 0; j < companies.length; j++) {
-        hash[companies[j].id] = companies[j];
-      }
-      console.log("Hash");
-      console.log(hash);
-
-      if (Object.keys(hash).length == 0) return;
-      for (let i = 0; i < data.length; i++) {
-        if (
-          data[i].start_time <= Date.now() &&
-          Date.now() <= data[i].end_time
-        ) {
-          ac.push({ data: data[i], company: hash[data[i].company_id] });
-        } else {
-          inac.push({ data: data[i], company: hash[data[i].company_id] });
-        }
-
-        al.push({ data: data[i], company: hash[data[i].company_id] });
-      }
-
-      setActiveForms(ac);
-      setInActiveForms(inac);
-      setForms(al);
-      console.log("Forms");
-      console.log(al);
-      // console.log(ac);
-      // console.log(inac);
-    }
-  }
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -235,39 +186,28 @@ export default function AnnounceACompany() {
     }
   }
 
+  async function searchCompanyResults(str) {
+    console.log("Seach company result");
+    console.log(str);
+    setCompany(str);
+  }
+
   React.useEffect(() => {
-    if (companies.length === 0 || !forms) {
+    if (companies.length === 0) {
       fetchTheCompanies();
       fetchTheStudents();
-      fetchForms();
     }
 
     setInterval(() => {
       fetchTheProfile();
-      // if (!forms) {
-      //   fetchTheCompanies();
-      //   fetchTheStudents();
-      //   fetchForms();
-      // }
     }, 1000);
   });
 
-  async function searchFormResults(fname) {
-    alert(fname);
-  }
-
   return (
     <div>
-      {data && forms ? (
+      {data ? (
         <div>
           <CssBaseline />
-          {form2 ? (
-            <Form2UI
-              registerModalHandler={() => {
-                setForm2(!form2);
-              }}
-            />
-          ) : null}
           {loading ? <BackdropUI /> : null}
           {dialog ? (
             <DialogUI
@@ -311,7 +251,7 @@ export default function AnnounceACompany() {
                     marginBottom: "-20px",
                   }}
                 >
-                  {forms ? (
+                  {students.length > 0 ? (
                     <Fab
                       variant="extended"
                       style={{
@@ -320,7 +260,7 @@ export default function AnnounceACompany() {
                         paddingRight: "20px",
                       }}
                       onClick={() => {
-                        setForm2(true);
+                        // setRegisterModal(!registerModal);
                       }}
                     >
                       <ListAltIcon sx={{ mr: 1 }} />
@@ -330,79 +270,148 @@ export default function AnnounceACompany() {
                 </div>
               </Container>
             </Box>
-            <Paper
-              style={{
-                width: "95%",
-                borderRadius: "20px",
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "20px",
-              }}
-            >
-              <div>
-                <h1
-                  style={{
-                    textAlign: "center",
-                    fontFamily: "inherit",
-                    fontWeight: 500,
-                  }}
-                >
-                  Forms List
-                </h1>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    // paddingLeft: "10%",
-                    // paddingRight: "10%",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ minWidth: "80%" }}>
-                    {forms && (
-                      <SearcUI2
-                        forms={forms}
-                        searchFormResults={searchFormResults}
-                      />
-                    )}
-                  </div>
-                  <div style={{ width: "20%", marginLeft: "10%" }}>
-                    <Fab
-                      color="primary"
-                      aria-label="add"
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        backgroundColor: "black",
-                      }}
-                      onClick={() => {
-                        window.location.reload();
-                      }}
-                    >
-                      <RefreshIcon />
-                    </Fab>
-                  </div>
-                </div>
-                <br />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ minWidth: "110%" }}>
-                    {forms &&
-                      forms.map((item) => {
-                        return (
-                          <div key={item}>
-                            <FormUI data={item} />{" "}
-                          </div>
-                        );
-                      })}
-                  </div>
+            <Paper style={{ marginTop: "30px", borderRadius: "40px" }}>
+              <div style={{ height: "20px" }}></div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <img
+                  src={formimage}
+                  alt="formimage"
+                  style={{ width: "50px", height: "auto" }}
+                />
+              </div>
+              <br />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  minWidth: "100%",
+                }}
+              >
+                <div style={{ width: "85%" }}>
+                  {companies && (
+                    <SearchUI
+                      companies={companies}
+                      searchCompanyResults={searchCompanyResults}
+                    />
+                  )}
                 </div>
               </div>
+              {company ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "20px",
+                  }}
+                >
+                  <Accordion style={{ width: "85%" }} elevation={1}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      <Typography>View more details</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography>
+                        Details about compnay should be displayed
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                </div>
+              ) : null}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "50px",
+                }}
+              >
+                <DateUI
+                  text="Open at"
+                  timeHandler={setStart}
+                  timeHandler2={setSStart}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "30px",
+                }}
+              >
+                <DateUI
+                  text="Close at"
+                  timeHandler={setEnd}
+                  timeHandler2={setSEnd}
+                />
+              </div>
+              {company && start && end ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    marginTop: "20px",
+                  }}
+                >
+                  <FormGroup style={{ width: "80%" }}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          style={{ color: "#541554" }}
+                          checked={control}
+                          onChange={(e) => {
+                            setControl(e.target.checked);
+                          }}
+                        />
+                      }
+                      label={
+                        <div>
+                          <p style={{ fontSize: "13px" }}>
+                            Company - <b>{company}</b>
+                          </p>
+                          <p style={{ fontSize: "13px", marginTop: "-10px" }}>
+                            Opens at - <b>{sstart.substr(0, 25)}</b>
+                          </p>
+                          <p style={{ fontSize: "13px", marginTop: "-10px" }}>
+                            Closes at - <b>{send.substr(0, 25)}</b>
+                          </p>
+                        </div>
+                      }
+                    />
+                  </FormGroup>
+                </div>
+              ) : null}
+              {company && start && end ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    marginTop: company && start && end ? "5px" : "30px",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    style={{
+                      backgroundColor: "black",
+                      width: "85%",
+                      borderRadius: "10px",
+                    }}
+                    onClick={openFormsHandler}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              ) : null}
+              <div style={{ height: "60px" }}></div>
             </Paper>
           </main>
         </div>

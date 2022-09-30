@@ -243,8 +243,14 @@ export default function AnnounceACompany() {
                   </div>
                 </div>
                 <br />
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <div style={{ width: "95%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                >
+                  <div style={{ minWidth: "100%" }}>
                     {fStudents &&
                       fStudents.map((item) => {
                         return (
