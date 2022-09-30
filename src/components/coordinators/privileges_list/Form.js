@@ -50,6 +50,8 @@ export default function AnnounceACompany() {
   const [link, setLink] = React.useState("");
   const [form2, setForm2] = React.useState(false);
   const [forms, setForms] = React.useState(null);
+  const [forms2, setForms2] = React.useState(null);
+
   const [activeForms, setActiveForms] = React.useState(null);
   const [inactiveForms, setInActiveForms] = React.useState(null);
 
@@ -87,6 +89,7 @@ export default function AnnounceACompany() {
       setActiveForms(ac);
       setInActiveForms(inac);
       setForms(al);
+      setForms2(al);
       console.log("Forms");
       console.log(al);
       // console.log(ac);
@@ -129,112 +132,6 @@ export default function AnnounceACompany() {
     }
   }
 
-  async function openFormsHandler() {
-    let comp = null;
-    console.log(students);
-    const emails = [];
-    setLoading(true);
-
-    for (let i = 0; i < students.length; i++) {
-      emails.push(students[i].email);
-    }
-
-    if (end - start <= 0) {
-      alert("Invalid Start and end time");
-      return;
-    }
-
-    if (!control) {
-      alert("Select the checkbox");
-      return;
-    }
-
-    for (let i = 0; i < companies.length; i++) {
-      if (company == companies[i].name) {
-        comp = companies[i];
-        break;
-      }
-    }
-    console.log(company);
-    console.log(comp);
-    let uniid = "";
-
-    for (let j = 0; j < company.length; j++) {
-      if (company[j] == " ") continue;
-      uniid = uniid + company[j];
-    }
-
-    let t = Date.now();
-    setLink(
-      window.location.href.substr(0, window.location.href.length - 11) +
-        "company/" +
-        uniid +
-        t
-    );
-
-    const uploadData = {
-      company_id: comp.id,
-      start_time: start,
-      end_time: end,
-      start: sstart,
-      end: send,
-      route_id: uniid + t,
-      time_created: t,
-      url:
-        window.location.href.substr(0, window.location.href.length - 11) +
-        "company/" +
-        uniid +
-        t,
-    };
-
-    console.log(uploadData);
-
-    await axios
-      .post(process.env.REACT_APP_API_ENDPOINT, {
-        htm: ` <div>
-        <i>Apply for <b>${company}</b> Now !</i>
-        <p></p>
-        <a href="${
-          window.location.href.substr(0, window.location.href.length - 11) +
-          "company/" +
-          uniid +
-          t
-        }" style="margin-top:10px;width:100%;">${
-          window.location.href.substr(0, window.location.href.length - 11) +
-          "company/" +
-          uniid +
-          t
-        }</a>
-        <h3 style="text-align:right;marin-top:10px;"><b>- Placements NIE</b></h3>
-      </div>`,
-        text: `Apply for ${company} Now`,
-        subject: `${company} - Campus Placements`,
-        to: emails,
-        attachments: [],
-      })
-      .then((u) => {
-        console.log("Success");
-        console.log(u);
-      })
-      .catch((err) => {
-        console.log("Error");
-        console.log(err);
-      });
-
-    const { data, error } = await supabase.from("forms").insert([uploadData]);
-
-    if (data) {
-      setLoading(false);
-      setDialog(true);
-      return;
-    }
-
-    if (error) {
-      setLoading(false);
-      alert(error.message);
-    }
-  }
-
   React.useEffect(() => {
     if (companies.length === 0 || !forms) {
       fetchTheCompanies();
@@ -253,7 +150,19 @@ export default function AnnounceACompany() {
   });
 
   async function searchFormResults(fname) {
-    alert(fname);
+    const temp = [];
+
+    if (!fname) {
+      setForms2(forms);
+      return;
+    }
+    for (let i = 0; i < forms.length; i++) {
+      if (fname == forms[i].company.name) {
+        temp.push(forms[i]);
+      }
+    }
+
+    setForms2(temp);
   }
 
   return (
@@ -358,7 +267,7 @@ export default function AnnounceACompany() {
                     width: "100%",
                   }}
                 >
-                  <div style={{ minWidth: "80%" }}>
+                  <div style={{ minWidth: "70%" }}>
                     {forms && (
                       <SearcUI2
                         forms={forms}
@@ -391,9 +300,9 @@ export default function AnnounceACompany() {
                     width: "100%",
                   }}
                 >
-                  <div style={{ minWidth: "110%" }}>
-                    {forms &&
-                      forms.map((item) => {
+                  <div style={{ minWidth: "100%", maxWidth: "111%" }}>
+                    {forms2 &&
+                      forms2.map((item) => {
                         return (
                           <div key={item}>
                             <FormUI data={item} />{" "}
@@ -402,6 +311,8 @@ export default function AnnounceACompany() {
                       })}
                   </div>
                 </div>
+                <br />
+                <br />
               </div>
             </Paper>
           </main>

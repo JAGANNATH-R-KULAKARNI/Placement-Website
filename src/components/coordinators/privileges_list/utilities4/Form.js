@@ -20,7 +20,7 @@ export default function CompanyList(props) {
         expanded={expanded === "panel2"}
         onChange={handleChange("panel2")}
         key={props.data}
-        style={{ width: "100%" }}
+        style={{ minWidth: "100%" }}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -30,33 +30,38 @@ export default function CompanyList(props) {
           <Typography
             sx={{
               width: "50%",
-              flexShrink: 0,
+              //   flexShrink: 0,
               fontSize: "12px",
               marginTop: "5px",
-              maxWidth: "50%",
+              minWidth: "70%",
             }}
           >
-            Name bro{" "}
+            {props.data.company.name.substr(0, 20) +
+              (props.data.company.name > 20 ? "..." : "")}
           </Typography>
           <span
             style={{
               fontSize: "10px",
-              marginLeft: "20px",
+              marginLeft: "0px",
               float: "right",
-              marginRight: "30px",
               width: "50%",
               maxWidth: "50%",
+              marginRight: "70px",
             }}
           >
             <Chip
-              label={"active"}
-              color="success"
-              //   style={{
-              //     backgroundColor:
-              //       props.data.companies.id == 0
-              //         ? "black"
-              //         : colors[props.data.companies.type],
-              //   }}
+              label={
+                props.data.data.start_time <= Date.now() &&
+                Date.now() <= props.data.data.end_time
+                  ? "active"
+                  : "inactive"
+              }
+              color={
+                props.data.data.start_time <= Date.now() &&
+                Date.now() <= props.data.data.end_time
+                  ? "success"
+                  : "error"
+              }
             />
           </span>
 
