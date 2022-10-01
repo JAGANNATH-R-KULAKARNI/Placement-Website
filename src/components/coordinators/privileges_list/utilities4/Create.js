@@ -49,6 +49,7 @@ import BackdropUI from "../utilities3/Backdrop";
 import DialogUI from "./Dialog";
 import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import UpdateUI from "../utilities/Update";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -60,6 +61,7 @@ export default function Register(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [currcompany, setCurrcompany] = React.useState(null);
   const [data, setData] = React.useState(null);
   const [companies, setCompanies] = React.useState([]);
   const [company, setCompany] = React.useState(null);
@@ -73,6 +75,7 @@ export default function Register(props) {
   const [loading, setLoading] = React.useState(false);
   const [dialog, setDialog] = React.useState(false);
   const [link, setLink] = React.useState("");
+  const [model, setModel] = React.useState(false);
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -223,6 +226,15 @@ export default function Register(props) {
   async function searchCompanyResults(str) {
     console.log("Seach company result");
     console.log(str);
+    // let com = null;
+
+    for (let i = 0; i < companies.length; i++) {
+      if (str == companies[i].name) {
+        setCurrcompany(companies[i]);
+        break;
+      }
+    }
+
     setCompany(str);
   }
 
@@ -252,6 +264,28 @@ export default function Register(props) {
           }}
         >
           <NavBarUI handleClose={handleClose} />
+          {model && currcompany ? (
+            <UpdateUI
+              name={currcompany.name}
+              ctc={currcompany.ctc}
+              type={currcompany.type}
+              el={currcompany.eligible_branches}
+              t={currcompany.tentative_interview_dates}
+              mt={currcompany.min_in_ten}
+              mtw={currcompany.min_in_twelve}
+              max={currcompany.max_year_education_gap}
+              ba={currcompany.active_backlogs_allowed}
+              hba={currcompany.history_backlogs_allowed}
+              cgpa={currcompany.min_cgpa}
+              gender={currcompany.gender}
+              desc={currcompany.description}
+              id={currcompany.id}
+              jds={currcompany.jds}
+              toggleModel={() => {
+                setModel(!model);
+              }}
+            />
+          ) : null}
           {data ? (
             <div>
               <CssBaseline />
@@ -333,7 +367,7 @@ export default function Register(props) {
                         marginTop: "20px",
                       }}
                     >
-                      <Accordion style={{ width: "85%" }} elevation={1}>
+                      {/* <Accordion style={{ width: "85%" }} elevation={1}>
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
                           aria-controls="panel1a-content"
@@ -346,7 +380,20 @@ export default function Register(props) {
                             Details about compnay should be displayed
                           </Typography>
                         </AccordionDetails>
-                      </Accordion>
+                      </Accordion> */}
+                      <Button
+                        variant="contained"
+                        style={{
+                          backgroundColor: "#541554",
+                          color: "white",
+                          borderRadius: "15px",
+                        }}
+                        onClick={() => {
+                          setModel(!model);
+                        }}
+                      >
+                        View More Details
+                      </Button>
                     </div>
                   ) : null}
                   <div

@@ -52,7 +52,7 @@ export default function Register(props) {
   const [ctcDisclosed, setCTCDisclosed] = React.useState(false);
   const [type, setType] = React.useState("");
   const [intDate, setIntDate] = React.useState("");
-  const [intDateDisclosure, setIntDateDisclosure] = React.useState("");
+  const [intDateDisclosure, setIntDateDisclosure] = React.useState(false);
   const [eligibleBranches, setEligibleBranches] = React.useState([]);
   const [minMInTen, setMinMInTen] = React.useState(0);
   const [minMInTwelve, setMinMInTwelve] = React.useState(0);
@@ -74,6 +74,7 @@ export default function Register(props) {
       setCTC(props.ctc);
       setType(props.type);
       setIntDate(props.t);
+      setIntDateDisclosure(props.t == "---" ? true : false);
       setCGPA(props.cgpa);
       setMinMInTen(props.mt);
       setMinMInTwelve(props.mtw);
@@ -108,7 +109,7 @@ export default function Register(props) {
 
     const uploadData = {
       name: name,
-      ctc: !ctcDisclosed ? ctc : "---",
+      ctc: !ctcDisclosed ? ctc : 0,
       type: type == "nyd" ? "" : type,
       tentative_interview_dates: !intDateDisclosure ? intDate : "---",
       eligible_branches: eligibleBranches,
@@ -326,7 +327,7 @@ export default function Register(props) {
                       control={
                         <Checkbox
                           style={{ color: "#541554" }}
-                          value={intDateDisclosure}
+                          checked={intDateDisclosure}
                           onChange={(e) => {
                             setIntDateDisclosure(e.target.checked);
                             setIntDate("");
