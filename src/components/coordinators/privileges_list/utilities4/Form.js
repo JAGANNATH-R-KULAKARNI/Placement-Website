@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Chip from "@mui/material/Chip";
 import { InsertEmoticon } from "@mui/icons-material";
+import DetailsUI from "./Details";
 
 export default function CompanyList(props) {
   const [expanded, setExpanded] = React.useState(false);
@@ -77,7 +78,7 @@ export default function CompanyList(props) {
         </AccordionSummary>
         <AccordionDetails>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            {/* <DetailsUI ctc={props.data.usn} /> */}
+            <DetailsUI />
           </div>
         </AccordionDetails>
       </Accordion>

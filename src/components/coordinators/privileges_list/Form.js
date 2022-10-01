@@ -239,82 +239,90 @@ export default function AnnounceACompany() {
                 </div>
               </Container>
             </Box>
-            <Paper
+            <div
               style={{
-                width: "95%",
-                borderRadius: "20px",
                 display: "flex",
                 justifyContent: "center",
-                marginTop: "20px",
+                width: "100%",
               }}
             >
-              <div>
-                <h1
-                  style={{
-                    textAlign: "center",
-                    fontFamily: "inherit",
-                    fontWeight: 500,
-                  }}
-                >
-                  Forms List
-                </h1>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    // paddingLeft: "10%",
-                    // paddingRight: "10%",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ minWidth: "70%" }}>
-                    {forms && (
-                      <SearcUI2
-                        forms={forms}
-                        searchFormResults={searchFormResults}
-                      />
-                    )}
+              <Paper
+                style={{
+                  width: "95%",
+                  borderRadius: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "20px",
+                }}
+              >
+                <div>
+                  <h1
+                    style={{
+                      textAlign: "center",
+                      fontFamily: "inherit",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Forms List
+                  </h1>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      // paddingLeft: "10%",
+                      // paddingRight: "10%",
+                      width: "100%",
+                    }}
+                  >
+                    <div style={{ minWidth: "70%" }}>
+                      {forms && (
+                        <SearcUI2
+                          forms={forms}
+                          searchFormResults={searchFormResults}
+                        />
+                      )}
+                    </div>
+                    <div style={{ width: "20%", marginLeft: "10%" }}>
+                      <Fab
+                        color="primary"
+                        aria-label="add"
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          backgroundColor: "black",
+                        }}
+                        onClick={() => {
+                          window.location.reload();
+                        }}
+                      >
+                        <RefreshIcon />
+                      </Fab>
+                    </div>
                   </div>
-                  <div style={{ width: "20%", marginLeft: "10%" }}>
-                    <Fab
-                      color="primary"
-                      aria-label="add"
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        backgroundColor: "black",
-                      }}
-                      onClick={() => {
-                        window.location.reload();
-                      }}
-                    >
-                      <RefreshIcon />
-                    </Fab>
+                  <br />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <div style={{ minWidth: "100%", maxWidth: "100%" }}>
+                      {forms2 &&
+                        forms2.map((item) => {
+                          return (
+                            <div key={item}>
+                              <FormUI data={item} />{" "}
+                            </div>
+                          );
+                        })}
+                    </div>
                   </div>
+                  <br />
+                  <br />
                 </div>
-                <br />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ minWidth: "100%", maxWidth: "111%" }}>
-                    {forms2 &&
-                      forms2.map((item) => {
-                        return (
-                          <div key={item}>
-                            <FormUI data={item} />{" "}
-                          </div>
-                        );
-                      })}
-                  </div>
-                </div>
-                <br />
-                <br />
-              </div>
-            </Paper>
+              </Paper>
+            </div>
           </main>
         </div>
       ) : (
