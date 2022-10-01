@@ -23,7 +23,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import BranchesUI from "./Branches2";
+import BranchesUI from "./Branches";
 import Stack from "@mui/material/Stack";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { supabase } from "../../../../Supabase";
@@ -62,9 +62,30 @@ export default function Register(props) {
   const [description, setDescription] = React.useState("");
   const [gender, setGender] = React.useState(0);
   const [cgpa, setCGPA] = React.useState(0);
-
+  const [initialize, setInitialize] = React.useState(false);
   const [sending, setSending] = React.useState(false);
+  const [companyId, setCompanyId] = React.useState(0);
 
+  React.useEffect(() => {
+    if (!initialize) {
+      setInitialize(true);
+      setName(props.name);
+      setEligibleBranches(props.el);
+      setCTC(props.ctc);
+      setType(props.type);
+      setIntDate(props.t);
+      setCGPA(props.cgpa);
+      setMinMInTen(props.mt);
+      setMinMInTwelve(props.mtw);
+      setEduGap(props.max);
+      setBacklogs(props.ba);
+      setArears(props.hba);
+      setGender(props.gender);
+      setDescription(props.desc);
+      setCompanyId(props.id);
+      setUrls(props.jds);
+    }
+  });
   const registerCompany = async () => {
     if (name.length == 0) {
       alert("Name is required");
@@ -107,13 +128,14 @@ export default function Register(props) {
     console.log(uploadData);
     const { data, error } = await supabase
       .from("companies")
-      .insert([uploadData]);
+      .update([uploadData])
+      .match({ id: companyId });
 
     if (data) {
       console.log("Success");
       console.log(data);
       setSending(false);
-      alert("Successfully Uploaded");
+      alert("Successfully Updated");
     }
 
     if (error) {
@@ -126,7 +148,7 @@ export default function Register(props) {
 
   const handleClose = () => {
     setOpen(false);
-    props.registerModalHandler();
+    props.toggleModel();
   };
 
   const handleUpload = async (e) => {
@@ -173,14 +195,6 @@ export default function Register(props) {
       }
     }
 
-    // if (count == 0) {
-    //   alert("Uploaded Successfully");
-    // } else if (count == e.target.files.length) {
-    //   alert("Something went wrong :( try again");
-    // } else {
-    //   alert("All files are not uploaded :( try again");
-    // }
-
     setUploading(false);
   };
 
@@ -217,7 +231,7 @@ export default function Register(props) {
                   fontSize: m1 ? "45px" : "35px",
                 }}
               >
-                Register Company
+                Company Details
               </h1>
             </Paper>
             <br />
@@ -243,7 +257,7 @@ export default function Register(props) {
                     }}
                   />
                   <TextField
-                    id="standard-basic"
+                    id="standard-basic ctc update companies"
                     label="CTC (in LPA)"
                     variant="standard"
                     type="number"
@@ -329,7 +343,10 @@ export default function Register(props) {
                       marginTop: "30px",
                     }}
                   >
-                    <BranchesUI setEligibleBranches={setEligibleBranches} />
+                    <BranchesUI
+                      setEligibleBranches={setEligibleBranches}
+                      el={props.el}
+                    />
                   </div>
                   <TextField
                     id="standard-basic"
@@ -559,7 +576,7 @@ export default function Register(props) {
                       }}
                       onClick={registerCompany}
                     >
-                      Submit
+                      Update
                     </Button>
                   </div>
                 </div>
