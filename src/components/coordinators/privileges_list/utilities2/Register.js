@@ -774,7 +774,7 @@ export default function Register(props) {
                     }}
                   />
                   <TextField
-                    id="standard-basic"
+                    id="standard-basic-year-gap"
                     label="Max year Education gap"
                     variant="standard"
                     type="number"
