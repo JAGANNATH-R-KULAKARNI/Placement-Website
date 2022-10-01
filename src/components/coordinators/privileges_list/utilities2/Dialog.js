@@ -46,7 +46,7 @@ export default function Register(props) {
   const m1 = useMediaQuery("(min-width:600px)");
   const [urls, setUrls] = React.useState([]);
   const [uploading, setUploading] = React.useState(false);
-
+  const [initialize, setInitialize] = React.useState(false);
   const [name, setName] = React.useState("");
   const [usn, setUSN] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -69,9 +69,60 @@ export default function Register(props) {
   const [cgpa, setCGPA] = React.useState(0);
   const [company, setCompany] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
-  const [year_gap, setYearGap] = React.useState(0);
-
+  const [studentId, setStudentId] = React.useState(0);
   const [sending, setSending] = React.useState(false);
+  const [year_gap, setYearGap] = React.useState(0);
+  const [companyText, setCompanyText] = React.useState("");
+
+  React.useEffect(() => {
+    if (!initialize) {
+      setInitialize(true);
+      setName(props.nameD);
+      setUSN(props.usnD);
+      setEmail(props.emailD);
+      setDob(props.dD);
+      setGender(props.gD);
+      setCategory(props.cat);
+      setTenth([props.t, props.t1, props.t2]);
+      setTwelth([props.tw, props.tw1, props.tw2]);
+      setDiplomo([props.d, props.d1, props.d2]);
+      setBranch(props.br);
+      setSection(props.sec);
+      setYear(props.yr);
+      setGrades([
+        props.gd[0],
+        props.gd[1],
+        props.gd[2],
+        props.gd[3],
+        props.gd[4],
+        props.gd[5],
+        props.gd[6],
+        props.gd[7],
+      ]);
+      setCGPA(props.cgpa);
+      setCredits(props.credits);
+      setArears([props.ca, props.cl]);
+      setBacklogs([props.cb, props.clb]);
+      setPhone([props.ph, props.ph1]);
+      setAddress([props.addr, props.addr1]);
+      setStudentId(props.id);
+      setYearGap(props.yg);
+      let hash = {};
+
+      for (let i = 0; i < props.companies.length; i++) {
+        hash[props.companies[i].id] = props.companies[i];
+      }
+      setCompany(props.company);
+
+      if (props.company != 0) {
+        setCompanyText(hash[props.company].name);
+      } else {
+        setCControl(true);
+      }
+
+      console.log(hash);
+    }
+  });
 
   const registerCompany = async () => {
     if (!policy) {
@@ -86,9 +137,9 @@ export default function Register(props) {
       dob.length == 0 ||
       gender == 0 ||
       category.length == 0 ||
+      year_gap.length == 0 ||
       !tenth[0] ||
       tenth[1].length == 0 ||
-      year_gap.length == 0 ||
       !tenth[1] ||
       !twelth[2] ||
       twelth[1].length == 0 ||
@@ -122,9 +173,9 @@ export default function Register(props) {
       grades: grades,
       current_arears: arears[0],
       cleared_arears: arears[1],
-      max_year_education_gap: year_gap,
       current_backlogs: backlogs[0],
       cleared_backlogs: backlogs[1],
+      max_year_education_gap: year_gap,
       phone_num: phone[0],
       parent_phone_num: phone[1],
       home_addr: address[0],
@@ -140,12 +191,13 @@ export default function Register(props) {
 
     const { data, error } = await supabase
       .from("students")
-      .insert([uploadData]);
+      .update([uploadData])
+      .match({ id: studentId });
 
     if (data) {
       console.log("Success");
       console.log(data);
-      alert("Successfully Uploaded");
+      alert("Successfully Updated");
     }
 
     if (error) {
@@ -157,7 +209,7 @@ export default function Register(props) {
 
   const handleClose = () => {
     setOpen(false);
-    props.registerModalHandler();
+    props.toggleModel();
   };
 
   const searchCompanyResults = (com) => {
@@ -262,7 +314,7 @@ export default function Register(props) {
                   fontSize: m1 ? "45px" : "35px",
                 }}
               >
-                Register Student
+                Details
               </h1>
             </Paper>
             <br />
@@ -312,6 +364,7 @@ export default function Register(props) {
                       <SeacrUI
                         companies={props.companies}
                         searchCompanyResults={searchCompanyResults}
+                        company_name={companyText}
                       />
                     )}
                     <FormGroup>
@@ -408,6 +461,7 @@ export default function Register(props) {
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     value={tenth[2]}
+                    //value={props.t2}
                     onChange={(e) => {
                       const temp = [...tenth];
                       temp[2] = e.target.value;
@@ -422,6 +476,7 @@ export default function Register(props) {
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     value={twelth[0]}
+                    //value={props.tw}
                     onChange={(e) => {
                       const temp = [...twelth];
                       temp[0] = e.target.value;
@@ -436,6 +491,7 @@ export default function Register(props) {
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     value={twelth[1]}
+                    //value={props.tw1}
                     onChange={(e) => {
                       const temp = [...twelth];
                       temp[1] = e.target.value;
@@ -449,6 +505,7 @@ export default function Register(props) {
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     value={twelth[2]}
+                    //value={props.tw2}
                     onChange={(e) => {
                       const temp = [...twelth];
                       temp[2] = e.target.value;
@@ -463,6 +520,7 @@ export default function Register(props) {
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     value={diplomo[0]}
+                    //value={props.d}
                     onChange={(e) => {
                       const temp = [...diplomo];
                       temp[0] = e.target.value;
@@ -477,6 +535,7 @@ export default function Register(props) {
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     value={diplomo[1]}
+                    //value={props.d1}
                     onChange={(e) => {
                       const temp = [...diplomo];
                       temp[1] = e.target.value;
@@ -490,6 +549,7 @@ export default function Register(props) {
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     value={diplomo[2]}
+                    //value={props.d2}
                     onChange={(e) => {
                       const temp = [...diplomo];
                       temp[2] = e.target.value;
@@ -734,6 +794,7 @@ export default function Register(props) {
                       width: "100%",
                       marginTop: "20px",
                     }}
+                    // value={arears[1]}
                     value={arears[1]}
                     onChange={(e) => {
                       const temp = [...arears];
@@ -751,6 +812,7 @@ export default function Register(props) {
                       marginTop: "20px",
                     }}
                     value={backlogs[0]}
+                    // value={props.cb}
                     onChange={(e) => {
                       const temp = [...backlogs];
                       temp[0] = e.target.value;
@@ -767,6 +829,7 @@ export default function Register(props) {
                       marginTop: "20px",
                     }}
                     value={backlogs[1]}
+                    //value={props.clb}
                     onChange={(e) => {
                       const temp = [...backlogs];
                       temp[1] = e.target.value;
@@ -797,6 +860,7 @@ export default function Register(props) {
                       marginTop: "20px",
                     }}
                     value={phone[0]}
+                    // value={props.ph}
                     onChange={(e) => {
                       const temp = [...phone];
                       temp[0] = e.target.value;
@@ -813,6 +877,7 @@ export default function Register(props) {
                       marginTop: "20px",
                     }}
                     value={phone[1]}
+                    // value={props.ph1}
                     onChange={(e) => {
                       const temp = [...phone];
                       temp[1] = e.target.value;
@@ -827,6 +892,7 @@ export default function Register(props) {
                     type="text"
                     style={{ width: "100%", marginTop: "15px" }}
                     value={address[0]}
+                    //value={props.addr}
                     onChange={(e) => {
                       const temp = [...address];
                       temp[0] = e.target.value;
@@ -840,25 +906,13 @@ export default function Register(props) {
                     type="text"
                     style={{ width: "100%", marginTop: "15px" }}
                     value={address[1]}
+                    // value={props.addr1}
                     onChange={(e) => {
                       const temp = [...address];
                       temp[1] = e.target.value;
                       setAddress(temp);
                     }}
                   />
-                  {/* <TextField
-                    id="standard-basic"
-                    label="Resume link (*Make Public)"
-                    variant="standard"
-                    type="text"
-                    style={{ width: "100%", marginTop: "15px" }}
-                    value={address[1]}
-                    onChange={(e) => {
-                      const temp = [...address];
-                      temp[1] = e.target.value;
-                      setAddress(temp);
-                    }}
-                  /> */}
 
                   <div
                     style={{
@@ -945,7 +999,7 @@ export default function Register(props) {
                       }}
                       onClick={registerCompany}
                     >
-                      Submit
+                      Update
                     </Button>
                   </div>
                 </div>

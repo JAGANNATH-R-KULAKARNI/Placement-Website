@@ -221,6 +221,7 @@ export default function AnnounceACompany() {
                     {companies && (
                       <SearchUI
                         students={students}
+                        companies={companies}
                         searchStudentResults={searchStudentResults}
                       />
                     )}
@@ -243,19 +244,13 @@ export default function AnnounceACompany() {
                   </div>
                 </div>
                 <br />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ minWidth: "100%" }}>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div style={{ width: "95%" }}>
                     {fStudents &&
                       fStudents.map((item) => {
                         return (
                           <div key={item}>
-                            <StudentUI data={item} />{" "}
+                            <StudentUI companies={companies} data={item} />{" "}
                           </div>
                         );
                       })}

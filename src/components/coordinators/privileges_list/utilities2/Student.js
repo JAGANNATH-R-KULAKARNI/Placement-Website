@@ -85,7 +85,41 @@ export default function CompanyList(props) {
         </AccordionSummary>
         <AccordionDetails>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <DetailsUI ctc={props.data.usn} />
+            <DetailsUI
+              ctc={props.data.usn}
+              dob={props.data.dob}
+              email={props.data.email}
+              name1={props.data.name}
+              gender={props.data.gender}
+              cat={props.data.category}
+              t={props.data.tenth_percentage}
+              t1={props.data.tenth_board}
+              t2={props.data.tenth_passed_year}
+              tw={props.data.twelth_percentage}
+              tw1={props.data.twelth_board}
+              tw2={props.data.twelth_passed_year}
+              d={props.data.diplomo_percentage}
+              d1={props.data.diplomo_board}
+              d2={props.data.diplomo_passed_year}
+              br={props.data.branch}
+              yr={props.data.year}
+              gd={props.data.grades}
+              ca={props.data.current_arears}
+              cl={props.data.cleared_arears}
+              cb={props.data.current_backlogs}
+              clb={props.data.cleared_backlogs}
+              cgpa={props.data.cgpa}
+              credits={props.data.credits}
+              ph={props.data.phone_num}
+              ph1={props.data.parent_phone_num}
+              addr={props.data.home_addr}
+              addr1={props.data.permanent_addr}
+              sec={props.data.section}
+              companies={props.companies}
+              yg={props.data.max_year_education_gap}
+              company={props.data.company}
+              id={props.data.id}
+            />
           </div>
         </AccordionDetails>
       </Accordion>
