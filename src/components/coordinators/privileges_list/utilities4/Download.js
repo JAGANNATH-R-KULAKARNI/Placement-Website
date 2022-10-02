@@ -18,24 +18,24 @@ export default function Register(props) {
   const [open, setOpen] = React.useState(true);
   const m1 = useMediaQuery("(min-width:600px)");
 
-  const [name, setName] = React.useState(false);
-  const [usn, setUsn] = React.useState(false);
-  const [email, setEmail] = React.useState(false);
-  const [cgpa, setCGPA] = React.useState(false);
-  const [resume, setResume] = React.useState(false);
+  const [name, setName] = React.useState(true);
+  const [usn, setUsn] = React.useState(true);
+  const [email, setEmail] = React.useState(true);
+  const [cgpa, setCGPA] = React.useState(true);
+  const [resume, setResume] = React.useState(true);
   const [dob, setDOB] = React.useState(false);
-  const [branch, setBranch] = React.useState(false);
-  const [section, setSection] = React.useState(false);
-  const [gender, setGender] = React.useState(false);
-  const [tenthpercentage, setTenthPercentage] = React.useState(false);
-  const [twelthPercentage, setTwelthPercentage] = React.useState(false);
-  const [diplomopercentage, setDiplomoPercentage] = React.useState(false);
-  const [year, setYear] = React.useState(false);
+  const [branch, setBranch] = React.useState(true);
+  const [section, setSection] = React.useState(true);
+  const [gender, setGender] = React.useState(true);
+  const [tenthpercentage, setTenthPercentage] = React.useState(true);
+  const [twelthPercentage, setTwelthPercentage] = React.useState(true);
+  const [diplomopercentage, setDiplomoPercentage] = React.useState(true);
+  const [year, setYear] = React.useState(true);
   const [currArears, setCurrArears] = React.useState(false);
   const [clearArears, setClearArears] = React.useState(false);
   const [currBacklogs, setCurrBacklogs] = React.useState(false);
   const [clearBacklogs, setClearBacklogs] = React.useState(false);
-  const [phnum, setPhnum] = React.useState(false);
+  const [phnum, setPhnum] = React.useState(true);
   const [gap, setGap] = React.useState(false);
   const [caste, setCaste] = React.useState(false);
   const [tenthBoard, setTenthBoard] = React.useState(false);
@@ -51,6 +51,10 @@ export default function Register(props) {
   const handleClose = () => {
     setOpen(false);
     props.toggleModel();
+  };
+
+  const getReport = () => {
+    alert("Here");
   };
 
   return (
@@ -521,7 +525,7 @@ export default function Register(props) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            checked={clearArears}
+                            checked={clearBacklogs}
                             onChange={(e) => {
                               setClearBacklogs(e.target.checked);
                             }}
@@ -839,7 +843,7 @@ export default function Register(props) {
                       marginTop: "20px",
                       marginBottom: "25px",
                     }}
-                    onClick={null}
+                    onClick={getReport}
                   >
                     Download
                   </Button>
