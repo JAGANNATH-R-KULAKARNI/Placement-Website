@@ -10,6 +10,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { CSVLink } from "react-csv";
+import { supabase } from "../../../../Supabase";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -137,11 +138,29 @@ export default function DownloadCSV(props) {
   const [control, setControl] = React.useState(false);
   const [generating, setGenerating] = React.useState(false);
 
+  const [applications, setApplication] = React.useState(null);
+
+  async function fetchTheApplications() {
+    const { data, error } = await supabase
+      .from("applications")
+      .select("*")
+      .eq("form_id", props.data.data.id)
+      .eq("company_id", props.data.data.company_id);
+
+    if (data) {
+      console.log("Data");
+      console.log(props.data);
+      console.log(data);
+      setApplication(data);
+    }
+  }
+
   React.useEffect(() => {
-    console.log("Props data");
-    console.log(props.company);
-    console.log(props.data);
-  }, []);
+    if (!applications) {
+      fetchTheApplications();
+    }
+  }, [applications]);
+
   const handleClose = () => {
     setOpen(false);
     props.toggleModel();
