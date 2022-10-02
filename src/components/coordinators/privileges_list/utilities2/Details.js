@@ -44,22 +44,10 @@ export default function MoreDetails(props) {
                 style={{ borderRadius: "15px" }}
               >
                 <span style={{ fontWeight: 900, fontSize: "24px" }}>
-                  {props.ctc}
-                  
-                  {" "}
+                  {props.ctc}{" "}
                 </span>{" "}
               </Item>
-              <Item
-                key={"CTC maga"}
-                elevation={1}
-                style={{ borderRadius: "15px" }}
-              >
-                <span style={{ fontWeight: 900, fontSize: "24px" }}>
-                  {props.dob}
-                  
-                  {" "}
-                </span>{" "}
-              </Item>
+
               <Button
                 variant="contained"
                 style={{
@@ -75,42 +63,43 @@ export default function MoreDetails(props) {
             </Box>
           </ThemeProvider>
           {model ? (
-        <DialogUI
-          nameD={props.name1}
-          emailD={props.email}
-          usnD={props.ctc}
-          dD={props.dob}
-          gD={props.gender}
-          cat={props.cat}
-          t={props.t}
-          t1={props.t1}
-          t2={props.t2}
-          tw={props.tw}
-          tw1={props.tw1}
-          tw2={props.tw1}
-          d={props.d}
-          d1={props.d1}
-          d2={props.d2}
-          br={props.br}
-          yr={props.yr}
-          gd={props.gd}
-          ca={props.ca}
-          cl={props.cl}
-          cb={props.cb}
-          clb={props.clb}
-          sec={props.sec}
-          cgpa={props.cgpa}
-          credits={props.credits}
-          ph={props.ph}
-          ph1={props.ph1}
-          addr={props.addr}
-          addr1={props.addr1}
-          companies={props.companies}
-          id={props.id}
-          yg={props.yg}
-          toggleModel={toggleModel}
-        />
-      ) : null}
+            <DialogUI
+              nameD={props.name1}
+              emailD={props.email}
+              usnD={props.ctc}
+              dD={props.dob}
+              gD={props.gender}
+              cat={props.cat}
+              t={props.t}
+              t1={props.t1}
+              t2={props.t2}
+              tw={props.tw}
+              tw1={props.tw1}
+              tw2={props.tw1}
+              d={props.d}
+              d1={props.d1}
+              d2={props.d2}
+              br={props.br}
+              yr={props.yr}
+              gd={props.gd}
+              ca={props.ca}
+              cl={props.cl}
+              cb={props.cb}
+              clb={props.clb}
+              sec={props.sec}
+              cgpa={props.cgpa}
+              credits={props.credits}
+              ph={props.ph}
+              ph1={props.ph1}
+              addr={props.addr}
+              addr1={props.addr1}
+              companies={props.companies}
+              company={props.company}
+              id={props.id}
+              yg={props.yg}
+              toggleModel={toggleModel}
+            />
+          ) : null}
         </Grid>
       ))}
     </Grid>

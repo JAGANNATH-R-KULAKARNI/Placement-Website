@@ -43,12 +43,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // ];
 
 export default function CustomizedTables(props) {
-    const m1 = useMediaQuery("(min-width:600px)");
+  const m1 = useMediaQuery("(min-width:600px)");
   return (
     <TableContainer component={Paper}>
-      <Table 
-      sx={{ minWidth: m1 ? "600px" : "100%" }}
-      aria-label="customized table">
+      <Table
+        sx={{ minWidth: m1 ? "600px" : "100%" }}
+        aria-label="customized table"
+      >
         <TableHead>
           <TableRow>
             <StyledTableCell>Detail properties</StyledTableCell>
@@ -68,7 +69,7 @@ export default function CustomizedTables(props) {
             <StyledTableCell align="right">{props.email}</StyledTableCell>
           </StyledTableRow>
         </TableBody>
-         <TableBody>
+        <TableBody>
           <StyledTableRow>
             <StyledTableCell>DOB</StyledTableCell>
             <StyledTableCell align="right">{props.usn}</StyledTableCell>
@@ -86,7 +87,6 @@ export default function CustomizedTables(props) {
             <StyledTableCell align="right">{props.yoj}</StyledTableCell>
           </StyledTableRow>
         </TableBody>
-
         <TableBody>
           <StyledTableRow>
             <StyledTableCell>Hostel fees 1st year</StyledTableCell>

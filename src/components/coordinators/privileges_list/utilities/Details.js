@@ -60,25 +60,25 @@ export default function MoreDetails(props) {
             </Box>
           </ThemeProvider>
           {model ? (
-        <DialogUI
-          name={props.name1}
-          ctc={props.ctc}
-          type={props.type}
-          el={props.el}
-          t={props.t}
-          mt={props.mt}
-          mtw={props.mtw}
-          max={props.max}
-          ba={props.ba}
-          hba={props.hba}
-          cgpa={props.cgpa}
-          gender={props.gender}
-          desc={props.desc}
-          id={props.id}
-          jds={props.jds}
-          toggleModel={toggleModel}
-        />
-      ) : null}
+            <DialogUI
+              name={props.name1}
+              ctc={props.ctc}
+              type={props.type}
+              el={props.el}
+              t={props.t}
+              mt={props.mt}
+              mtw={props.mtw}
+              max={props.max}
+              ba={props.ba}
+              hba={props.hba}
+              cgpa={props.cgpa}
+              gender={props.gender}
+              desc={props.desc}
+              id={props.id}
+              jds={props.jds}
+              toggleModel={toggleModel}
+            />
+          ) : null}
         </Grid>
       ))}
     </Grid>

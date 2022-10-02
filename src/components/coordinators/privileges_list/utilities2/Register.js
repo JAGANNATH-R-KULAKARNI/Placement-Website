@@ -774,7 +774,7 @@ export default function Register(props) {
                     }}
                   />
                   <TextField
-                    id="standard-basic-year-gap"
+                    id="standard-basic"
                     label="Max year Education gap"
                     variant="standard"
                     type="number"
@@ -784,7 +784,6 @@ export default function Register(props) {
                     }}
                     value={year_gap}
                     onChange={(e) => {
-                      
                       setYearGap(e.target.value);
                     }}
                   />
@@ -847,7 +846,7 @@ export default function Register(props) {
                       setAddress(temp);
                     }}
                   />
-                   {/* <TextField
+                  {/* <TextField
                     id="standard-basic"
                     label="Resume link (*Make Public)"
                     variant="standard"

@@ -71,7 +71,9 @@ export default function Register(props) {
   const [ccontrol, setCControl] = React.useState(false);
   const [studentId, setStudentId] = React.useState(0);
   const [sending, setSending] = React.useState(false);
-  const [year_gap, setYearGap] =React.useState(0);
+  const [year_gap, setYearGap] = React.useState(0);
+  const [companyText, setCompanyText] = React.useState("");
+
   React.useEffect(() => {
     if (!initialize) {
       setInitialize(true);
@@ -81,21 +83,44 @@ export default function Register(props) {
       setDob(props.dD);
       setGender(props.gD);
       setCategory(props.cat);
-      setTenth([props.t,props.t1,props.t2]);
-      setTwelth([props.tw,props.tw1,props.tw2]);
-      setDiplomo([props.d,props.d1,props.d2]);
+      setTenth([props.t, props.t1, props.t2]);
+      setTwelth([props.tw, props.tw1, props.tw2]);
+      setDiplomo([props.d, props.d1, props.d2]);
       setBranch(props.br);
       setSection(props.sec);
       setYear(props.yr);
-      setGrades([props.gd[0],props.gd[1],props.gd[2],props.gd[3],props.gd[4],props.gd[5],props.gd[6],props.gd[7]]);
+      setGrades([
+        props.gd[0],
+        props.gd[1],
+        props.gd[2],
+        props.gd[3],
+        props.gd[4],
+        props.gd[5],
+        props.gd[6],
+        props.gd[7],
+      ]);
       setCGPA(props.cgpa);
       setCredits(props.credits);
-      setArears([props.ca,props.cl]);
-      setBacklogs([props.cb,props.clb]);
-      setPhone([props.ph,props.ph1]);
-      setAddress([props.addr,props.addr1]);
+      setArears([props.ca, props.cl]);
+      setBacklogs([props.cb, props.clb]);
+      setPhone([props.ph, props.ph1]);
+      setAddress([props.addr, props.addr1]);
       setStudentId(props.id);
       setYearGap(props.yg);
+      let hash = {};
+
+      for (let i = 0; i < props.companies.length; i++) {
+        hash[props.companies[i].id] = props.companies[i];
+      }
+      setCompany(props.company);
+
+      if (props.company != 0) {
+        setCompanyText(hash[props.company].name);
+      } else {
+        setCControl(true);
+      }
+
+      console.log(hash);
     }
   });
 
@@ -184,7 +209,7 @@ export default function Register(props) {
 
   const handleClose = () => {
     setOpen(false);
-    props.registerModalHandler();
+    props.toggleModel();
   };
 
   const searchCompanyResults = (com) => {
@@ -256,7 +281,6 @@ export default function Register(props) {
     setUploading(false);
   };
 
-  
   return (
     <div>
       <Dialog
@@ -340,6 +364,7 @@ export default function Register(props) {
                       <SeacrUI
                         companies={props.companies}
                         searchCompanyResults={searchCompanyResults}
+                        company_name={companyText}
                       />
                     )}
                     <FormGroup>
@@ -435,7 +460,7 @@ export default function Register(props) {
                     label="10th/SSLC Qualified Year"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
-                     value={tenth[2]}
+                    value={tenth[2]}
                     //value={props.t2}
                     onChange={(e) => {
                       const temp = [...tenth];
@@ -787,7 +812,7 @@ export default function Register(props) {
                       marginTop: "20px",
                     }}
                     value={backlogs[0]}
-                   // value={props.cb}
+                    // value={props.cb}
                     onChange={(e) => {
                       const temp = [...backlogs];
                       temp[0] = e.target.value;
@@ -811,7 +836,7 @@ export default function Register(props) {
                       setBacklogs(temp);
                     }}
                   />
-                   <TextField
+                  <TextField
                     id="standard-basic"
                     label="Max year Education gap"
                     variant="standard"
@@ -822,7 +847,6 @@ export default function Register(props) {
                     }}
                     value={year_gap}
                     onChange={(e) => {
-                      
                       setYearGap(e.target.value);
                     }}
                   />
@@ -836,7 +860,7 @@ export default function Register(props) {
                       marginTop: "20px",
                     }}
                     value={phone[0]}
-                   // value={props.ph}
+                    // value={props.ph}
                     onChange={(e) => {
                       const temp = [...phone];
                       temp[0] = e.target.value;
@@ -853,7 +877,7 @@ export default function Register(props) {
                       marginTop: "20px",
                     }}
                     value={phone[1]}
-                   // value={props.ph1}
+                    // value={props.ph1}
                     onChange={(e) => {
                       const temp = [...phone];
                       temp[1] = e.target.value;
@@ -882,7 +906,7 @@ export default function Register(props) {
                     type="text"
                     style={{ width: "100%", marginTop: "15px" }}
                     value={address[1]}
-                   // value={props.addr1}
+                    // value={props.addr1}
                     onChange={(e) => {
                       const temp = [...address];
                       temp[1] = e.target.value;
