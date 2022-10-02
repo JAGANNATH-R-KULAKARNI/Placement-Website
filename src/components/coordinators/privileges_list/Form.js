@@ -56,8 +56,10 @@ export default function AnnounceACompany() {
 
   const [activeForms, setActiveForms] = React.useState(null);
   const [inactiveForms, setInActiveForms] = React.useState(null);
+  const [activeForms2, setActiveForms2] = React.useState(null);
+  const [inactiveForms2, setInActiveForms2] = React.useState(null);
 
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -96,6 +98,8 @@ export default function AnnounceACompany() {
 
       setActiveForms(ac);
       setInActiveForms(inac);
+      setActiveForms2(ac);
+      setInActiveForms2(inac);
       setForms(al);
       setForms2(al);
       console.log("Forms");
@@ -159,18 +163,34 @@ export default function AnnounceACompany() {
 
   async function searchFormResults(fname) {
     const temp = [];
+    const ac = [];
+    const inac = [];
 
     if (!fname) {
       setForms2(forms);
+      setActiveForms2(activeForms);
+      setInActiveForms2(inactiveForms);
       return;
     }
+
     for (let i = 0; i < forms.length; i++) {
       if (fname == forms[i].company.name) {
         temp.push(forms[i]);
+
+        if (
+          forms[i].data.start_time <= Date.now() &&
+          Date.now() <= forms[i].data.end_time
+        ) {
+          ac.push(forms[i]);
+        } else {
+          inac.push(forms[i]);
+        }
       }
     }
 
     setForms2(temp);
+    setActiveForms2(ac);
+    setInActiveForms2(inac);
   }
 
   return (
@@ -348,8 +368,8 @@ export default function AnnounceACompany() {
                     }}
                   >
                     <div style={{ minWidth: "100%", maxWidth: "100%" }}>
-                      {(value === 0 ? activeForms : inactiveForms) &&
-                        (value === 0 ? activeForms : inactiveForms).map(
+                      {(value === 0 ? activeForms2 : inactiveForms2) &&
+                        (value === 0 ? activeForms2 : inactiveForms2).map(
                           (item) => {
                             return (
                               <div key={item}>
