@@ -25,7 +25,8 @@ import BackdropUI from "./utilities3/Backdrop";
 import DialogUI from "./utilities4/Dialog";
 import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import Form2UI from "./utilities4/Update";
+import Form2UI from "./utilities4/Create";
+import Form3UI from "./utilities4/Update";
 import SearcUI2 from "./utilities4/Search2";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import FormUI from "./utilities4/Form";
@@ -51,6 +52,7 @@ export default function AnnounceACompany() {
   const [dialog, setDialog] = React.useState(false);
   const [link, setLink] = React.useState("");
   const [form2, setForm2] = React.useState(false);
+  const [form3, setForm3] = React.useState(false);
   const [forms, setForms] = React.useState(null);
   const [forms2, setForms2] = React.useState(null);
 
@@ -199,8 +201,15 @@ export default function AnnounceACompany() {
       {data && forms ? (
         <div>
           <CssBaseline />
-          {form2 && updateFormData ? (
+          {form2 ? (
             <Form2UI
+              registerModalHandler={() => {
+                setForm2(!form2);
+              }}
+            />
+          ) : null}
+          {form3 && updateFormData ? (
+            <Form3UI
               registerModalHandler={() => {
                 setForm2(!form2);
               }}
@@ -378,7 +387,7 @@ export default function AnnounceACompany() {
                                 <FormUI
                                   data={item}
                                   openForm={() => {
-                                    setForm2(!form2);
+                                    setForm3(!form3);
                                     setUpdateFormData(item);
                                   }}
                                 />{" "}
