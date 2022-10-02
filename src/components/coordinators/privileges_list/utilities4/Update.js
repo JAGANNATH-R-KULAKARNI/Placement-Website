@@ -43,10 +43,10 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import DateUI from "./Date";
+import DateUI from "./Date2";
 import axios from "axios";
 import BackdropUI from "../utilities3/Backdrop";
-import DialogUI from "./Dialog";
+import DialogUI from "./Dialog2";
 import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import UpdateUI from "../utilities/Update";
@@ -55,7 +55,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Register(props) {
+export default function UpdateForm(props) {
   const [open, setOpen] = React.useState(true);
   const m1 = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
@@ -76,6 +76,9 @@ export default function Register(props) {
   const [dialog, setDialog] = React.useState(false);
   const [link, setLink] = React.useState("");
   const [model, setModel] = React.useState(false);
+
+  const [initialize, setInitialize] = React.useState(false);
+  const [prevData, setPrevData] = React.useState(null);
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -117,7 +120,7 @@ export default function Register(props) {
     }
   }
 
-  async function openFormsHandler() {
+  async function updateFormBro() {
     let comp = null;
     console.log(students);
     const emails = [];
@@ -137,6 +140,7 @@ export default function Register(props) {
     }
 
     setLoading(true);
+
     for (let i = 0; i < companies.length; i++) {
       if (company == companies[i].name) {
         comp = companies[i];
@@ -153,12 +157,7 @@ export default function Register(props) {
     }
 
     let t = Date.now();
-    setLink(
-      window.location.href.substr(0, window.location.href.length - 11) +
-        "company/" +
-        uniid +
-        t
-    );
+    setLink(prevData.data.url);
 
     const uploadData = {
       company_id: comp.id,
@@ -166,15 +165,14 @@ export default function Register(props) {
       end_time: end,
       start: sstart,
       end: send,
-      route_id: uniid + t,
+      route_id: prevData.data.route_id,
       time_created: t,
-      url:
-        window.location.href.substr(0, window.location.href.length - 11) +
-        "company/" +
-        uniid +
-        t,
+      url: prevData.data.url,
     };
 
+    console.log("uploadData");
+    console.log(prevData);
+    console.log(prevData.data.route_id);
     console.log(uploadData);
 
     await axios
@@ -182,16 +180,10 @@ export default function Register(props) {
         htm: ` <div>
         <i>Apply for <b>${company}</b> Now !</i>
         <p></p>
-        <a href="${
+        <a href="${prevData.data.url}" style="margin-top:10px;width:100%;">${
           window.location.href.substr(0, window.location.href.length - 11) +
           "company/" +
-          uniid +
-          t
-        }" style="margin-top:10px;width:100%;">${
-          window.location.href.substr(0, window.location.href.length - 11) +
-          "company/" +
-          uniid +
-          t
+          prevData.data.route_id
         }</a>
         <h3 style="text-align:right;marin-top:10px;"><b>- Placements NIE</b></h3>
       </div>`,
@@ -209,7 +201,10 @@ export default function Register(props) {
         console.log(err);
       });
 
-    const { data, error } = await supabase.from("forms").insert([uploadData]);
+    const { data, error } = await supabase
+      .from("forms")
+      .update(uploadData)
+      .match({ id: prevData.data.id });
 
     if (data) {
       setLoading(false);
@@ -239,11 +234,26 @@ export default function Register(props) {
   }
 
   React.useEffect(() => {
-    if (companies.length === 0) {
+    if (companies.length === 0 || !currcompany) {
       fetchTheCompanies();
       fetchTheStudents();
+      if (!initialize || !currcompany) {
+        setInitialize(true);
+        console.log("useEffect");
+        console.log(props.data);
+        setPrevData(props.data);
+        searchCompanyResults(props.data.company.name);
+      }
     }
-
+    if (!initialize || !currcompany) {
+      setInitialize(true);
+      console.log("useEffect");
+      console.log(props.data);
+      console.log(props.data.data.start_time);
+      console.log(props.data.data.end_time);
+      setPrevData(props.data);
+      searchCompanyResults(props.data.company.name);
+    }
     setInterval(() => {
       fetchTheProfile();
     }, 1000);
@@ -323,7 +333,7 @@ export default function Register(props) {
                         fontWeight: 500,
                       }}
                     >
-                      Create Forms
+                      Download or Update
                     </Typography>
                   </Container>
                 </Box>
@@ -351,12 +361,21 @@ export default function Register(props) {
                     }}
                   >
                     <div style={{ width: "85%" }}>
-                      {companies && (
+                      {/* {companies && (
                         <SearchUI
                           companies={companies}
                           searchCompanyResults={searchCompanyResults}
                         />
-                      )}
+                      )} */}
+                      <h2
+                        style={{
+                          color: "black",
+                          width: "100%",
+                          textAlign: "center",
+                        }}
+                      >
+                        {company}
+                      </h2>
                     </div>
                   </div>
                   {company ? (
@@ -364,7 +383,7 @@ export default function Register(props) {
                       style={{
                         display: "flex",
                         justifyContent: "center",
-                        marginTop: "20px",
+                        marginTop: "0px",
                       }}
                     >
                       {/* <Accordion style={{ width: "85%" }} elevation={1}>
@@ -381,19 +400,21 @@ export default function Register(props) {
                           </Typography>
                         </AccordionDetails>
                       </Accordion> */}
-                      <Button
-                        variant="contained"
-                        style={{
-                          backgroundColor: "#541554",
-                          color: "white",
-                          borderRadius: "15px",
-                        }}
-                        onClick={() => {
-                          setModel(!model);
-                        }}
-                      >
-                        View More Details
-                      </Button>
+                      {currcompany ? (
+                        <Button
+                          variant="contained"
+                          style={{
+                            backgroundColor: "#541554",
+                            color: "white",
+                            borderRadius: "15px",
+                          }}
+                          onClick={() => {
+                            setModel(!model);
+                          }}
+                        >
+                          View More Details
+                        </Button>
+                      ) : null}
                     </div>
                   ) : null}
                   <div
@@ -403,11 +424,14 @@ export default function Register(props) {
                       marginTop: "50px",
                     }}
                   >
-                    <DateUI
-                      text="Open at"
-                      timeHandler={setStart}
-                      timeHandler2={setSStart}
-                    />
+                    {prevData && (
+                      <DateUI
+                        text="Open at"
+                        timeHandler={setStart}
+                        timeHandler2={setSStart}
+                        time={prevData.data.start_time}
+                      />
+                    )}
                   </div>
                   <div
                     style={{
@@ -416,11 +440,14 @@ export default function Register(props) {
                       marginTop: "30px",
                     }}
                   >
-                    <DateUI
-                      text="Close at"
-                      timeHandler={setEnd}
-                      timeHandler2={setSEnd}
-                    />
+                    {prevData && (
+                      <DateUI
+                        text="Close at"
+                        timeHandler={setEnd}
+                        timeHandler2={setSEnd}
+                        time={prevData.data.end_time}
+                      />
+                    )}
                   </div>
                   {company && start && end ? (
                     <div
@@ -479,9 +506,10 @@ export default function Register(props) {
                           width: "85%",
                           borderRadius: "10px",
                         }}
-                        onClick={openFormsHandler}
+                        // onClick={openFormsHandler}
+                        onClick={updateFormBro}
                       >
-                        Submit
+                        Update
                       </Button>
                     </div>
                   ) : null}

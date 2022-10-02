@@ -25,7 +25,7 @@ import BackdropUI from "./utilities3/Backdrop";
 import DialogUI from "./utilities4/Dialog";
 import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import Form2UI from "./utilities4/Create";
+import Form2UI from "./utilities4/Update";
 import SearcUI2 from "./utilities4/Search2";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import FormUI from "./utilities4/Form";
@@ -58,6 +58,7 @@ export default function AnnounceACompany() {
   const [inactiveForms, setInActiveForms] = React.useState(null);
   const [activeForms2, setActiveForms2] = React.useState(null);
   const [inactiveForms2, setInActiveForms2] = React.useState(null);
+  const [updateFormData, setUpdateFormData] = React.useState(null);
 
   const [value, setValue] = React.useState(0);
 
@@ -198,11 +199,12 @@ export default function AnnounceACompany() {
       {data && forms ? (
         <div>
           <CssBaseline />
-          {form2 ? (
+          {form2 && updateFormData ? (
             <Form2UI
               registerModalHandler={() => {
                 setForm2(!form2);
               }}
+              data={updateFormData}
             />
           ) : null}
           {loading ? <BackdropUI /> : null}
@@ -370,13 +372,14 @@ export default function AnnounceACompany() {
                     <div style={{ minWidth: "100%", maxWidth: "100%" }}>
                       {(value === 0 ? activeForms2 : inactiveForms2) &&
                         (value === 0 ? activeForms2 : inactiveForms2).map(
-                          (item) => {
+                          (item, index) => {
                             return (
                               <div key={item}>
                                 <FormUI
                                   data={item}
                                   openForm={() => {
                                     setForm2(!form2);
+                                    setUpdateFormData(item);
                                   }}
                                 />{" "}
                               </div>
