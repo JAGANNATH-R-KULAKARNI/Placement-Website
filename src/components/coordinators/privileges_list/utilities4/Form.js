@@ -78,7 +78,7 @@ export default function CompanyList(props) {
         </AccordionSummary>
         <AccordionDetails>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <DetailsUI />
+            <DetailsUI openForm={props.openForm} />
           </div>
         </AccordionDetails>
       </Accordion>

@@ -29,6 +29,8 @@ import Form2UI from "./utilities4/Create";
 import SearcUI2 from "./utilities4/Search2";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import FormUI from "./utilities4/Form";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 export default function AnnounceACompany() {
   const m1 = useMediaQuery("(min-width:600px)");
@@ -54,6 +56,12 @@ export default function AnnounceACompany() {
 
   const [activeForms, setActiveForms] = React.useState(null);
   const [inactiveForms, setInActiveForms] = React.useState(null);
+
+  const [value, setValue] = React.useState(2);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   async function fetchForms() {
     if (!companies) return;
@@ -265,6 +273,7 @@ export default function AnnounceACompany() {
                   >
                     Forms List
                   </h1>
+
                   <div
                     style={{
                       display: "flex",
@@ -299,6 +308,37 @@ export default function AnnounceACompany() {
                       </Fab>
                     </div>
                   </div>
+                  <div style={{ width: "100%" }}>
+                    <Tabs
+                      value={value}
+                      onChange={handleChange}
+                      aria-label="disabled tabs example"
+                      style={{
+                        marginTop: "10px",
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        marginLeft: "0px",
+                      }}
+                    >
+                      <Tab
+                        label="Active Forms"
+                        style={{
+                          width: "50%",
+                          fontSize: "12px",
+                          textAlign: "center",
+                        }}
+                      />
+                      <Tab
+                        label="Inactive Forms"
+                        style={{
+                          width: "50%",
+                          fontSize: "12px",
+                          textAlign: "cente",
+                        }}
+                      />
+                    </Tabs>
+                  </div>
                   <br />
                   <div
                     style={{
@@ -308,14 +348,21 @@ export default function AnnounceACompany() {
                     }}
                   >
                     <div style={{ minWidth: "100%", maxWidth: "100%" }}>
-                      {forms2 &&
-                        forms2.map((item) => {
-                          return (
-                            <div key={item}>
-                              <FormUI data={item} />{" "}
-                            </div>
-                          );
-                        })}
+                      {(value === 0 ? activeForms : inactiveForms) &&
+                        (value === 0 ? activeForms : inactiveForms).map(
+                          (item) => {
+                            return (
+                              <div key={item}>
+                                <FormUI
+                                  data={item}
+                                  openForm={() => {
+                                    setForm2(!form2);
+                                  }}
+                                />{" "}
+                              </div>
+                            );
+                          }
+                        )}
                     </div>
                   </div>
                   <br />
