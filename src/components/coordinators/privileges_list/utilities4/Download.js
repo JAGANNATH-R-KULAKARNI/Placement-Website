@@ -15,7 +15,89 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Register(props) {
+const info = [
+  {
+    firstName: "Warren",
+    lastName: "Morrow",
+    email: "sokyt@mailinator.com",
+    age: "36",
+  },
+  {
+    firstName: "Gwendolyn",
+    lastName: "Galloway",
+    email: "weciz@mailinator.com",
+    age: "76",
+  },
+  {
+    firstName: "Astra",
+    lastName: "Wyatt",
+    email: "quvyn@mailinator.com",
+    age: "57",
+  },
+  {
+    firstName: "Jasmine",
+    lastName: "Wong",
+    email: "toxazoc@mailinator.com",
+    age: "42",
+  },
+  {
+    firstName: "Brooke",
+    lastName: "Mcconnell",
+    email: "vyry@mailinator.com",
+    age: "56",
+  },
+  {
+    firstName: "Christen",
+    lastName: "Haney",
+    email: "pagevolal@mailinator.com",
+    age: "23",
+  },
+  {
+    firstName: "Tate",
+    lastName: "Vega",
+    email: "dycubo@mailinator.com",
+    age: "87",
+  },
+  {
+    firstName: "Amber",
+    lastName: "Brady",
+    email: "vyconixy@mailinator.com",
+    age: "78",
+  },
+  {
+    firstName: "Philip",
+    lastName: "Whitfield",
+    email: "velyfi@mailinator.com",
+    age: "22",
+  },
+  {
+    firstName: "Kitra",
+    lastName: "Hammond",
+    email: "fiwiloqu@mailinator.com",
+    age: "35",
+  },
+  {
+    firstName: "Charity",
+    lastName: "Mathews",
+    email: "fubigonero@mailinator.com",
+    age: "63",
+  },
+];
+
+const headers = [
+  { label: "First Name", key: "firstName" },
+  { label: "Last Name", key: "lastName" },
+  { label: "Email", key: "email" },
+  { label: "Age", key: "age" },
+];
+
+const csvReport = {
+  data: info,
+  headers: headers,
+  filename: "Clue Mediator Report.csv",
+};
+
+export default function DownloadCSV(props) {
   const [open, setOpen] = React.useState(true);
   const m1 = useMediaQuery("(min-width:600px)");
 
@@ -49,94 +131,29 @@ export default function Register(props) {
   const [perAddr, setPerAddr] = React.useState(false);
   const [credits, setCreadits] = React.useState(false);
 
+  const [data, setData] = React.useState([]);
+  const [headings, setHeadings] = React.useState([]);
+  const [report, setReport] = React.useState({});
+  const [control, setControl] = React.useState(false);
+  const [generating, setGenerating] = React.useState(false);
+
+  React.useEffect(() => {
+    console.log("Props data");
+    console.log(props.company);
+    console.log(props.data);
+  }, []);
   const handleClose = () => {
     setOpen(false);
     props.toggleModel();
   };
 
-  const data = [
-    {
-      firstName: "Warren",
-      lastName: "Morrow",
-      email: "sokyt@mailinator.com",
-      age: "36",
-    },
-    {
-      firstName: "Gwendolyn",
-      lastName: "Galloway",
-      email: "weciz@mailinator.com",
-      age: "76",
-    },
-    {
-      firstName: "Astra",
-      lastName: "Wyatt",
-      email: "quvyn@mailinator.com",
-      age: "57",
-    },
-    {
-      firstName: "Jasmine",
-      lastName: "Wong",
-      email: "toxazoc@mailinator.com",
-      age: "42",
-    },
-    {
-      firstName: "Brooke",
-      lastName: "Mcconnell",
-      email: "vyry@mailinator.com",
-      age: "56",
-    },
-    {
-      firstName: "Christen",
-      lastName: "Haney",
-      email: "pagevolal@mailinator.com",
-      age: "23",
-    },
-    {
-      firstName: "Tate",
-      lastName: "Vega",
-      email: "dycubo@mailinator.com",
-      age: "87",
-    },
-    {
-      firstName: "Amber",
-      lastName: "Brady",
-      email: "vyconixy@mailinator.com",
-      age: "78",
-    },
-    {
-      firstName: "Philip",
-      lastName: "Whitfield",
-      email: "velyfi@mailinator.com",
-      age: "22",
-    },
-    {
-      firstName: "Kitra",
-      lastName: "Hammond",
-      email: "fiwiloqu@mailinator.com",
-      age: "35",
-    },
-    {
-      firstName: "Charity",
-      lastName: "Mathews",
-      email: "fubigonero@mailinator.com",
-      age: "63",
-    },
-  ];
-
-  const headers = [
-    { label: "First Name", key: "firstName" },
-    { label: "Last Name", key: "lastName" },
-    { label: "Email", key: "email" },
-    { label: "Age", key: "age" },
-  ];
-
-  const csvReport = {
-    data: data,
-    headers: headers,
-    filename: "Clue_Mediator_Report.csv",
+  const getReport = () => {
+    setGenerating(true);
+    setTimeout(() => {
+      setControl(!control);
+      setGenerating(false);
+    }, 1500);
   };
-
-  const getReport = () => {};
 
   return (
     <div>
@@ -914,12 +931,38 @@ export default function Register(props) {
                     width: "100%",
                   }}
                 >
-                  <CSVLink {...csvReport} style={{ width: "80%" }}>
+                  {control ? (
+                    <CSVLink
+                      {...csvReport}
+                      style={{ width: "80%", textDecoration: "none" }}
+                    >
+                      <Button
+                        variant="contained"
+                        style={{
+                          backgroundColor: "green",
+                          width: "100%",
+                          height: "50px",
+                          borderRadius: "16px",
+                          marginTop: "20px",
+                          marginBottom: "25px",
+                        }}
+                        onClick={() => {
+                          setGenerating(true);
+                          setTimeout(() => {
+                            setControl(false);
+                            setGenerating(false);
+                          }, 1500);
+                        }}
+                      >
+                        {generating ? "Downloading..." : "Download"}
+                      </Button>
+                    </CSVLink>
+                  ) : (
                     <Button
                       variant="contained"
                       style={{
                         backgroundColor: "black",
-                        width: "100%",
+                        width: "80%",
                         height: "50px",
                         borderRadius: "16px",
                         marginTop: "20px",
@@ -927,9 +970,9 @@ export default function Register(props) {
                       }}
                       onClick={getReport}
                     >
-                      Download
+                      {generating ? "Generating..." : "Generate"}
                     </Button>
-                  </CSVLink>
+                  )}
                 </div>
               </Paper>
               <br />

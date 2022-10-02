@@ -295,30 +295,17 @@ export default function UpdateForm(props) {
               id={currcompany.id}
               jds={currcompany.jds}
               toggleModel={() => {
-                setModel(!model);
+                setDownload(!download);
               }}
             />
           ) : null}
           {download && currcompany ? (
             <DownloadUI
-              name={currcompany.name}
-              ctc={currcompany.ctc}
-              type={currcompany.type}
-              el={currcompany.eligible_branches}
-              t={currcompany.tentative_interview_dates}
-              mt={currcompany.min_in_ten}
-              mtw={currcompany.min_in_twelve}
-              max={currcompany.max_year_education_gap}
-              ba={currcompany.active_backlogs_allowed}
-              hba={currcompany.history_backlogs_allowed}
-              cgpa={currcompany.min_cgpa}
-              gender={currcompany.gender}
-              desc={currcompany.description}
-              id={currcompany.id}
-              jds={currcompany.jds}
+              company={currcompany}
               toggleModel={() => {
                 setDownload(!download);
               }}
+              data={props.data}
             />
           ) : null}
 
@@ -362,7 +349,7 @@ export default function UpdateForm(props) {
                       Download or Update
                     </Typography>
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                      {currcompany ? (
+                      {currcompany && company ? (
                         <Button
                           variant="contained"
                           style={{
