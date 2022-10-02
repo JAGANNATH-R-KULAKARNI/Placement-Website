@@ -211,7 +211,7 @@ export default function AnnounceACompany() {
           {form3 && updateFormData ? (
             <Form3UI
               registerModalHandler={() => {
-                setForm2(!form2);
+                setForm3(!form3);
               }}
               data={updateFormData}
             />
