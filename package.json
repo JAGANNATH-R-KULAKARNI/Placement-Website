@@ -21,6 +21,7 @@
     "js-cookie": "^3.0.1",
     "nodemailer": "^6.7.8",
     "react": "^18.2.0",
+    "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-google-drive-picker": "^1.2.0",
     "react-router-dom": "^6.4.0",

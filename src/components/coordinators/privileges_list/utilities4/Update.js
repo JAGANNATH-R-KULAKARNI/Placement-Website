@@ -50,6 +50,7 @@ import DialogUI from "./Dialog2";
 import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import UpdateUI from "../utilities/Update";
+import DownloadUI from "./Download";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -79,6 +80,8 @@ export default function UpdateForm(props) {
 
   const [initialize, setInitialize] = React.useState(false);
   const [prevData, setPrevData] = React.useState(null);
+
+  const [download, setDownload] = React.useState(false);
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -292,10 +295,20 @@ export default function UpdateForm(props) {
               id={currcompany.id}
               jds={currcompany.jds}
               toggleModel={() => {
-                setModel(!model);
+                setDownload(!download);
               }}
             />
           ) : null}
+          {download && currcompany ? (
+            <DownloadUI
+              company={currcompany}
+              toggleModel={() => {
+                setDownload(!download);
+              }}
+              data={props.data}
+            />
+          ) : null}
+
           {data ? (
             <div>
               <CssBaseline />
@@ -335,6 +348,25 @@ export default function UpdateForm(props) {
                     >
                       Download or Update
                     </Typography>
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      {currcompany && company ? (
+                        <Button
+                          variant="contained"
+                          style={{
+                            backgroundColor: "#541554",
+                            color: "white",
+                            borderRadius: "15px",
+                            marginTop: "10px",
+                            marginBottom: "-15px",
+                          }}
+                          onClick={() => {
+                            setDownload(!download);
+                          }}
+                        >
+                          Download Report
+                        </Button>
+                      ) : null}
+                    </div>
                   </Container>
                 </Box>
                 <Paper style={{ marginTop: "30px", borderRadius: "40px" }}>
