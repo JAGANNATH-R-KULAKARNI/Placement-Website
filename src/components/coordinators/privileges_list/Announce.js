@@ -9,7 +9,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { AltRoute } from "@mui/icons-material";
+import { AltRoute, ContactSupportOutlined } from "@mui/icons-material";
 import axios from "axios";
 import SearcUI from "./utilities3/Search";
 import TextField from "@mui/material/TextField";
@@ -196,7 +196,14 @@ export default function AnnounceACompany() {
     "MTECH",
   ];
 
-  const diffYear = [1, 2, 3, 4];
+  const diffYear = [
+    { year: 1, text: "First Year" },
+    { year: 2, text: "Second Year" },
+    { year: 3, text: "Third Year" },
+    { year: 4, text: "Fourth Year" },
+    { year: 5, text: "Mtech First Year" },
+    { year: 6, text: "Mtech Second Year" },
+  ];
 
   const [data, setData] = React.useState(null);
 
@@ -293,6 +300,15 @@ export default function AnnounceACompany() {
     },
   });
 
+  const engineeYear = useAutocomplete({
+    id: "customized-hook-demo",
+    multiple: true,
+    options: diffYear,
+    getOptionLabel: (option) => {
+      return option.text;
+    },
+  });
+
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
 
@@ -306,8 +322,8 @@ export default function AnnounceACompany() {
     const { data, error } = await supabase
       .from("companies")
       .select("*")
-      .order("time_posted", {
-        ascending: false,
+      .order("name", {
+        ascending: true,
       });
 
     if (data) {
@@ -322,7 +338,10 @@ export default function AnnounceACompany() {
   async function fetchTheStudents() {
     const { data, error } = await supabase
       .from("students")
-      .select("*,companies(*)");
+      .select("*,companies(*)")
+      .order("name", {
+        ascending: true,
+      });
 
     if (data) {
       console.log("Students Data");
@@ -440,6 +459,33 @@ export default function AnnounceACompany() {
       }
     } else if (wholeCollege) {
       for (let i = 0; i < students.length; i++) {
+        to.push(students[i].email);
+      }
+    } else if (particularBranch) {
+      console.log(branches.value);
+      console.log(engineeYear.value);
+
+      for (let i = 0; i < students.length; i++) {
+        let flg = 0;
+
+        for (let j = 0; j < branches.value.length; j++) {
+          if (students[i].branch == branches.value[j]) {
+            flg = 1;
+            break;
+          }
+        }
+
+        if (flg != 1) continue;
+
+        for (let k = 0; k < engineeYear.value.length; k++) {
+          if (students[i].year == engineeYear.value[k].year) {
+            flg = 2;
+            break;
+          }
+        }
+
+        if (flg != 2) continue;
+
         to.push(students[i].email);
       }
     }
@@ -716,34 +762,34 @@ export default function AnnounceACompany() {
                       }}
                     >
                       <Root>
-                        <div {...branches.getRootProps()}>
-                          <Label {...branches.getInputLabelProps()}>
+                        <div {...engineeYear.getRootProps()}>
+                          <Label {...engineeYear.getInputLabelProps()}>
                             Select Engineering Year
                           </Label>
                           <InputWrapper
-                            ref={branches.setAnchorEl}
-                            className={branches.focused ? "focused" : ""}
+                            ref={engineeYear.setAnchorEl}
+                            className={engineeYear.focused ? "focused" : ""}
                           >
-                            {branches.value.map((option, index) => (
+                            {engineeYear.value.map((option, index) => (
                               <StyledTag
-                                label={option}
-                                {...branches.getTagProps({ index })}
+                                label={option.text}
+                                {...engineeYear.getTagProps({ index })}
                               />
                             ))}
 
-                            <input {...branches.getInputProps()} />
+                            <input {...engineeYear.getInputProps()} />
                           </InputWrapper>
                         </div>
-                        {branches.groupedOptions.length > 0 ? (
-                          <Listbox {...branches.getListboxProps()}>
-                            {branches.groupedOptions.map((option, index) => (
+                        {engineeYear.groupedOptions.length > 0 ? (
+                          <Listbox {...engineeYear.getListboxProps()}>
+                            {engineeYear.groupedOptions.map((option, index) => (
                               <li
-                                {...branches.getOptionProps({
+                                {...engineeYear.getOptionProps({
                                   option,
                                   index,
                                 })}
                               >
-                                <span>{option}</span>
+                                <span>{option.text}</span>
                                 <CheckIcon fontSize="small" />
                               </li>
                             ))}
