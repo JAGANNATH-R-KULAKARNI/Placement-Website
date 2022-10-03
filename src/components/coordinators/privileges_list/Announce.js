@@ -465,6 +465,16 @@ export default function AnnounceACompany() {
       console.log(branches.value);
       console.log(engineeYear.value);
 
+      if (branches.value.length == 0) {
+        alert("Select atleast one branch");
+        return;
+      }
+
+      if (engineeYear.value.length == 0) {
+        alert("Select atleast one engineering year");
+        return;
+      }
+
       for (let i = 0; i < students.length; i++) {
         let flg = 0;
 
