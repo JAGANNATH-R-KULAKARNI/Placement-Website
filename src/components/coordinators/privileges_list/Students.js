@@ -96,24 +96,62 @@ export default function AnnounceACompany() {
 
     if (data) {
       setCompanies(data);
+      fetchTheStudents2(data);
+    }
+  }
+
+  async function fetchTheStudents2(comp) {
+    const { data, error } = await supabase.from("students").select("*");
+    let hash = {};
+
+    for (let i = 0; i < comp.length; i++) {
+      hash[comp[i].id] = comp[i];
+    }
+
+    if (data) {
+      console.log("Students Data 2");
+      // console.log(comp);
+      // console.log(data);
+      let temp = [...data];
+
+      for (let j = 0; j < data.length; j++) {
+        temp[j]["companies"] = hash[data[j].company];
+      }
+      console.log(temp);
+      setStudents(temp);
+      filterStudents3(temp);
+    }
+
+    if (error) {
+      console.log(error.message);
     }
   }
 
   async function fetchTheStudents() {
-    const { data, error } = await supabase
-      .from("students")
-      .select("*,companies(*)");
+    if (!companies || companies.length === 0) {
+      return;
+    }
+    const { data, error } = await supabase.from("students").select("*");
 
     if (data) {
       console.log("Students Data");
       console.log(data);
-      setStudents(data);
-      filterStudents3(data);
+      // setStudents(data);
+      // filterStudents3(data);
+    }
+
+    if (error) {
+      console.log(error.message);
     }
   }
 
   React.useEffect(() => {
     if (companies.length === 0) {
+      fetchTheCompanies();
+      fetchTheStudents();
+    }
+
+    if (!students || students.length === 0) {
       fetchTheCompanies();
       fetchTheStudents();
     }

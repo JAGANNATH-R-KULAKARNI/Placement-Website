@@ -73,11 +73,13 @@ export default function Register(props) {
   const [sending, setSending] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
   const [companyText, setCompanyText] = React.useState("");
+  const [college, setCollege] = React.useState("");
 
   React.useEffect(() => {
     if (!initialize) {
       setInitialize(true);
       setName(props.nameD);
+      setCollege(props.data.college);
       setUSN(props.usnD);
       setEmail(props.emailD);
       setDob(props.dD);
@@ -558,7 +560,26 @@ export default function Register(props) {
                     }}
                     type="number"
                   />
-
+                  <FormControl
+                    variant="standard"
+                    sx={{ width: "100%", marginTop: "30px" }}
+                  >
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Engineering College
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      value={college}
+                      onChange={(e) => {
+                        setCollege(e.target.value);
+                      }}
+                      label="College"
+                    >
+                      <MenuItem value="NIE">NIE</MenuItem>
+                      <MenuItem value="NIEIT">NIEIT</MenuItem>
+                    </Select>
+                  </FormControl>
                   <FormControl
                     variant="standard"
                     sx={{ width: "100%", marginTop: "20px" }}

@@ -119,6 +119,7 @@ export default function CompanyList(props) {
               yg={props.data.max_year_education_gap}
               company={props.data.company}
               id={props.data.id}
+              data={props.data}
             />
           </div>
         </AccordionDetails>

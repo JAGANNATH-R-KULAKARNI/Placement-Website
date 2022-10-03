@@ -502,7 +502,7 @@ export default function Register(props) {
                   />
                   <FormControl
                     variant="standard"
-                    sx={{ width: "100%", marginTop: "20px" }}
+                    sx={{ width: "100%", marginTop: "30px" }}
                   >
                     <InputLabel id="demo-simple-select-standard-label">
                       Engineering College
