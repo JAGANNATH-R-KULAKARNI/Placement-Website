@@ -37,6 +37,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import BackDropUI from "./Backdrop";
+import DateUI from "./Date";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -309,7 +310,7 @@ export default function Register(props) {
                       <MenuItem value="Open Dream">Open Dream</MenuItem>
                     </Select>
                   </FormControl>
-                  <TextField
+                  {/* <TextField
                     id="standard-basic"
                     label="Tentative Interview Dates"
                     variant="standard"
@@ -320,8 +321,11 @@ export default function Register(props) {
                     onChange={(e) => {
                       setIntDate(e.target.value);
                     }}
-                  />
-                  <FormGroup>
+                  /> */}
+                  <div style={{ marginTop: "35px" }}>
+                    <DateUI setIntDate={setIntDate} />
+                  </div>
+                  {/* <FormGroup>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -335,12 +339,12 @@ export default function Register(props) {
                       }
                       label="Not yet disclosed"
                     />
-                  </FormGroup>
+                  </FormGroup> */}
                   <div
                     style={{
                       display: "flex",
                       justifyContent: "center",
-                      marginTop: "30px",
+                      marginTop: "15px",
                     }}
                   >
                     <CollegeUI setEligibleColleges={setEligibleColleges} />
