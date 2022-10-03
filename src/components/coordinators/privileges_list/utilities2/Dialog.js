@@ -36,6 +36,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { ContentPasteGoSharp } from "@mui/icons-material";
 import SeacrUI from "./Search2";
 import BackdropUI from "./Backdrop";
+import DateUI from "./Date2";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -388,7 +389,7 @@ export default function Register(props) {
                       />
                     </FormGroup>
                   </div>
-                  <TextField
+                  {/* <TextField
                     id="standard-basic"
                     label="Date Of Birth"
                     variant="standard"
@@ -397,7 +398,10 @@ export default function Register(props) {
                     onChange={(e) => {
                       setDob(e.target.value);
                     }}
-                  />
+                  /> */}
+                  <div style={{ marginTop: "35px" }}>
+                    <DateUI time={props.dD} setIntDate={setDob} />
+                  </div>
                   <FormControl
                     variant="standard"
                     sx={{ width: "100%", marginTop: "20px" }}
