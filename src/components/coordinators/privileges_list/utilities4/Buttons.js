@@ -52,7 +52,7 @@ export default function VerticalLinearStepper(props) {
               <Typography>{step.description}</Typography>
               <Box sx={{ mb: 2 }}>
                 <div>
-                  {index === steps.length - 1 ? (
+                  {index === steps.length - 1 && props.csvReport ? (
                     <CSVLink
                       {...props.csvReport}
                       style={{ textDecoration: "none" }}

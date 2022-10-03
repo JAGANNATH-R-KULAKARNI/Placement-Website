@@ -136,7 +136,7 @@ export default function DownloadCSV(props) {
 
   const [data, setData] = React.useState([]);
   const [headings, setHeadings] = React.useState([]);
-  const [report, setReport] = React.useState({});
+  const [report, setReport] = React.useState(null);
   const [control, setControl] = React.useState(false);
   const [generating, setGenerating] = React.useState(false);
 
@@ -212,13 +212,6 @@ export default function DownloadCSV(props) {
     }
     const temp_data = [];
     const temp_heading = [];
-
-    // const headers = [
-    //   { label: "First Name", key: "firstName" },
-    //   { label: "Last Name", key: "lastName" },
-    //   { label: "Email", key: "email" },
-    //   { label: "Age", key: "age" },
-    // ];
 
     for (let i = 0; i < studs.length; i++) {
       const temp = {};
@@ -519,7 +512,23 @@ export default function DownloadCSV(props) {
           });
         }
       }
+
+      temp_data.push(temp);
     }
+
+    // const csvReport = {
+    //   data: info,
+    //   headers: headers,
+    //   filename: "Clue Mediator Report.csv",
+    // };
+
+    const repo = {
+      data: temp_data,
+      headers: temp_heading,
+      filename: `${props.data.company.name}.csv`,
+    };
+
+    setReport(repo);
   };
 
   return (
@@ -1303,7 +1312,7 @@ export default function DownloadCSV(props) {
                     {csvReport ? (
                       <ButtonsUI
                         data={props.data}
-                        csvReport={csvReport}
+                        csvReport={report}
                         getReport={getReport}
                       />
                     ) : null}
