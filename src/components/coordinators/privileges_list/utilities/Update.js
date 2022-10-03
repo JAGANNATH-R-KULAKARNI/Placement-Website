@@ -24,6 +24,8 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import BranchesUI from "./Branches";
+import College2UI from "./College2";
+import Year2UI from "./Year2";
 import Stack from "@mui/material/Stack";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { supabase } from "../../../../Supabase";

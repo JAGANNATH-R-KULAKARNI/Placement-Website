@@ -85,6 +85,14 @@ export default function Register(props) {
     } else if (eligibleBranches.length == 0) {
       alert("If no branches are eligible, then why the company is coming ? ");
       return;
+    } else if (eligibleColleges.length == 0) {
+      alert("If no colleges are eligible, then why the company is coming ? ");
+      return;
+    } else if (eligibleYears.length == 0) {
+      alert(
+        "If no engineering years are eligible, then why the company is coming ? "
+      );
+      return;
     }
 
     setSending(true);
@@ -105,6 +113,8 @@ export default function Register(props) {
       time_posted: Date.now(),
       gender: gender,
       min_cgpa: cgpa,
+      eligible_colleges: eligibleColleges,
+      eligible_years: eligibleYears,
     };
 
     console.log("Upload Data Bro");
