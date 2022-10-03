@@ -93,6 +93,7 @@ export default function CompanyList(props) {
               desc={props.data.description}
               id={props.data.id}
               jds={props.data.jds}
+              data={props.data}
             />
           </div>
         </AccordionDetails>

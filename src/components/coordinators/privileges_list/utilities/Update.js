@@ -55,6 +55,8 @@ export default function Register(props) {
   const [type, setType] = React.useState("");
   const [intDate, setIntDate] = React.useState("");
   const [intDateDisclosure, setIntDateDisclosure] = React.useState(false);
+  const [eligibleColleges, setEligibleColleges] = React.useState([]);
+  const [eligibleYears, setEligibleYears] = React.useState([]);
   const [eligibleBranches, setEligibleBranches] = React.useState([]);
   const [minMInTen, setMinMInTen] = React.useState(0);
   const [minMInTwelve, setMinMInTwelve] = React.useState(0);
@@ -73,6 +75,8 @@ export default function Register(props) {
       setInitialize(true);
       setName(props.name);
       setEligibleBranches(props.el);
+      setEligibleColleges(props.data.eligible_colleges);
+      setEligibleYears(props.data.eligible_years);
       setCTC(props.ctc);
       setType(props.type);
       setIntDate(props.t);
@@ -125,6 +129,8 @@ export default function Register(props) {
       time_posted: Date.now(),
       gender: gender,
       min_cgpa: cgpa,
+      eligible_colleges: eligibleColleges,
+      eligible_years: eligibleYears,
     };
 
     console.log("Upload Data Bro");
@@ -344,6 +350,30 @@ export default function Register(props) {
                       display: "flex",
                       justifyContent: "center",
                       marginTop: "30px",
+                    }}
+                  >
+                    <College2UI
+                      setEligibleColleges={setEligibleColleges}
+                      el={props.data.eligible_colleges}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "15px",
+                    }}
+                  >
+                    <Year2UI
+                      setEligibleYears={setEligibleYears}
+                      el={props.data.eligible_years}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "15px",
                     }}
                   >
                     <BranchesUI

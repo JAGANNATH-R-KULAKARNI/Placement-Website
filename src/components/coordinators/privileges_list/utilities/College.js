@@ -47,7 +47,7 @@ export default function MultipleSelectChip(props) {
   return (
     <div>
       <FormControl style={{ width: "290px" }}>
-        <InputLabel id="demo-multiple-chip-label">Eligible College</InputLabel>
+        <InputLabel id="demo-multiple-chip-label">Eligible Colleges</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"

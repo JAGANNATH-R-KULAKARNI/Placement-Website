@@ -34,16 +34,16 @@ export default function MultipleSelectChip(props) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
   const [initialize, setInitialize] = React.useState(false);
+
   React.useEffect(() => {
     if (!initialize) {
       setInitialize(true);
 
       setPersonName([...props.el]);
       console.log(props.el);
-
-      //setInitialize(false);
     }
   });
+
   const handleChange = (event) => {
     const {
       target: { value },

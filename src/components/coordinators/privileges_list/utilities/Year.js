@@ -75,7 +75,7 @@ export default function MultipleSelectChip(props) {
     <div>
       <FormControl style={{ width: "290px" }}>
         <InputLabel id="demo-multiple-chip-label">
-          Eligible Engineering Year
+          Eligible Engineering Years
         </InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
