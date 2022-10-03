@@ -59,6 +59,18 @@ function getStyles(name, personName, theme) {
 export default function MultipleSelectChip(props) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
+  const [initialize, setInitialize] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!initialize) {
+      setInitialize(true);
+
+      setPersonName([...props.el]);
+      console.log(props.el);
+
+      //setInitialize(false);
+    }
+  });
 
   const handleChange = (event) => {
     const {
@@ -75,7 +87,7 @@ export default function MultipleSelectChip(props) {
     <div>
       <FormControl style={{ width: "290px" }}>
         <InputLabel id="demo-multiple-chip-label">
-          Eligible Engineering Year
+          Eligible Engineering Years
         </InputLabel>
         <Select
           labelId="demo-multiple-chip-label"

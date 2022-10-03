@@ -78,6 +78,7 @@ export default function MoreDetails(props) {
               yr={props.yr}
               jds={props.jds}
               toggleModel={toggleModel}
+              data={props.data}
             />
           ) : null}
         </Grid>

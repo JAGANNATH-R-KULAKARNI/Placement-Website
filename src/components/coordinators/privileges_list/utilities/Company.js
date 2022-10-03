@@ -94,6 +94,7 @@ export default function CompanyList(props) {
               yr={props.data.year_c}
               id={props.data.id}
               jds={props.data.jds}
+              data={props.data}
             />
           </div>
         </AccordionDetails>
