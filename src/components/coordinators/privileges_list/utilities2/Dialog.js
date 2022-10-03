@@ -186,6 +186,7 @@ export default function Register(props) {
       credits: credits,
       cgpa: cgpa,
       company: company,
+      college: college,
     };
 
     console.log("Upload Data Bro");
