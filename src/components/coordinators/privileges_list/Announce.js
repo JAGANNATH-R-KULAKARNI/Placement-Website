@@ -195,6 +195,7 @@ export default function AnnounceACompany() {
   const [stuEmail, setStuEmail] = React.useState([]);
   const [selectCompany, setSelectCompany] = React.useState(false);
   const [selectStudent, setSelectStudent] = React.useState(true);
+  const [wholeCollege, setWholeCollege] = React.useState(false);
 
   const [urls, setUrls] = React.useState([]);
   const [fileNames, setFileNames] = React.useState([]);
@@ -413,6 +414,10 @@ export default function AnnounceACompany() {
       for (let i = 0; i < SearchBar2.value.length; i++) {
         to.push(SearchBar2.value[i].email);
       }
+    } else if (wholeCollege) {
+      for (let i = 0; i < students.length; i++) {
+        to.push(students[i].email);
+      }
     }
 
     const attachments = [];
@@ -560,6 +565,38 @@ export default function AnnounceACompany() {
                     justifyContent: "center",
                     width: "100%",
                     marginTop: "20px",
+                    marginBottom: "-15px",
+                  }}
+                >
+                  <FormGroup style={{ width: "85%" }}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked
+                          style={{ color: "#541554" }}
+                          checked={wholeCollege}
+                          onChange={(e) => {
+                            setWholeCollege(e.target.checked);
+
+                            if (e.target.checked) {
+                              setSelectCompany(false);
+                              setSelectStudent(false);
+                            } else {
+                              setSelectStudent(true);
+                            }
+                          }}
+                        />
+                      }
+                      label="Send to the whole college"
+                    />
+                  </FormGroup>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    marginTop: "20px",
                   }}
                 >
                   <FormGroup style={{ width: "85%" }}>
@@ -573,6 +610,10 @@ export default function AnnounceACompany() {
                             setSelectCompany(e.target.checked);
 
                             setSelectStudent(!e.target.checked);
+
+                            if (e.target.checked) {
+                              setWholeCollege(false);
+                            }
                           }}
                         />
                       }
@@ -651,6 +692,9 @@ export default function AnnounceACompany() {
                             setSelectStudent(e.target.checked);
 
                             setSelectCompany(!e.target.checked);
+                            if (e.target.checked) {
+                              setWholeCollege(false);
+                            }
                           }}
                         />
                       }

@@ -516,12 +516,6 @@ export default function DownloadCSV(props) {
       temp_data.push(temp);
     }
 
-    // const csvReport = {
-    //   data: info,
-    //   headers: headers,
-    //   filename: "Clue Mediator Report.csv",
-    // };
-
     const repo = {
       data: temp_data,
       headers: temp_heading,
