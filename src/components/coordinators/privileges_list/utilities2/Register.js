@@ -70,7 +70,7 @@ export default function Register(props) {
   const [company, setCompany] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
-
+  const[college,setCollege]=React.useState(0);
   const [sending, setSending] = React.useState(false);
 
   const registerCompany = async () => {
@@ -85,6 +85,7 @@ export default function Register(props) {
       email.length == 0 ||
       dob.length == 0 ||
       gender == 0 ||
+      college == 0 ||
       category.length == 0 ||
       !tenth[0] ||
       tenth[1].length == 0 ||
@@ -119,6 +120,7 @@ export default function Register(props) {
       diplomo_passed_year: diplomo[2],
       branch: branch,
       year: year,
+      college:college,
       grades: grades,
       current_arears: arears[0],
       cleared_arears: arears[1],
@@ -524,6 +526,27 @@ export default function Register(props) {
                       <MenuItem value="ME">Mechanical Engineering</MenuItem>
                       <MenuItem value="CIVIL">Civil Engineering</MenuItem>
                       <MenuItem value="IP">Industrial Production</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormControl
+                    variant="standard"
+                    sx={{ width: "100%", marginTop: "20px" }}
+                  >
+                    <InputLabel id="demo-simple-select-standard-clg">
+                      College
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-clg"
+                      id="demo-simple-select-standard"
+                      value={college}
+                      onChange={(e) => {
+                        setCollege(e.target.value);
+                      }}
+                      label="College"
+                    >
+                      <MenuItem value={1}>NIE</MenuItem>
+                      <MenuItem value={2}>NIE-IT</MenuItem>
+                      
                     </Select>
                   </FormControl>
                   <TextField
