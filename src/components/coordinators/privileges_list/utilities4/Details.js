@@ -35,6 +35,7 @@ export default function MoreDetails(props) {
                   borderRadius: "15px",
                   fontSize: m1 ? "20px" : "10px",
                 }}
+                onClick={props.openForm}
               >
                 Edit or Download
               </Button>

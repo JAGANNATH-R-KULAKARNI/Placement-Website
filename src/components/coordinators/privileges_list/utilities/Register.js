@@ -62,7 +62,7 @@ export default function Register(props) {
   const [description, setDescription] = React.useState("");
   const [gender, setGender] = React.useState(0);
   const [cgpa, setCGPA] = React.useState(0);
-
+  const [yearc,setYearc] = React.useState("");
   const [sending, setSending] = React.useState(false);
 
   const registerCompany = async () => {
@@ -74,6 +74,10 @@ export default function Register(props) {
       return;
     } else if (type.length == 0) {
       alert("Type of company is required");
+      return;
+    } 
+    else if (yearc.length <= 0) {
+      alert("Eligible year of company is required");
       return;
     } else if (!intDateDisclosure && intDate.length == 0) {
       alert("Tentative dates are required or else disable");
@@ -91,6 +95,7 @@ export default function Register(props) {
       type: type == "nyd" ? "" : type,
       tentative_interview_dates: !intDateDisclosure ? intDate : "---",
       eligible_branches: eligibleBranches,
+      year_c:yearc,
       min_in_ten: minMInTen,
       min_in_twelve: minMInTwelve,
       max_year_education_gap: eduGap,
@@ -333,10 +338,24 @@ export default function Register(props) {
                   </div>
                   <TextField
                     id="standard-basic"
+                    label="Eligible Year"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    type="number"
+                    onWheel={(e) => e.target.blur()} 
+                    value={yearc}
+                    focused={true}
+                    onChange={(e) => {
+                      setYearc(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
                     label="Min CGPA"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     type="number"
+                    onWheel={(e) => e.target.blur()} 
                     value={cgpa}
                     focused={true}
                     onChange={(e) => {
@@ -349,6 +368,7 @@ export default function Register(props) {
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     type="number"
+                    onWheel={(e) => e.target.blur()} 
                     value={minMInTen}
                     focused={true}
                     onChange={(e) => {
@@ -361,6 +381,7 @@ export default function Register(props) {
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     type="number"
+                    onWheel={(e) => e.target.blur()} 
                     value={minMInTwelve}
                     focused={true}
                     onChange={(e) => {
@@ -368,11 +389,12 @@ export default function Register(props) {
                     }}
                   />
                   <TextField
-                    id="standard-basic"
+                    id="standard-basic-max-year"
                     label="Max Year Education Gap"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     type="number"
+                    onWheel={(e) => e.target.blur()} 
                     value={eduGap}
                     focused={true}
                     onChange={(e) => {

@@ -16,7 +16,11 @@ export default function MaterialUIPickers(props) {
   React.useEffect(() => {
     if (!control) {
       setControl(control);
-      let date = new Date();
+      let date = new Date(parseInt(props.time));
+
+      props.timeHandler(date.getTime());
+      props.timeHandler2(date.toLocaleString());
+
       let d = date.getDate();
       let m = date.getMonth() + 1;
       let y = date.getFullYear();
@@ -41,7 +45,7 @@ export default function MaterialUIPickers(props) {
 
     console.log(newValue["$d"]);
     setValue(newValue);
-    console.log(date.getTime());
+
     props.timeHandler(date.getTime());
     props.timeHandler2(date.toLocaleString());
   };

@@ -91,6 +91,7 @@ export default function CompanyList(props) {
               cgpa={props.data.min_cgpa}
               gender={props.data.gender}
               desc={props.data.description}
+              yr={props.data.year_c}
               id={props.data.id}
               jds={props.data.jds}
             />

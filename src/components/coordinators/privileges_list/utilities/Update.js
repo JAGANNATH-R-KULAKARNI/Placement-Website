@@ -65,7 +65,7 @@ export default function Register(props) {
   const [initialize, setInitialize] = React.useState(false);
   const [sending, setSending] = React.useState(false);
   const [companyId, setCompanyId] = React.useState(0);
-
+  const [yearc,setYearc] = React.useState("");
   React.useEffect(() => {
     if (!initialize) {
       setInitialize(true);
@@ -84,6 +84,7 @@ export default function Register(props) {
       setGender(props.gender);
       setDescription(props.desc);
       setCompanyId(props.id);
+      setYearc(props.yr);
       setUrls(props.jds);
     }
   });
@@ -97,7 +98,10 @@ export default function Register(props) {
     } else if (type.length == 0) {
       alert("Type of company is required");
       return;
-    } else if (!intDateDisclosure && intDate.length == 0) {
+    } else if (yearc.length == 0) {
+      alert("Eligible year of company is required");
+      return;
+    }else if (!intDateDisclosure && intDate.length == 0) {
       alert("Tentative dates are required or else disable");
       return;
     } else if (eligibleBranches.length == 0) {
@@ -113,6 +117,7 @@ export default function Register(props) {
       type: type == "nyd" ? "" : type,
       tentative_interview_dates: !intDateDisclosure ? intDate : "---",
       eligible_branches: eligibleBranches,
+      year_c:yearc,
       min_in_ten: minMInTen,
       min_in_twelve: minMInTwelve,
       max_year_education_gap: eduGap,
@@ -350,11 +355,24 @@ export default function Register(props) {
                     />
                   </div>
                   <TextField
+                    id="standard-basic-year-c"
+                    label="Eligible Year"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "20px" }}
+                    type="text"
+                    value={yearc}
+                    focused={true}
+                    onChange={(e) => {
+                      setYearc(e.target.value);
+                    }}
+                  />
+                  <TextField
                     id="standard-basic"
                     label="Min CGPA"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
                     type="number"
+                    onWheel={(e) => e.target.blur()} 
                     value={cgpa}
                     focused={true}
                     onChange={(e) => {
@@ -386,7 +404,7 @@ export default function Register(props) {
                     }}
                   />
                   <TextField
-                    id="standard-basic"
+                    id="standard-basic-max-year"
                     label="Max Year Education Gap"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
