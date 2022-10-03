@@ -24,6 +24,8 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import BranchesUI from "./Branches2";
+import CollegeUI from "./College";
+import YearUI from "./Year";
 import Stack from "@mui/material/Stack";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { supabase } from "../../../../Supabase";
@@ -53,6 +55,8 @@ export default function Register(props) {
   const [type, setType] = React.useState("");
   const [intDate, setIntDate] = React.useState("");
   const [intDateDisclosure, setIntDateDisclosure] = React.useState("");
+  const [eligibleColleges, setEligibleColleges] = React.useState([]);
+  const [eligibleYears, setEligibleYears] = React.useState([]);
   const [eligibleBranches, setEligibleBranches] = React.useState([]);
   const [minMInTen, setMinMInTen] = React.useState(0);
   const [minMInTwelve, setMinMInTwelve] = React.useState(0);
@@ -85,6 +89,14 @@ export default function Register(props) {
     } else if (eligibleBranches.length == 0) {
       alert("If no branches are eligible, then why the company is coming ? ");
       return;
+    } else if (eligibleColleges.length == 0) {
+      alert("If no colleges are eligible, then why the company is coming ? ");
+      return;
+    } else if (eligibleYears.length == 0) {
+      alert(
+        "If no engineering years are eligible, then why the company is coming ? "
+      );
+      return;
     }
 
     setSending(true);
@@ -106,6 +118,8 @@ export default function Register(props) {
       time_posted: Date.now(),
       gender: gender,
       min_cgpa: cgpa,
+      eligible_colleges: eligibleColleges,
+      eligible_years: eligibleYears,
     };
 
     console.log("Upload Data Bro");
@@ -334,8 +348,27 @@ export default function Register(props) {
                       marginTop: "30px",
                     }}
                   >
+                    <CollegeUI setEligibleColleges={setEligibleColleges} />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "15px",
+                    }}
+                  >
+                    <YearUI setEligibleYears={setEligibleYears} />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "15px",
+                    }}
+                  >
                     <BranchesUI setEligibleBranches={setEligibleBranches} />
                   </div>
+
                   <TextField
                     id="standard-basic"
                     label="Eligible Year"

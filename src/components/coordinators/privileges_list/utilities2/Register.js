@@ -580,6 +580,8 @@ export default function Register(props) {
                       <MenuItem value={2}>Second Year</MenuItem>
                       <MenuItem value={3}>Third Year</MenuItem>
                       <MenuItem value={4}>Fourth Year</MenuItem>
+                      <MenuItem value={5}>Mtech First Year</MenuItem>
+                      <MenuItem value={6}>Mtech Second Year</MenuItem>
                     </Select>
                   </FormControl>
                   <TextField

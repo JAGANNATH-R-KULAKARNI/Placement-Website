@@ -64,13 +64,6 @@ export default function Privileges() {
       goto: "/admin/students",
     },
     {
-      text: "Download details",
-      subtext: "Download the details of applicatents for a particular company",
-      image:
-        "https://images.unsplash.com/photo-1624069130725-ae1ec9c6e719?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aW5zdGFsbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      goto: "/admin/companies",
-    },
-    {
       text: "Stats",
       subtext: "See the placement stats of our college",
       image:

@@ -9,7 +9,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { AltRoute } from "@mui/icons-material";
+import { AltRoute, ContactSupportOutlined } from "@mui/icons-material";
 import axios from "axios";
 import SearcUI from "./utilities3/Search";
 import TextField from "@mui/material/TextField";
@@ -184,6 +184,27 @@ export default function AnnounceACompany() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const diffBranches = [
+    "CSE",
+    "ISE",
+    "ECE",
+    "EEE",
+    "ME",
+    "CIVIL",
+    "IP",
+    "MCA",
+    "MTECH",
+  ];
+
+  const diffYear = [
+    { year: 1, text: "First Year" },
+    { year: 2, text: "Second Year" },
+    { year: 3, text: "Third Year" },
+    { year: 4, text: "Fourth Year" },
+    { year: 5, text: "Mtech First Year" },
+    { year: 6, text: "Mtech Second Year" },
+  ];
+
   const [data, setData] = React.useState(null);
 
   const [subject, setSubject] = React.useState("");
@@ -195,6 +216,8 @@ export default function AnnounceACompany() {
   const [stuEmail, setStuEmail] = React.useState([]);
   const [selectCompany, setSelectCompany] = React.useState(false);
   const [selectStudent, setSelectStudent] = React.useState(true);
+  const [wholeCollege, setWholeCollege] = React.useState(false);
+  const [particularBranch, setParticularBranch] = React.useState(false);
 
   const [urls, setUrls] = React.useState([]);
   const [fileNames, setFileNames] = React.useState([]);
@@ -268,6 +291,24 @@ export default function AnnounceACompany() {
     },
   });
 
+  const branches = useAutocomplete({
+    id: "customized-hook-demo",
+    multiple: true,
+    options: diffBranches,
+    getOptionLabel: (option) => {
+      return option;
+    },
+  });
+
+  const engineeYear = useAutocomplete({
+    id: "customized-hook-demo",
+    multiple: true,
+    options: diffYear,
+    getOptionLabel: (option) => {
+      return option.text;
+    },
+  });
+
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
 
@@ -281,8 +322,8 @@ export default function AnnounceACompany() {
     const { data, error } = await supabase
       .from("companies")
       .select("*")
-      .order("time_posted", {
-        ascending: false,
+      .order("name", {
+        ascending: true,
       });
 
     if (data) {
@@ -297,7 +338,10 @@ export default function AnnounceACompany() {
   async function fetchTheStudents() {
     const { data, error } = await supabase
       .from("students")
-      .select("*,companies(*)");
+      .select("*,companies(*)")
+      .order("name", {
+        ascending: true,
+      });
 
     if (data) {
       console.log("Students Data");
@@ -412,6 +456,47 @@ export default function AnnounceACompany() {
 
       for (let i = 0; i < SearchBar2.value.length; i++) {
         to.push(SearchBar2.value[i].email);
+      }
+    } else if (wholeCollege) {
+      for (let i = 0; i < students.length; i++) {
+        to.push(students[i].email);
+      }
+    } else if (particularBranch) {
+      console.log(branches.value);
+      console.log(engineeYear.value);
+
+      if (branches.value.length == 0) {
+        alert("Select atleast one branch");
+        return;
+      }
+
+      if (engineeYear.value.length == 0) {
+        alert("Select atleast one engineering year");
+        return;
+      }
+
+      for (let i = 0; i < students.length; i++) {
+        let flg = 0;
+
+        for (let j = 0; j < branches.value.length; j++) {
+          if (students[i].branch == branches.value[j]) {
+            flg = 1;
+            break;
+          }
+        }
+
+        if (flg != 1) continue;
+
+        for (let k = 0; k < engineeYear.value.length; k++) {
+          if (students[i].year == engineeYear.value[k].year) {
+            flg = 2;
+            break;
+          }
+        }
+
+        if (flg != 2) continue;
+
+        to.push(students[i].email);
       }
     }
 
@@ -560,6 +645,176 @@ export default function AnnounceACompany() {
                     justifyContent: "center",
                     width: "100%",
                     marginTop: "20px",
+                    marginBottom: "-15px",
+                  }}
+                >
+                  <FormGroup style={{ width: "85%" }}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked
+                          style={{ color: "#541554" }}
+                          checked={wholeCollege}
+                          onChange={(e) => {
+                            setWholeCollege(e.target.checked);
+
+                            if (e.target.checked) {
+                              setSelectCompany(false);
+                              setSelectStudent(false);
+                              setParticularBranch(false);
+                            } else {
+                              setSelectStudent(true);
+                            }
+                          }}
+                        />
+                      }
+                      label="Send to the whole college"
+                    />
+                  </FormGroup>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    marginTop: "20px",
+                    marginBottom: particularBranch ? "0px" : "-15px",
+                  }}
+                >
+                  <FormGroup style={{ width: "85%" }}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked
+                          style={{ color: "#541554" }}
+                          checked={particularBranch}
+                          onChange={(e) => {
+                            setParticularBranch(e.target.checked);
+
+                            if (e.target.checked) {
+                              setSelectCompany(false);
+                              setSelectStudent(false);
+                              setWholeCollege(false);
+                            } else {
+                              setSelectStudent(true);
+                            }
+                          }}
+                        />
+                      }
+                      label="Send only to particular branch"
+                    />
+                  </FormGroup>
+                </div>
+                {particularBranch ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "85%",
+                      }}
+                    >
+                      <Root>
+                        <div {...branches.getRootProps()}>
+                          <Label {...branches.getInputLabelProps()}>
+                            Select Branches
+                          </Label>
+                          <InputWrapper
+                            ref={branches.setAnchorEl}
+                            className={branches.focused ? "focused" : ""}
+                          >
+                            {branches.value.map((option, index) => (
+                              <StyledTag
+                                label={option}
+                                {...branches.getTagProps({ index })}
+                              />
+                            ))}
+
+                            <input {...branches.getInputProps()} />
+                          </InputWrapper>
+                        </div>
+                        {branches.groupedOptions.length > 0 ? (
+                          <Listbox {...branches.getListboxProps()}>
+                            {branches.groupedOptions.map((option, index) => (
+                              <li
+                                {...branches.getOptionProps({
+                                  option,
+                                  index,
+                                })}
+                              >
+                                <span>{option}</span>
+                                <CheckIcon fontSize="small" />
+                              </li>
+                            ))}
+                          </Listbox>
+                        ) : null}
+                      </Root>
+                    </div>
+                  </div>
+                ) : null}
+                {particularBranch ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "85%",
+                      }}
+                    >
+                      <Root>
+                        <div {...engineeYear.getRootProps()}>
+                          <Label {...engineeYear.getInputLabelProps()}>
+                            Select Engineering Year
+                          </Label>
+                          <InputWrapper
+                            ref={engineeYear.setAnchorEl}
+                            className={engineeYear.focused ? "focused" : ""}
+                          >
+                            {engineeYear.value.map((option, index) => (
+                              <StyledTag
+                                label={option.text}
+                                {...engineeYear.getTagProps({ index })}
+                              />
+                            ))}
+
+                            <input {...engineeYear.getInputProps()} />
+                          </InputWrapper>
+                        </div>
+                        {engineeYear.groupedOptions.length > 0 ? (
+                          <Listbox {...engineeYear.getListboxProps()}>
+                            {engineeYear.groupedOptions.map((option, index) => (
+                              <li
+                                {...engineeYear.getOptionProps({
+                                  option,
+                                  index,
+                                })}
+                              >
+                                <span>{option.text}</span>
+                                <CheckIcon fontSize="small" />
+                              </li>
+                            ))}
+                          </Listbox>
+                        ) : null}
+                      </Root>
+                    </div>
+                  </div>
+                ) : null}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    marginTop: "20px",
                   }}
                 >
                   <FormGroup style={{ width: "85%" }}>
@@ -572,7 +827,13 @@ export default function AnnounceACompany() {
                           onChange={(e) => {
                             setSelectCompany(e.target.checked);
 
-                            setSelectStudent(!e.target.checked);
+                            if (e.target.checked) {
+                              setSelectStudent(false);
+                              setWholeCollege(false);
+                              setParticularBranch(false);
+                            } else {
+                              setSelectStudent(true);
+                            }
                           }}
                         />
                       }
@@ -650,7 +911,13 @@ export default function AnnounceACompany() {
                           onChange={(e) => {
                             setSelectStudent(e.target.checked);
 
-                            setSelectCompany(!e.target.checked);
+                            if (e.target.checked) {
+                              setWholeCollege(false);
+                              setParticularBranch(false);
+                              setSelectCompany(false);
+                            } else {
+                              setWholeCollege(true);
+                            }
                           }}
                         />
                       }
