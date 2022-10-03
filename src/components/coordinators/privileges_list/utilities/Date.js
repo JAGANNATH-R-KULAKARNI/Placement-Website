@@ -38,8 +38,8 @@ export default function MaterialUIPickers(props) {
 
   const handleChange = (newValue) => {
     let str = newValue["$d"] + "";
-    console.log(str.substr(0, 15));
-    props.setIntDate(str.substr(0, 15));
+    console.log(str);
+    props.setIntDate(str);
     setValue(newValue);
   };
 
