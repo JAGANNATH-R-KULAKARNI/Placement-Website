@@ -205,6 +205,251 @@ export default function DownloadCSV(props) {
 
     console.log("Candidates");
     console.log(studs);
+
+    if (studs && studs.length === 0) {
+      alert(`No students have applied for ${props.data.company.name}`);
+      return;
+    }
+    const temp_data = [];
+    const temp_heading = [];
+
+    // const headers = [
+    //   { label: "First Name", key: "firstName" },
+    //   { label: "Last Name", key: "lastName" },
+    //   { label: "Email", key: "email" },
+    //   { label: "Age", key: "age" },
+    // ];
+
+    for (let i = 0; i < studs.length; i++) {
+      const temp = {};
+
+      if (name) {
+        temp["name"] = studs[i].name;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Full Name",
+            key: "name",
+          });
+        }
+      }
+
+      if (usn) {
+        temp["usn"] = studs[i].usn;
+        if (i == 0) {
+          temp_heading.push({
+            label: "USN",
+            key: "usn",
+          });
+        }
+      }
+
+      if (email) {
+        temp["email"] = studs[i].email;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Email",
+            key: "email",
+          });
+        }
+      }
+
+      if (cgpa) {
+        temp["cgpa"] = studs[i].cgpa;
+        if (i == 0) {
+          temp_heading.push({
+            label: "CGPA",
+            key: "cgpa",
+          });
+        }
+      }
+
+      if (resume) {
+        temp["resume"] =
+          studs[i].documents.length > 0 ? studs[i].documents[0] : "";
+        if (i == 0) {
+          temp_heading.push({
+            label: "Resume",
+            key: "resume",
+          });
+        }
+      }
+
+      if (dob) {
+        temp["dob"] = studs[i].dob;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Date Of Birth",
+            key: "dob",
+          });
+        }
+      }
+
+      if (branch) {
+        temp["branch"] = studs[i].branch;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Branch",
+            key: "branch",
+          });
+        }
+      }
+
+      if (section) {
+        temp["section"] = studs[i].section;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Section",
+            key: "section",
+          });
+        }
+      }
+
+      if (gender) {
+        temp["gender"] =
+          studs[i].gender == 1
+            ? "Female"
+            : studs[i].gender == 2
+            ? "Male"
+            : "Others";
+
+        if (i == 0) {
+          temp_heading.push({
+            label: "Gender",
+            key: "gender",
+          });
+        }
+      }
+
+      if (tenthpercentage) {
+        temp["tp"] = studs[i].tenth_percentage;
+        if (i == 0) {
+          temp_heading.push({
+            label: "10th Percentage",
+            key: "tp",
+          });
+        }
+      }
+
+      if (twelthPercentage) {
+        temp["twp"] = studs[i].twelth_percentage;
+        if (i == 0) {
+          temp_heading.push({
+            label: "12th Percentage",
+            key: "twp",
+          });
+        }
+      }
+
+      if (diplomopercentage) {
+        temp["dp"] = studs[i].diplomo_percentage;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Diplomo Percentage",
+            key: "dp",
+          });
+        }
+      }
+
+      if (year) {
+        temp["year"] = studs[i].year;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Engineering Year",
+            key: "year",
+          });
+        }
+      }
+
+      if (currArears) {
+        temp["currA"] = studs[i].current_arears;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Active Arears",
+            key: "currA",
+          });
+        }
+      }
+
+      if (clearArears) {
+        temp["clearA"] = studs[i].cleared_arears;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Cleared Arears",
+            key: "clearA",
+          });
+        }
+      }
+
+      if (currBacklogs) {
+        temp["currB"] = studs[i].current_backlogs;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Active Backlogs",
+            key: "currB",
+          });
+        }
+      }
+
+      if (clearBacklogs) {
+        temp["clearB"] = studs[i].cleared_backlogs;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Cleared Backlogs",
+            key: "clearB",
+          });
+        }
+      }
+
+      if (phnum) {
+        temp["phnum"] = studs[i].phone_num;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Contact Number",
+            key: "phnum",
+          });
+        }
+      }
+
+      if (gap) {
+        temp["gap"] = studs[i].max_year_education_gap;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Education Gap",
+            key: "gap",
+          });
+        }
+      }
+
+      if (caste) {
+        temp["caste"] = studs[i].category;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Caste Category",
+            key: "caste",
+          });
+        }
+      }
+
+      if (tenthBoard) {
+        temp["tenthBoard"] = studs[i].tenth_board;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Tenth Board",
+            key: "tenthBoard",
+          });
+        }
+      }
+
+      if (tenthBoard) {
+        temp["tenthBoard"] = studs[i].tenth_board;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Tenth Board",
+            key: "tenthBoard",
+          });
+        }
+      }
+    }
   };
 
   return (
