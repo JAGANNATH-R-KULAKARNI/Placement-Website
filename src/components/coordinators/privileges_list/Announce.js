@@ -184,6 +184,20 @@ export default function AnnounceACompany() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const diffBranches = [
+    "CSE",
+    "ISE",
+    "ECE",
+    "EEE",
+    "ME",
+    "CIVIL",
+    "IP",
+    "MCA",
+    "MTECH",
+  ];
+
+  const diffYear = [1, 2, 3, 4];
+
   const [data, setData] = React.useState(null);
 
   const [subject, setSubject] = React.useState("");
@@ -196,6 +210,7 @@ export default function AnnounceACompany() {
   const [selectCompany, setSelectCompany] = React.useState(false);
   const [selectStudent, setSelectStudent] = React.useState(true);
   const [wholeCollege, setWholeCollege] = React.useState(false);
+  const [particularBranch, setParticularBranch] = React.useState(false);
 
   const [urls, setUrls] = React.useState([]);
   const [fileNames, setFileNames] = React.useState([]);
@@ -266,6 +281,15 @@ export default function AnnounceACompany() {
     options: students,
     getOptionLabel: (option) => {
       return option.name;
+    },
+  });
+
+  const branches = useAutocomplete({
+    id: "customized-hook-demo",
+    multiple: true,
+    options: diffBranches,
+    getOptionLabel: (option) => {
+      return option;
     },
   });
 
@@ -581,6 +605,7 @@ export default function AnnounceACompany() {
                             if (e.target.checked) {
                               setSelectCompany(false);
                               setSelectStudent(false);
+                              setParticularBranch(false);
                             } else {
                               setSelectStudent(true);
                             }
@@ -591,6 +616,143 @@ export default function AnnounceACompany() {
                     />
                   </FormGroup>
                 </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    marginTop: "20px",
+                    marginBottom: particularBranch ? "0px" : "-15px",
+                  }}
+                >
+                  <FormGroup style={{ width: "85%" }}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked
+                          style={{ color: "#541554" }}
+                          checked={particularBranch}
+                          onChange={(e) => {
+                            setParticularBranch(e.target.checked);
+
+                            if (e.target.checked) {
+                              setSelectCompany(false);
+                              setSelectStudent(false);
+                              setWholeCollege(false);
+                            } else {
+                              setSelectStudent(true);
+                            }
+                          }}
+                        />
+                      }
+                      label="Send only to particular branch"
+                    />
+                  </FormGroup>
+                </div>
+                {particularBranch ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "85%",
+                      }}
+                    >
+                      <Root>
+                        <div {...branches.getRootProps()}>
+                          <Label {...branches.getInputLabelProps()}>
+                            Select Branches
+                          </Label>
+                          <InputWrapper
+                            ref={branches.setAnchorEl}
+                            className={branches.focused ? "focused" : ""}
+                          >
+                            {branches.value.map((option, index) => (
+                              <StyledTag
+                                label={option}
+                                {...branches.getTagProps({ index })}
+                              />
+                            ))}
+
+                            <input {...branches.getInputProps()} />
+                          </InputWrapper>
+                        </div>
+                        {branches.groupedOptions.length > 0 ? (
+                          <Listbox {...branches.getListboxProps()}>
+                            {branches.groupedOptions.map((option, index) => (
+                              <li
+                                {...branches.getOptionProps({
+                                  option,
+                                  index,
+                                })}
+                              >
+                                <span>{option}</span>
+                                <CheckIcon fontSize="small" />
+                              </li>
+                            ))}
+                          </Listbox>
+                        ) : null}
+                      </Root>
+                    </div>
+                  </div>
+                ) : null}
+                {particularBranch ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "85%",
+                      }}
+                    >
+                      <Root>
+                        <div {...branches.getRootProps()}>
+                          <Label {...branches.getInputLabelProps()}>
+                            Select Engineering Year
+                          </Label>
+                          <InputWrapper
+                            ref={branches.setAnchorEl}
+                            className={branches.focused ? "focused" : ""}
+                          >
+                            {branches.value.map((option, index) => (
+                              <StyledTag
+                                label={option}
+                                {...branches.getTagProps({ index })}
+                              />
+                            ))}
+
+                            <input {...branches.getInputProps()} />
+                          </InputWrapper>
+                        </div>
+                        {branches.groupedOptions.length > 0 ? (
+                          <Listbox {...branches.getListboxProps()}>
+                            {branches.groupedOptions.map((option, index) => (
+                              <li
+                                {...branches.getOptionProps({
+                                  option,
+                                  index,
+                                })}
+                              >
+                                <span>{option}</span>
+                                <CheckIcon fontSize="small" />
+                              </li>
+                            ))}
+                          </Listbox>
+                        ) : null}
+                      </Root>
+                    </div>
+                  </div>
+                ) : null}
                 <div
                   style={{
                     display: "flex",
@@ -609,10 +771,12 @@ export default function AnnounceACompany() {
                           onChange={(e) => {
                             setSelectCompany(e.target.checked);
 
-                            setSelectStudent(!e.target.checked);
-
                             if (e.target.checked) {
+                              setSelectStudent(false);
                               setWholeCollege(false);
+                              setParticularBranch(false);
+                            } else {
+                              setSelectStudent(true);
                             }
                           }}
                         />
@@ -691,9 +855,12 @@ export default function AnnounceACompany() {
                           onChange={(e) => {
                             setSelectStudent(e.target.checked);
 
-                            setSelectCompany(!e.target.checked);
                             if (e.target.checked) {
                               setWholeCollege(false);
+                              setParticularBranch(false);
+                              setSelectCompany(false);
+                            } else {
+                              setWholeCollege(true);
                             }
                           }}
                         />
