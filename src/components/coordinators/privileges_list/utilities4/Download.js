@@ -434,18 +434,88 @@ export default function DownloadCSV(props) {
         temp["tenthBoard"] = studs[i].tenth_board;
         if (i == 0) {
           temp_heading.push({
-            label: "Tenth Board",
+            label: "10th Board",
             key: "tenthBoard",
           });
         }
       }
 
-      if (tenthBoard) {
-        temp["tenthBoard"] = studs[i].tenth_board;
+      if (tenthPassed) {
+        temp["tenthPassed"] = studs[i].tenth_passed_year;
         if (i == 0) {
           temp_heading.push({
-            label: "Tenth Board",
-            key: "tenthBoard",
+            label: "10th Passed Year",
+            key: "tenthPassed",
+          });
+        }
+      }
+
+      if (twelthBoard) {
+        temp["twelthBoard"] = studs[i].twelth_board;
+        if (i == 0) {
+          temp_heading.push({
+            label: "12th Board",
+            key: "twelthBoard",
+          });
+        }
+      }
+
+      if (twelthPassed) {
+        temp["twelthPassed"] = studs[i].twelth_passed_year;
+        if (i == 0) {
+          temp_heading.push({
+            label: "12th Passed Year",
+            key: "twelthPassed",
+          });
+        }
+      }
+
+      if (diplomoBoard) {
+        temp["diplomoBoard"] = studs[i].diplomo_board;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Diplomo Board",
+            key: "diplomoBoard",
+          });
+        }
+      }
+
+      if (diplomoPassed) {
+        temp["diplomoPassed"] = studs[i].diplomo_passed_year;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Diplomo Passed Year",
+            key: "diplomoPassed",
+          });
+        }
+      }
+
+      if (homeAddr) {
+        temp["homeaddr"] = studs[i].home_addr;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Home Address",
+            key: "homeaddr",
+          });
+        }
+      }
+
+      if (perAddr) {
+        temp["peraddr"] = studs[i].permanent_addr;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Permenant Address",
+            key: "peraddr",
+          });
+        }
+      }
+
+      if (credits) {
+        temp["credits"] = studs[i].permanent_addr;
+        if (i == 0) {
+          temp_heading.push({
+            label: "Total Credits Earned",
+            key: "credits",
           });
         }
       }
