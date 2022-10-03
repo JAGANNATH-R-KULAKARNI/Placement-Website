@@ -70,6 +70,7 @@ export default function Register(props) {
   const [company, setCompany] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
+  const [college, setCollege] = React.useState("NIE");
 
   const [sending, setSending] = React.useState(false);
 
@@ -133,6 +134,7 @@ export default function Register(props) {
       credits: credits,
       cgpa: cgpa,
       company: company,
+      college: college,
     };
 
     console.log("Upload Data Bro");
@@ -498,7 +500,26 @@ export default function Register(props) {
                     }}
                     type="number"
                   />
-
+                  <FormControl
+                    variant="standard"
+                    sx={{ width: "100%", marginTop: "20px" }}
+                  >
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Engineering College
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      value={college}
+                      onChange={(e) => {
+                        setCollege(e.target.value);
+                      }}
+                      label="College"
+                    >
+                      <MenuItem value="NIE">NIE</MenuItem>
+                      <MenuItem value="NIEIT">NIEIT</MenuItem>
+                    </Select>
+                  </FormControl>
                   <FormControl
                     variant="standard"
                     sx={{ width: "100%", marginTop: "20px" }}
@@ -524,6 +545,8 @@ export default function Register(props) {
                       <MenuItem value="ME">Mechanical Engineering</MenuItem>
                       <MenuItem value="CIVIL">Civil Engineering</MenuItem>
                       <MenuItem value="IP">Industrial Production</MenuItem>
+                      <MenuItem value="MCA">MCA</MenuItem>
+                      <MenuItem value="MTECH">MTECH</MenuItem>{" "}
                     </Select>
                   </FormControl>
                   <TextField

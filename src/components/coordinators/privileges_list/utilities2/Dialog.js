@@ -584,6 +584,8 @@ export default function Register(props) {
                       <MenuItem value="ME">Mechanical Engineering</MenuItem>
                       <MenuItem value="CIVIL">Civil Engineering</MenuItem>
                       <MenuItem value="IP">Industrial Production</MenuItem>
+                      <MenuItem value="MCA">MCA</MenuItem>
+                      <MenuItem value="MTECH">MTECH</MenuItem>
                     </Select>
                   </FormControl>
                   <TextField
