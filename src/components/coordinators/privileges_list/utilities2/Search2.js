@@ -75,7 +75,7 @@ export default function Asynchronous(props) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Search Company"
+          label={props.text}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

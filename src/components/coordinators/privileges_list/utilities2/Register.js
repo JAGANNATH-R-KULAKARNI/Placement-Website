@@ -69,6 +69,7 @@ export default function Register(props) {
   const [credits, setCredits] = React.useState(0);
   const [cgpa, setCGPA] = React.useState(0);
   const [company, setCompany] = React.useState(0);
+  const [company2, setCompany2] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
   const [college, setCollege] = React.useState("NIE");
@@ -101,6 +102,17 @@ export default function Register(props) {
       address[1].length == 0
     ) {
       alert("All fields should be filled");
+      return;
+    }
+
+    if (company == 0 && company2 != 0) {
+      alert("Fill the first field as your first company");
+      return;
+    }
+
+    if (company && company2 && company == company2) {
+      alert("You cant get two offers in the same company :|");
+      return;
     }
 
     const uploadData = {
@@ -136,6 +148,7 @@ export default function Register(props) {
       cgpa: cgpa,
       company: company,
       college: college,
+      company2: company2,
     };
 
     console.log("Upload Data Bro");
@@ -170,6 +183,20 @@ export default function Register(props) {
     for (let i = 0; i < props.companies.length; i++) {
       if (props.companies[i]["name"] == com) {
         setCompany(props.companies[i]["id"]);
+        console.log(props.companies[i]);
+        console.log(props.companies[i]["id"]);
+        break;
+      }
+    }
+  };
+
+  const searchCompanyResults2 = (com) => {
+    console.log("Compnay");
+    console.log(com);
+
+    for (let i = 0; i < props.companies.length; i++) {
+      if (props.companies[i]["name"] == com) {
+        setCompany2(props.companies[i]["id"]);
         console.log(props.companies[i]);
         console.log(props.companies[i]["id"]);
         break;
@@ -315,6 +342,15 @@ export default function Register(props) {
                       <SeacrUI
                         companies={props.companies}
                         searchCompanyResults={searchCompanyResults}
+                        text="Search Company 1 (Finalized)"
+                      />
+                    )}
+                    {ccontrol ? null : <br />}
+                    {ccontrol ? null : (
+                      <SeacrUI
+                        companies={props.companies}
+                        searchCompanyResults={searchCompanyResults2}
+                        text="Search Company 2 (If two offers) (1st offer)"
                       />
                     )}
                     <FormGroup>
