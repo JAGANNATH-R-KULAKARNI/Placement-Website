@@ -11,6 +11,8 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { CSVLink } from "react-csv";
 import { supabase } from "../../../../Supabase";
+import ButtonsUI from "./Buttons";
+import { ContentPasteSearchOutlined } from "@mui/icons-material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -140,6 +142,19 @@ export default function DownloadCSV(props) {
 
   const [applications, setApplication] = React.useState(null);
 
+  const [students, setStudents] = React.useState(null);
+
+  async function fetchTheStudents() {
+    const { data, error } = await supabase.from("students").select("*");
+
+    if (data) {
+      console.log("Students");
+      console.log(data);
+      setStudents(data);
+      fetchTheApplications();
+    }
+  }
+
   async function fetchTheApplications() {
     const { data, error } = await supabase
       .from("applications")
@@ -156,6 +171,10 @@ export default function DownloadCSV(props) {
   }
 
   React.useEffect(() => {
+    if (!students) {
+      fetchTheStudents();
+      fetchTheApplications();
+    }
     if (!applications) {
       fetchTheApplications();
     }
@@ -167,11 +186,25 @@ export default function DownloadCSV(props) {
   };
 
   const getReport = () => {
-    setGenerating(true);
-    setTimeout(() => {
-      setControl(!control);
-      setGenerating(false);
-    }, 1500);
+    if (!students || !applications) {
+      fetchTheStudents();
+      fetchTheApplications();
+      return;
+    }
+
+    const studs = [];
+
+    for (let i = 0; i < students.length; i++) {
+      for (let j = 0; j < applications.length; j++) {
+        if (applications[j].student_id == students[i].id) {
+          studs.push(students[i]);
+          break;
+        }
+      }
+    }
+
+    console.log("Candidates");
+    console.log(studs);
   };
 
   return (
@@ -950,50 +983,19 @@ export default function DownloadCSV(props) {
                     width: "100%",
                   }}
                 >
-                  {control ? (
-                    <CSVLink
-                      {...csvReport}
-                      style={{ width: "80%", textDecoration: "none" }}
-                    >
-                      <Button
-                        variant="contained"
-                        style={{
-                          backgroundColor: "green",
-                          width: "100%",
-                          height: "50px",
-                          borderRadius: "16px",
-                          marginTop: "20px",
-                          marginBottom: "25px",
-                        }}
-                        onClick={() => {
-                          setGenerating(true);
-                          setTimeout(() => {
-                            setControl(false);
-                            setGenerating(false);
-                          }, 1500);
-                        }}
-                      >
-                        {generating ? "Downloading..." : "Download"}
-                      </Button>
-                    </CSVLink>
-                  ) : (
-                    <Button
-                      variant="contained"
-                      style={{
-                        backgroundColor: "black",
-                        width: "80%",
-                        height: "50px",
-                        borderRadius: "16px",
-                        marginTop: "20px",
-                        marginBottom: "25px",
-                      }}
-                      onClick={getReport}
-                    >
-                      {generating ? "Generating..." : "Generate"}
-                    </Button>
-                  )}
+                  <div style={{ width: "80%" }}>
+                    <br />
+                    {csvReport ? (
+                      <ButtonsUI
+                        data={props.data}
+                        csvReport={csvReport}
+                        getReport={getReport}
+                      />
+                    ) : null}
+                  </div>
                 </div>
               </Paper>
+              <br />
               <br />
             </div>
           </div>
