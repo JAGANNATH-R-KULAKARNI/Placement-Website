@@ -22,6 +22,11 @@ export default function CompanyList(props) {
     setExpanded(isExpanded ? panel : false);
   };
 
+  // React.useEffect(() => {
+  //   console.log("PROPS DATA BRO");
+  //   console.log(props.data);
+  // }, []);
+
   return (
     <div>
       <Accordion

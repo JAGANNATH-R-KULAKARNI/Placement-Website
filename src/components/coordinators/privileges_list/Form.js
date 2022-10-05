@@ -191,6 +191,7 @@ export default function AnnounceACompany() {
       }
     }
 
+    console.log(temp);
     setForms2(temp);
     setActiveForms2(ac);
     setInActiveForms2(inac);

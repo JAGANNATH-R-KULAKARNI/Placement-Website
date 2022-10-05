@@ -20,25 +20,58 @@ export default function MoreDetails(props) {
               sx={{
                 p: 2,
                 bgcolor: "background.default",
-                display: "flex",
                 gridTemplateColumns: { md: "1fr 1fr" },
                 gap: 1,
                 borderRadius: "30px",
                 justifyContent: "center",
               }}
             >
-              <Button
-                variant="contained"
+              <div
                 style={{
-                  backgroundColor: "#541554",
-                  color: "white",
-                  borderRadius: "15px",
-                  fontSize: m1 ? "20px" : "10px",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-                onClick={props.openForm}
               >
-                Edit or Download
-              </Button>
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: "#541554",
+                    color: "white",
+                    borderRadius: "15px",
+                    fontSize: m1 ? "20px" : "10px",
+                    minWidth: "90%",
+                  }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(props.data.data.url);
+                    alert("URL Copied");
+                  }}
+                >
+                  Copy the form link
+                </Button>
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "10px",
+                }}
+              >
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: "#541554",
+                    color: "white",
+                    borderRadius: "15px",
+                    fontSize: m1 ? "20px" : "10px",
+                    minWidth: "90%",
+                  }}
+                  onClick={props.openForm}
+                >
+                  Edit form or Download csv
+                </Button>
+              </div>
             </Box>
           </ThemeProvider>
         </Grid>
