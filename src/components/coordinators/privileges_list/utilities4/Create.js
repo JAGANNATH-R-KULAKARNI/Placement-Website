@@ -82,7 +82,7 @@ export default function Register(props) {
 
     if (data) {
       setData(data);
-      if (data.email !== process.env.REACT_APP_ADMIN) navigate("/");
+      if (data.email != process.env.REACT_APP_ADMIN) navigate("/");
     }
   }
 
