@@ -19,7 +19,6 @@ const MenuProps = {
   },
 };
 
-const names = ["CSE", "ISE", "ECE", "EEE", "ME", "CIVIL", "IP", "MCA", "MTECH"];
 const years = [
   {
     year: 1,

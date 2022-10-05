@@ -8,7 +8,9 @@ import Typography from "@mui/material/Typography";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import DialogUI from "./utilities2/Dialog";
 export default function AnnounceACompany(props) {
   console.log(props.data);
   const m1 = useMediaQuery("(min-width:600px)");
@@ -16,37 +18,71 @@ export default function AnnounceACompany(props) {
   const location = useLocation();
 
   const [data, setData] = React.useState(null);
-  const [acc,setAcc]=React.useState(null);
+  const [acc,setAcc]=React.useState([]);
+  const [accF,setAccF]=React.useState([]);
+  const [model, setModel] = React.useState(false);
+
+  const toggleModel = () => {
+    setModel(!model);
+  };
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
-
+    
     if (data) {
       setData(data);
+     // console.log("crt");
       if (data.email === process.env.REACT_APP_ADMIN) navigate("/admin");
     }
    
   }
-  
-  async function fetchTheStudents() {
-    const { data, error } = await supabase
+  async function fetchTheStudentsF() {
+    const data = await supabase.auth.user();
+    const stuData = await supabase
       .from("students")
-      .select("*,companies(*)");
+      .select("*,companies(*)")
+      .eq('email',data.email);
+
+      if (stuData.data) {
+        console.log("stuData.data");
+        console.log(stuData.data);
+        setAcc(stuData.data);
+       
+      }
+  }
+  async function fetchTheStudents() {
+    const data = await supabase.auth.user();
+    const temp = [];
+    
 
     if (data) {
-      console.log("Students Data");
-      console.log(data);
-      setAcc(data);
-      //filterStudents3(data);
+     
+      for (let i = 0; i < acc.length; i++) {
+        if (data) {
+          if (data.email === acc[i].email) temp.push(acc[i]);
+        } else {
+          temp.push(acc[i]);
+        }
+      }
+      console.log("student profile");
+      console.log(temp);
+      setAccF(temp);
+    }
+    else{
+      console.log("wrong");
     }
   }
 
   React.useEffect(() => {
     setInterval(() => {
       fetchTheProfile();
-      fetchTheStudents();
+      //fetchTheStudentsF();
+     // fetchTheStudents();
     }, 1000);
+    if(acc.length == 0 ){
+      fetchTheStudentsF();
+    }
   });
-
+   
   return (
     <div>
       {data ? (
@@ -77,6 +113,7 @@ export default function AnnounceACompany(props) {
                   }}
                 >
                   Profile
+                  {/* //{accF[0].name} */}
                 </Typography>
                 <Typography
                   variant="h5"
@@ -95,8 +132,33 @@ export default function AnnounceACompany(props) {
                     coordinators”
                   </i>
                 </Typography>
-              </Container>
-            </Box>
+                </Container>
+                </Box>
+<Grid container justifyContent="center">
+                <Button
+                variant="contained"
+                align="center"
+                style={{
+                  backgroundColor: "#541554",
+                  color: "white",
+                  borderRadius: "15px",
+                }}
+                onClick={toggleModel}
+              >
+                Update Details
+              </Button>
+              
+              </Grid>
+              
+              {model && acc.length > 0 ? (
+            <DialogUI
+              
+              data={acc[0]}
+              //data={item}
+              toggleModel={toggleModel}
+            />
+          ) : null}
+        
           </main>
         </div>
       ) : (
@@ -134,4 +196,5 @@ export default function AnnounceACompany(props) {
       )}
     </div>
   );
+
 }

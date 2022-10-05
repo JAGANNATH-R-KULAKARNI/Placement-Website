@@ -32,6 +32,7 @@ export default function Home() {
   const [status, setStatus] = React.useState(1);
   const [statusMsg, setStatusMsg] = React.useState([]);
   const [apply, setApply] = React.useState(null);
+  const [control, setControl] = React.useState(false);
 
   async function timeSince(date) {
     var seconds = Math.floor((date - new Date()) / 1000);
@@ -282,6 +283,45 @@ export default function Home() {
         );
       }
 
+      let eli_f_c = false;
+
+      for (let i = 0; i < com.companies.eligible_colleges.length; i++) {
+        if (student.college == com.companies.eligible_colleges[i]) {
+          eli_f_c = true;
+          break;
+        }
+      }
+
+      if (!eli_f_c) {
+        messages.push(
+          `${student.college} college is not allowed for this company`
+        );
+      }
+
+      let eli_f_y = false;
+
+      for (let i = 0; i < com.companies.eligible_years.length; i++) {
+        if (student.year == com.companies.eligible_years[i]) {
+          eli_f_y = true;
+          break;
+        }
+      }
+
+      if (!eli_f_y) {
+        let postfix = "st";
+
+        if (student.year == 2 || student.year == 6) postfix = "nd";
+        else if (student.year == 3) postfix = "rd";
+        else if (student.year == 4) postfix = "th";
+
+        messages.push(
+          `${student.branch} - ${student.year}${postfix} year students are not allowed for this company`
+        );
+      }
+
+      console.log(student);
+      console.log(com.companies);
+      setControl(messages.length > 0 ? false : true);
       setMessages(messages);
     }
 
@@ -360,7 +400,7 @@ export default function Home() {
           <p style={{ textAlign: "center" }}>--- Company Details ---</p>
           <br />
           <div style={{ display: "flex", justifyContent: "center" }}>
-            {apply ? (
+            {apply && control ? (
               <Button
                 variant="contained"
                 style={{

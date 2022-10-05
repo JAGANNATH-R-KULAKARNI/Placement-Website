@@ -295,8 +295,9 @@ export default function UpdateForm(props) {
               id={currcompany.id}
               jds={currcompany.jds}
               toggleModel={() => {
-                setDownload(!download);
+                setModel(!model);
               }}
+              data={props.data.company}
             />
           ) : null}
           {download && currcompany ? (

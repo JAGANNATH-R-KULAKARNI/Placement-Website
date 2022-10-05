@@ -13,10 +13,25 @@ import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { supabase } from "../Supabase";
 
 const ResponsiveAppBar = (props) => {
   const m1 = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
+
+  async function checkUser() {
+    const user = await supabase.auth.user();
+    if (!user) {
+      navigate("/signin");
+    }
+  }
+
+  async function logOut() {
+    await supabase.auth.signOut();
+    checkUser();
+    navigate("/signin");
+    window.location.reload();
+  }
 
   return (
     <AppBar
@@ -140,7 +155,7 @@ const ResponsiveAppBar = (props) => {
                   />
                 </IconButton>
               }
-              onClick={props.logOut}
+              onClick={logOut}
             >
               Log Out
             </Button>

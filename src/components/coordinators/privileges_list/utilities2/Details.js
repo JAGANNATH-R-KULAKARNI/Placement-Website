@@ -99,6 +99,7 @@ export default function MoreDetails(props) {
               yg={props.yg}
               clg={props.clg}
               toggleModel={toggleModel}
+              data={props.data}
             />
           ) : null}
         </Grid>

@@ -120,6 +120,7 @@ export default function CompanyList(props) {
               company={props.data.company}
               clg={props.data.college}
               id={props.data.id}
+              data={props.data}
             />
           </div>
         </AccordionDetails>

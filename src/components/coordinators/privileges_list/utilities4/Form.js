@@ -15,6 +15,11 @@ export default function CompanyList(props) {
     setExpanded(isExpanded ? panel : false);
   };
 
+  // React.useEffect(() => {
+  //   console.log("BROOOOOOOOOOOOOOOOOOOOOO");
+  //   console.log(props.data);
+  // }, []);
+
   return (
     <div>
       <Accordion
@@ -78,7 +83,7 @@ export default function CompanyList(props) {
         </AccordionSummary>
         <AccordionDetails>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <DetailsUI openForm={props.openForm} />
+            <DetailsUI openForm={props.openForm} data={props.data} />
           </div>
         </AccordionDetails>
       </Accordion>

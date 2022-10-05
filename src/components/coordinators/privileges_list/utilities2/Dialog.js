@@ -36,6 +36,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { ContentPasteGoSharp } from "@mui/icons-material";
 import SeacrUI from "./Search2";
 import BackdropUI from "./Backdrop";
+import DateUI from "./Date2";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -68,16 +69,23 @@ export default function Register(props) {
   const [credits, setCredits] = React.useState(0);
   const [cgpa, setCGPA] = React.useState(0);
   const [company, setCompany] = React.useState(0);
+  const [company2, setCompany2] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
   const [studentId, setStudentId] = React.useState(0);
   const [sending, setSending] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
   const [companyText, setCompanyText] = React.useState("");
+<<<<<<< HEAD
   const[college,setCollege]=React.useState(0);
+=======
+  const [college, setCollege] = React.useState("");
+
+>>>>>>> 9caa935e0d018854d25c34a61240af2a08cd5c28
   React.useEffect(() => {
     if (!initialize) {
       setInitialize(true);
       setName(props.nameD);
+      setCollege(props.data.college);
       setUSN(props.usnD);
       setEmail(props.emailD);
       setDob(props.dD);
@@ -121,6 +129,11 @@ export default function Register(props) {
         setCControl(true);
       }
 
+      setCompany2(props.data.company2);
+      if (props.data.company2 != 0) {
+        setCompanyText(hash[props.data.company2].name);
+      }
+
       console.log(hash);
     }
   });
@@ -152,6 +165,17 @@ export default function Register(props) {
       address[1].length == 0
     ) {
       alert("All fields should be filled");
+      return;
+    }
+
+    if (company == 0 && company2) {
+      alert("First company should be filled in first field");
+      return;
+    }
+
+    if (company && company2 && company == company2) {
+      alert("Two offers cant be from the same company");
+      return;
     }
 
     const uploadData = {
@@ -187,6 +211,8 @@ export default function Register(props) {
       credits: credits,
       cgpa: cgpa,
       company: company,
+      college: college,
+      company2: company2,
     };
 
     console.log("Upload Data Bro");
@@ -222,6 +248,19 @@ export default function Register(props) {
     for (let i = 0; i < props.companies.length; i++) {
       if (props.companies[i]["name"] == com) {
         setCompany(props.companies[i]["id"]);
+        console.log(props.companies[i]);
+        console.log(props.companies[i]["id"]);
+        break;
+      }
+    }
+  };
+  const searchCompanyResults2 = (com) => {
+    console.log("Compnay");
+    console.log(com);
+
+    for (let i = 0; i < props.companies.length; i++) {
+      if (props.companies[i]["name"] == com) {
+        setCompany2(props.companies[i]["id"]);
         console.log(props.companies[i]);
         console.log(props.companies[i]["id"]);
         break;
@@ -368,6 +407,16 @@ export default function Register(props) {
                         companies={props.companies}
                         searchCompanyResults={searchCompanyResults}
                         company_name={companyText}
+                        text="Search Company 1 (Finalized)"
+                      />
+                    )}
+                    {ccontrol ? null : <br />}
+                    {ccontrol ? null : (
+                      <SeacrUI
+                        companies={props.companies}
+                        searchCompanyResults={searchCompanyResults2}
+                        company_name={companyText}
+                        text="Search Company 2 (If two offers) (1st offer)"
                       />
                     )}
                     <FormGroup>
@@ -388,7 +437,7 @@ export default function Register(props) {
                       />
                     </FormGroup>
                   </div>
-                  <TextField
+                  {/* <TextField
                     id="standard-basic"
                     label="Date Of Birth"
                     variant="standard"
@@ -397,7 +446,10 @@ export default function Register(props) {
                     onChange={(e) => {
                       setDob(e.target.value);
                     }}
-                  />
+                  /> */}
+                  <div style={{ marginTop: "35px" }}>
+                    <DateUI time={props.dD} setIntDate={setDob} />
+                  </div>
                   <FormControl
                     variant="standard"
                     sx={{ width: "100%", marginTop: "20px" }}
@@ -561,7 +613,26 @@ export default function Register(props) {
                     }}
                     type="number"
                   />
-
+                  <FormControl
+                    variant="standard"
+                    sx={{ width: "100%", marginTop: "30px" }}
+                  >
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Engineering College
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      value={college}
+                      onChange={(e) => {
+                        setCollege(e.target.value);
+                      }}
+                      label="College"
+                    >
+                      <MenuItem value="NIE">NIE</MenuItem>
+                      <MenuItem value="NIEIT">NIEIT</MenuItem>
+                    </Select>
+                  </FormControl>
                   <FormControl
                     variant="standard"
                     sx={{ width: "100%", marginTop: "20px" }}
@@ -587,6 +658,8 @@ export default function Register(props) {
                       <MenuItem value="ME">Mechanical Engineering</MenuItem>
                       <MenuItem value="CIVIL">Civil Engineering</MenuItem>
                       <MenuItem value="IP">Industrial Production</MenuItem>
+                      <MenuItem value="MCA">MCA</MenuItem>
+                      <MenuItem value="MTECH">MTECH</MenuItem>
                     </Select>
                   </FormControl>
                   <FormControl
