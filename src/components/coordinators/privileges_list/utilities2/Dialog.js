@@ -75,12 +75,11 @@ export default function Register(props) {
   const [sending, setSending] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
   const [companyText, setCompanyText] = React.useState("");
-<<<<<<< HEAD
-  const[college,setCollege]=React.useState(0);
-=======
+
+  //const[college,setCollege]=React.useState(0);
+
   const [college, setCollege] = React.useState("");
 
->>>>>>> 9caa935e0d018854d25c34a61240af2a08cd5c28
   React.useEffect(() => {
     if (!initialize) {
       setInitialize(true);

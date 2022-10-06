@@ -79,49 +79,49 @@ export default function Register(props) {
       setInitialize(true);
       setName(props.data.name);
       setUSN(props.data.usn);
-      // setEmail(props.emailD);
-      // setDob(props.dD);
-      // setGender(props.gD);
-      // setCategory(props.cat);
-      // setTenth([props.t, props.t1, props.t2]);
-      // setTwelth([props.tw, props.tw1, props.tw2]);
-      // setDiplomo([props.d, props.d1, props.d2]);
-      // setBranch(props.br);
-      // setSection(props.sec);
-      // setYear(props.yr);
-      // setGrades([
-      //   props.gd[0],
-      //   props.gd[1],
-      //   props.gd[2],
-      //   props.gd[3],
-      //   props.gd[4],
-      //   props.gd[5],
-      //   props.gd[6],
-      //   props.gd[7],
-      // ]);
-      // setCGPA(props.cgpa);
-      // setCredits(props.credits);
-      // setArears([props.ca, props.cl]);
-      // setBacklogs([props.cb, props.clb]);
-      // setPhone([props.ph, props.ph1]);
-      // setAddress([props.addr, props.addr1]);
-      // setStudentId(props.id);
-      // setYearGap(props.yg);
-      // setCollege(props.clg);
-    //   let hash = {};
+       setEmail(props.data.email);
+       setDob(props.data.dob);
+      setGender(props.data.gender);
+      setCategory(props.data.category);
+       setTenth([props.data.tenth_percentage, props.data.tenth_board, props.data.tenth_passed_year]);
+       setTwelth([props.data.twelth_percentage, props.data.twelth_board, props.data.twelth_passed_year]);
+       setDiplomo([props.data.diplomo_percentage,props.data.diplomo_board, props.data.diplomo_passed_year]);
+       setBranch(props.data.branch);
+       setSection(props.data.section);
+       setYear(props.data.year);
+       setGrades([
+        props.data.grades[0],
+        props.data.grades[1],
+        props.data.grades[2],
+        props.data.grades[3],
+        props.data.grades[4],
+        props.data.grades[5],
+        props.data.grades[6],
+        props.data.grades[7],
+       ]);
+       setCGPA(props.data.cgpa);
+       setCredits(props.data.credits);
+      setArears([props.data.current_arears,props.data.cleared_arears]);
+      setBacklogs([props.data.current_backlogs, props.data.cleared_backlogs]);
+       setPhone([props.data.phone_num, props.data.parent_phone_num]);
+       setAddress([props.data.home_addr, props.data.permanent_addr]);
+       setStudentId(props.data.id);
+       setYearGap(props.data.max_year_education_gap);
+       setCollege(props.data.college);
+      let hash = {};
 
-    //   for (let i = 0; i < props.companies.length; i++) {
-    //     hash[props.companies[i].id] = props.companies[i];
-    //   }
-    //   setCompany(props.company);
+      for (let i = 0; i <props.data.company.length; i++) {
+         hash[props.data.company[i].id] = props.data.company[i];
+       }
+       setCompany(props.data.company);
 
-    //   if (props.company != 0) {
-    //     setCompanyText(hash[props.company].name);
-    //   } else {
-    //     setCControl(true);
-    //   }
+      if (props.data.company != 0) {
+        setCompanyText(hash[props.data.company].name);
+      } else {
+        setCControl(true);
+      }
 
-    //   console.log(hash);
+      console.log(hash);
      }
   });
 
@@ -219,11 +219,11 @@ export default function Register(props) {
     console.log("Compnay");
     console.log(com);
 
-    for (let i = 0; i < props.companies.length; i++) {
-      if (props.companies[i]["name"] == com) {
-        setCompany(props.companies[i]["id"]);
-        console.log(props.companies[i]);
-        console.log(props.companies[i]["id"]);
+    for (let i = 0; i <props.data.company.length; i++) {
+      if (props.data.company[i]["name"] == com) {
+        setCompany(props.data.company[i]["id"]);
+        console.log(props.data.company[i]);
+        console.log(props.data.company[i]["id"]);
         break;
       }
     }
@@ -365,7 +365,7 @@ export default function Register(props) {
                   <div style={{ marginTop: "30px" }}>
                     {ccontrol ? null : (
                       <SeacrUI
-                        companies={props.companies}
+                        companies={props.data.company}
                         searchCompanyResults={searchCompanyResults}
                         company_name={companyText}
                       />

@@ -72,12 +72,12 @@ export default function Register(props) {
   const [company2, setCompany2] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
-<<<<<<< HEAD
-  const[college,setCollege]=React.useState(0);
-=======
-  const [college, setCollege] = React.useState("NIE");
 
->>>>>>> 9caa935e0d018854d25c34a61240af2a08cd5c28
+  const[college,setCollege]=React.useState(0);
+
+  //const [college, setCollege] = React.useState("NIE");
+
+
   const [sending, setSending] = React.useState(false);
 
   const registerCompany = async () => {
