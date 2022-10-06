@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import DialogUI from "./utilities2/Dialog";
 export default function AnnounceACompany(props) {
-  console.log(props.data);
+  //console.log(props.data);
   const m1 = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const location = useLocation();

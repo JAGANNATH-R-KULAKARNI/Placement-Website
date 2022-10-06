@@ -95,6 +95,7 @@ export default function MoreDetails(props) {
               addr1={props.addr1}
               companies={props.companies}
               company={props.company}
+              resume={props.resume}
               id={props.id}
               yg={props.yg}
               clg={props.clg}

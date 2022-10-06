@@ -72,7 +72,7 @@ export default function Register(props) {
   const [company2, setCompany2] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
-
+const [resume,setResume] = React.useState([""]);
   const[college,setCollege]=React.useState(0);
 
   //const [college, setCollege] = React.useState("NIE");
@@ -96,6 +96,7 @@ export default function Register(props) {
       category.length == 0 ||
       !tenth[0] ||
       tenth[1].length == 0 ||
+      resume[0].length == 0||
       year_gap.length == 0 ||
       !tenth[1] ||
       !twelth[2] ||
@@ -140,6 +141,7 @@ export default function Register(props) {
       year: year,
       college:college,
       grades: grades,
+      documents:resume,
       current_arears: arears[0],
       cleared_arears: arears[1],
       max_year_education_gap: year_gap,
@@ -586,7 +588,7 @@ export default function Register(props) {
                       <MenuItem value="MTECH">MTECH</MenuItem>{" "}
                     </Select>
                   </FormControl>
-                  <FormControl
+                  {/* <FormControl
                     variant="standard"
                     sx={{ width: "100%", marginTop: "20px" }}
                   >
@@ -606,7 +608,7 @@ export default function Register(props) {
                       <MenuItem value={2}>NIE-IT</MenuItem>
                       
                     </Select>
-                  </FormControl>
+                  </FormControl> */}
                   <TextField
                     id="standard-basic"
                     label="Section"
@@ -929,20 +931,20 @@ export default function Register(props) {
                       setAddress(temp);
                     }}
                   />
-                  {/* <TextField
+                   <TextField
                     id="standard-basic"
                     label="Resume link (*Make Public)"
                     variant="standard"
                     type="text"
                     style={{ width: "100%", marginTop: "15px" }}
-                    value={address[1]}
+                    value={resume[0]}
                     onChange={(e) => {
-                      const temp = [...address];
-                      temp[1] = e.target.value;
-                      setAddress(temp);
+                      const temp = [...resume];
+                      temp[0] = e.target.value;
+                      setResume(temp);
                     }}
-                  /> */}
-
+                  /> 
+{/* 
                   <div
                     style={{
                       display: "flex",
@@ -990,7 +992,7 @@ export default function Register(props) {
                           key={item}
                         ></iframe>
                       );
-                    })} 
+                    })}  */}
                   <FormGroup>
                     <FormControlLabel
                       control={

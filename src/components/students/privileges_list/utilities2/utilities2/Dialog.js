@@ -75,7 +75,7 @@ export default function Register(props) {
   const [sending, setSending] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
   const [companyText, setCompanyText] = React.useState("");
-  const [resume,setResume] = React.useState([""]);
+
   //const[college,setCollege]=React.useState(0);
 
   const [college, setCollege] = React.useState("");
@@ -83,58 +83,57 @@ export default function Register(props) {
   React.useEffect(() => {
     if (!initialize) {
       setInitialize(true);
-      setName(props.data.name);
+      setName(props.nameD);
       setCollege(props.data.college);
-      setUSN(props.data.usn);
-      setEmail(props.data.email);
-      setDob(props.data.dob);
-      setGender(props.data.gender);
-      setCategory(props.data.category);
-      setTenth([props.data.tenth_percentage,props.data.tenth_board,props.data.tenth_passed_year]);
-      setTwelth([props.data.twelth_percentage, props.data.twelth_board, props.data.twelth_passed_year]);
-      setDiplomo([props.data.diplomo_percentage, props.data.diplomo_board,props.data.diplomo_passed_year]);
-      setBranch(props.data.branch);
-      setSection(props.data.section);
-      setYear(props.data.year);
+      setUSN(props.usnD);
+      setEmail(props.emailD);
+      setDob(props.dD);
+      setGender(props.gD);
+      setCategory(props.cat);
+      setTenth([props.t, props.t1, props.t2]);
+      setTwelth([props.tw, props.tw1, props.tw2]);
+      setDiplomo([props.d, props.d1, props.d2]);
+      setBranch(props.br);
+      setSection(props.sec);
+      setYear(props.yr);
       setGrades([
-        props.data.grades[0],
-        props.data.grades[1],
-        props.data.grades[2],
-        props.data.grades[3],
-        props.data.grades[4],
-        props.data.grades[5],
-        props.data.grades[6],
-        props.data.grades[7],
+        props.gd[0],
+        props.gd[1],
+        props.gd[2],
+        props.gd[3],
+        props.gd[4],
+        props.gd[5],
+        props.gd[6],
+        props.gd[7],
       ]);
-      setResume([props.data.documents[0]]);
-      setCGPA(props.data.cgpa);
-      setCredits(props.data.credits);
-      setArears([props.data.current_arears, props.data.cleared_arears]);
-      setBacklogs([props.data.current_backlogs, props.data.cleared_backlogs]);
-      setPhone([props.data.phone_num, props.data.parent_phone_num]);
-      setAddress([props.data.home_addr, props.data.permanent_addr]);
-      setStudentId(props.data.id);
-      setYearGap(props.data.max_year_education_gap);
-      setCollege(props.data.college);
-      // let hash = {};
+      setCGPA(props.cgpa);
+      setCredits(props.credits);
+      setArears([props.ca, props.cl]);
+      setBacklogs([props.cb, props.clb]);
+      setPhone([props.ph, props.ph1]);
+      setAddress([props.addr, props.addr1]);
+      setStudentId(props.id);
+      setYearGap(props.yg);
+      setCollege(props.clg);
+      let hash = {};
 
-      // for (let i = 0; i < props.companies.length; i++) {
-      //   hash[props.companies[i].id] = props.companies[i];
-      // }
-      // setCompany(props.data.company);
+      for (let i = 0; i < props.companies.length; i++) {
+        hash[props.companies[i].id] = props.companies[i];
+      }
+      setCompany(props.company);
 
-      // if (props.data.company != 0) {
-      //   setCompanyText(hash[props.data.company].name);
-      // } else {
-      //   setCControl(true);
-      // }
+      if (props.company != 0) {
+        setCompanyText(hash[props.company].name);
+      } else {
+        setCControl(true);
+      }
 
-      // setCompany2(props.data.company2);
-      // if (props.data.company2 != 0) {
-      //   setCompanyText(hash[props.data.company2].name);
-      // }
+      setCompany2(props.data.company2);
+      if (props.data.company2 != 0) {
+        setCompanyText(hash[props.data.company2].name);
+      }
 
-      // console.log(hash);
+      console.log(hash);
     }
   });
 
@@ -155,7 +154,6 @@ export default function Register(props) {
       year_gap.length == 0 ||
       !tenth[0] ||
       tenth[1].length == 0 ||
-      resume[0].length == 0||
       !tenth[1] ||
       !twelth[2] ||
       twelth[1].length == 0 ||
@@ -205,7 +203,6 @@ export default function Register(props) {
       cleared_backlogs: backlogs[1],
       max_year_education_gap: year_gap,
       phone_num: phone[0],
-      documents:resume,
       parent_phone_num: phone[1],
       home_addr: address[0],
       permanent_addr: address[1],
@@ -664,7 +661,7 @@ export default function Register(props) {
                       <MenuItem value="MTECH">MTECH</MenuItem>
                     </Select>
                   </FormControl>
-                  {/* <FormControl
+                  <FormControl
                     variant="standard"
                     sx={{ width: "100%", marginTop: "20px" }}
                   >
@@ -680,11 +677,11 @@ export default function Register(props) {
                       }}
                       label="College"
                     >
-                      <MenuItem value={"NIE"}>NIE</MenuItem>
-                      <MenuItem value={"NIEIT"}>NIE-IT</MenuItem>
+                      <MenuItem value={1}>NIE</MenuItem>
+                      <MenuItem value={2}>NIE-IT</MenuItem>
                       
                     </Select>
-                  </FormControl> */}
+                  </FormControl>
                   <TextField
                     id="standard-basic"
                     label="Section"
@@ -1014,20 +1011,8 @@ export default function Register(props) {
                       setAddress(temp);
                     }}
                   />
- <TextField
-                    id="standard-basic"
-                    label="Resume link (*Make Public)"
-                    variant="standard"
-                    type="text"
-                    style={{ width: "100%", marginTop: "15px" }}
-                    value={resume[0]}
-                    onChange={(e) => {
-                      const temp = [...resume];
-                      temp[0] = e.target.value;
-                      setResume(temp);
-                    }}
-                  /> 
-                  {/* <div
+
+                  <div
                     style={{
                       display: "flex",
                       justifyContent: "center",
@@ -1074,7 +1059,7 @@ export default function Register(props) {
                           key={item}
                         ></iframe>
                       );
-                    })} */}
+                    })}
                   <FormGroup>
                     <FormControlLabel
                       control={

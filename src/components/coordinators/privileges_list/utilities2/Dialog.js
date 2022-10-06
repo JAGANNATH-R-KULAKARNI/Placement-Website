@@ -75,7 +75,7 @@ export default function Register(props) {
   const [sending, setSending] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
   const [companyText, setCompanyText] = React.useState("");
-
+  const [resume,setResume] = React.useState([""]);
   //const[college,setCollege]=React.useState(0);
 
   const [college, setCollege] = React.useState("");
@@ -106,6 +106,7 @@ export default function Register(props) {
         props.gd[6],
         props.gd[7],
       ]);
+      setResume([props.resume[0]]);
       setCGPA(props.cgpa);
       setCredits(props.credits);
       setArears([props.ca, props.cl]);
@@ -153,6 +154,7 @@ export default function Register(props) {
       category.length == 0 ||
       year_gap.length == 0 ||
       !tenth[0] ||
+      resume[0].length == 0||
       tenth[1].length == 0 ||
       !tenth[1] ||
       !twelth[2] ||
@@ -197,6 +199,7 @@ export default function Register(props) {
       year: year,
       college:college,
       grades: grades,
+      documents:resume,
       current_arears: arears[0],
       cleared_arears: arears[1],
       current_backlogs: backlogs[0],
@@ -661,7 +664,7 @@ export default function Register(props) {
                       <MenuItem value="MTECH">MTECH</MenuItem>
                     </Select>
                   </FormControl>
-                  <FormControl
+                  {/* <FormControl
                     variant="standard"
                     sx={{ width: "100%", marginTop: "20px" }}
                   >
@@ -681,7 +684,7 @@ export default function Register(props) {
                       <MenuItem value={2}>NIE-IT</MenuItem>
                       
                     </Select>
-                  </FormControl>
+                  </FormControl> */}
                   <TextField
                     id="standard-basic"
                     label="Section"
@@ -1011,8 +1014,20 @@ export default function Register(props) {
                       setAddress(temp);
                     }}
                   />
-
-                  <div
+            <TextField
+                    id="standard-basic"
+                    label="Resume link (*Make Public)"
+                    variant="standard"
+                    type="text"
+                    style={{ width: "100%", marginTop: "15px" }}
+                    value={resume[0]}
+                    onChange={(e) => {
+                      const temp = [...resume];
+                      temp[0] = e.target.value;
+                      setResume(temp);
+                    }}
+                  /> 
+                  {/* <div
                     style={{
                       display: "flex",
                       justifyContent: "center",
@@ -1059,7 +1074,7 @@ export default function Register(props) {
                           key={item}
                         ></iframe>
                       );
-                    })}
+                    })} */}
                   <FormGroup>
                     <FormControlLabel
                       control={

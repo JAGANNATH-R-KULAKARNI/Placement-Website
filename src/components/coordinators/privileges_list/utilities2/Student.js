@@ -118,6 +118,7 @@ export default function CompanyList(props) {
               companies={props.companies}
               yg={props.data.max_year_education_gap}
               company={props.data.company}
+              resume={props.data.documents}
               clg={props.data.college}
               id={props.data.id}
               data={props.data}
