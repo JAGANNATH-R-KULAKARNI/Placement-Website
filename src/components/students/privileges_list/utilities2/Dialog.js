@@ -450,7 +450,7 @@ export default function Register(props) {
                     }}
                   /> */}
                   <div style={{ marginTop: "35px" }}>
-                    <DateUI time={props.dD} setIntDate={setDob} />
+                    <DateUI time={props.data.dob} setIntDate={setDob} />
                   </div>
                   <FormControl
                     variant="standard"

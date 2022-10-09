@@ -450,7 +450,7 @@ export default function Register(props) {
                     }}
                   /> */}
                   <div style={{ marginTop: "35px" }}>
-                    <DateUI time={props.dD} setIntDate={setDob} />
+                    <DateUI time={props.data.dob} setIntDate={setDob} />
                   </div>
                   <FormControl
                     variant="standard"
@@ -1022,9 +1022,10 @@ export default function Register(props) {
                     style={{ width: "100%", marginTop: "15px" }}
                     value={resume[0]}
                     onChange={(e) => {
-                      const temp = [...resume];
-                      temp[0] = e.target.value;
+                      const temp =[];
+                      temp.push(e.target.value);
                       setResume(temp);
+                      console.log(temp);
                     }}
                   /> 
                   {/* <div
