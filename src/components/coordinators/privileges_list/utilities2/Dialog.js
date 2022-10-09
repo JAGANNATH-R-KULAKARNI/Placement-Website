@@ -75,7 +75,7 @@ export default function Register(props) {
   const [sending, setSending] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
   const [companyText, setCompanyText] = React.useState("");
-  const [resume,setResume] = React.useState([""]);
+  const [doc,setDoc] = React.useState([""]);
   //const[college,setCollege]=React.useState(0);
 
   const [college, setCollege] = React.useState("");
@@ -106,7 +106,7 @@ export default function Register(props) {
         props.gd[6],
         props.gd[7],
       ]);
-      setResume([props.resume[0]]);
+      setDoc([props.doc[0]]);
       setCGPA(props.cgpa);
       setCredits(props.credits);
       setArears([props.ca, props.cl]);
@@ -154,7 +154,7 @@ export default function Register(props) {
       category.length == 0 ||
       year_gap.length == 0 ||
       !tenth[0] ||
-      resume[0].length == 0||
+      doc[0].length==0||
       tenth[1].length == 0 ||
       !tenth[1] ||
       !twelth[2] ||
@@ -199,7 +199,7 @@ export default function Register(props) {
       year: year,
       college:college,
       grades: grades,
-      documents:resume,
+      documents:doc,
       current_arears: arears[0],
       cleared_arears: arears[1],
       current_backlogs: backlogs[0],
@@ -209,7 +209,7 @@ export default function Register(props) {
       parent_phone_num: phone[1],
       home_addr: address[0],
       permanent_addr: address[1],
-      documents: urls,
+     
       credits: credits,
       cgpa: cgpa,
       company: company,
@@ -219,6 +219,7 @@ export default function Register(props) {
 
     console.log("Upload Data Bro");
     console.log(uploadData);
+    
 
     const { data, error } = await supabase
       .from("students")
@@ -1020,11 +1021,11 @@ export default function Register(props) {
                     variant="standard"
                     type="text"
                     style={{ width: "100%", marginTop: "15px" }}
-                    value={resume[0]}
+                    value={doc[0]}
                     onChange={(e) => {
                       const temp =[];
                       temp.push(e.target.value);
-                      setResume(temp);
+                      setDoc(temp);
                       console.log(temp);
                     }}
                   /> 

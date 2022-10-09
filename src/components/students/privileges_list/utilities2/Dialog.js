@@ -75,7 +75,7 @@ export default function Register(props) {
   const [sending, setSending] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
   const [companyText, setCompanyText] = React.useState("");
-  const [resume,setResume] = React.useState([""]);
+  const [doc,setDoc] = React.useState([""]);
   //const[college,setCollege]=React.useState(0);
 
   const [college, setCollege] = React.useState("");
@@ -106,7 +106,7 @@ export default function Register(props) {
         props.data.grades[6],
         props.data.grades[7],
       ]);
-      setResume([props.data.documents[0]]);
+      setDoc([props.data.documents[0]]);
       setCGPA(props.data.cgpa);
       setCredits(props.data.credits);
       setArears([props.data.current_arears, props.data.cleared_arears]);
@@ -155,7 +155,7 @@ export default function Register(props) {
       year_gap.length == 0 ||
       !tenth[0] ||
       tenth[1].length == 0 ||
-      resume[0].length == 0||
+      doc[0].length == 0||
       !tenth[1] ||
       !twelth[2] ||
       twelth[1].length == 0 ||
@@ -205,11 +205,11 @@ export default function Register(props) {
       cleared_backlogs: backlogs[1],
       max_year_education_gap: year_gap,
       phone_num: phone[0],
-      documents:resume,
+      documents:doc,
       parent_phone_num: phone[1],
       home_addr: address[0],
       permanent_addr: address[1],
-      documents: urls,
+      
       credits: credits,
       cgpa: cgpa,
       company: company,
@@ -1020,11 +1020,11 @@ export default function Register(props) {
                     variant="standard"
                     type="text"
                     style={{ width: "100%", marginTop: "15px" }}
-                    value={resume[0]}
+                    value={doc[0]}
                     onChange={(e) => {
-                      const temp = [...resume];
+                      const temp = [...doc];
                       temp[0] = e.target.value;
-                      setResume(temp);
+                      setDoc(temp);
                     }}
                   /> 
                   {/* <div

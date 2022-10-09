@@ -75,7 +75,7 @@ export default function MoreDetails(props) {
               t2={props.t2}
               tw={props.tw}
               tw1={props.tw1}
-              tw2={props.tw1}
+              tw2={props.tw2}
               d={props.d}
               d1={props.d1}
               d2={props.d2}
@@ -95,7 +95,7 @@ export default function MoreDetails(props) {
               addr1={props.addr1}
               companies={props.companies}
               company={props.company}
-              resume={props.resume}
+              doc ={props.resume}
               id={props.id}
               yg={props.yg}
               clg={props.clg}
