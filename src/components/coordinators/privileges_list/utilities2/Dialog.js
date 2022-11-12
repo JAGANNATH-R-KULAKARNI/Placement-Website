@@ -258,7 +258,7 @@ export default function Register(props) {
     }
   };
   const searchCompanyResults2 = (com) => {
-    console.log("Compnay");
+    console.log("Company");
     console.log(com);
 
     for (let i = 0; i < props.companies.length; i++) {
