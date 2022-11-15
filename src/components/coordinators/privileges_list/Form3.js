@@ -316,7 +316,7 @@ export default function AnnounceACompany() {
                       aria-controls="panel1a-content"
                       id="panel1a-header"
                     >
-                      <Typography>View more details</Typography>
+                      <Typography>View more</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                       <Typography>

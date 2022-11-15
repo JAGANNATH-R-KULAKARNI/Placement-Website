@@ -11,6 +11,18 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import DialogUI from "./utilities2/Dialog";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+import CardMedia from '@mui/material/CardMedia';
 export default function AnnounceACompany(props) {
   //console.log(props.data);
   const m1 = useMediaQuery("(min-width:600px)");
@@ -125,16 +137,117 @@ export default function AnnounceACompany(props) {
                     marginBottom: "-17px",
                   }}
                 >
-                  <i>
+                  {/* <i>
                     
                     “Keep your resume updated before applying for any company.
                     If any of the details is incorrect, please contact placement
                     coordinators”
-                  </i>
+                  </i> */}
+                 
+    <Card sx={{ maxWidth: 345 }}>
+      {/* <CardMedia
+        component="img"
+        height="140"
+        // image="/static/images/cards/contemplative-reptile.jpg"
+        // alt="green iguana"
+      /> */}
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        {acc[0].name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+         {/* {acc[0].usn}<br/>
+         {acc[0].email}<br/>
+         {acc[0].dob}<br/> 
+         {acc[0].college}<br/>
+         {acc[0].gender}<br/>
+         {acc[0].branch}<br/>
+         {acc[0].section}<br/>
+         {acc[0].year}<br/> */}
+
+         <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 250 }} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell>details</TableCell>
+            <TableCell align="right">details</TableCell>
+          </TableRow>
+        </TableHead>
+
+
+  <TableBody>  
+            <TableRow
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                usn
+              </TableCell>
+              <TableCell align="right">{acc[0].usn}</TableCell>
+            </TableRow>
+            <TableRow
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                email
+              </TableCell>
+              <TableCell align="right">{acc[0].email}</TableCell>     
+            </TableRow>
+
+            <TableRow
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                branch
+              </TableCell>
+              <TableCell align="right">{acc[0].branch}</TableCell>     
+            </TableRow>
+
+            <TableRow
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                section
+              </TableCell>
+              <TableCell align="right">{acc[0].section}</TableCell>     
+            </TableRow>
+
+            <TableRow
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                year
+              </TableCell>
+              <TableCell align="right">{acc[0].year}</TableCell>     
+            </TableRow>
+            
+         
+ </TableBody>
+      </Table>
+    </TableContainer>
+        </Typography>
+      </CardContent>
+      <CardActions>
+       
+        <Grid container justifyContent="center">
+        <Button
+                variant="contained"
+                align="center"
+                style={{
+                  backgroundColor: "#541554",
+                  color: "white",
+                  borderRadius: "15px",
+                }}
+                onClick={toggleModel}
+              >
+                Update Details
+              </Button>
+              </Grid>
+      </CardActions>
+    </Card>
                 </Typography>
                 </Container>
                 </Box>
-<Grid container justifyContent="center">
+{/* <Grid container justifyContent="center">
                 <Button
                 variant="contained"
                 align="center"
@@ -148,7 +261,7 @@ export default function AnnounceACompany(props) {
                 Update Details
               </Button>
               
-              </Grid>
+              </Grid> */}
               
               {model && acc.length > 0 ? (
             <DialogUI
