@@ -363,7 +363,7 @@ export default function Register(props) {
                   >
                     <College2UI
                       setEligibleColleges={setEligibleColleges}
-                      // el={props.data.eligible_colleges}
+                      el={props.data.eligible_colleges}
                     />
                   </div>
                   <div
@@ -375,7 +375,7 @@ export default function Register(props) {
                   >
                     <Year2UI
                       setEligibleYears={setEligibleYears}
-                      // el={props.data.eligible_years}
+                      el={props.data.eligible_years}
                     />
                   </div>
                   <div
@@ -387,7 +387,7 @@ export default function Register(props) {
                   >
                     <BranchesUI
                       setEligibleBranches={setEligibleBranches}
-                      // el={props.el}
+                       el={props.el}
                     />
                   </div>
                   <TextField

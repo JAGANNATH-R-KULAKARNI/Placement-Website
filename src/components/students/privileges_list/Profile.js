@@ -21,6 +21,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 
 import CardMedia from '@mui/material/CardMedia';
 export default function AnnounceACompany(props) {
@@ -143,28 +144,16 @@ export default function AnnounceACompany(props) {
                     If any of the details is incorrect, please contact placement
                     coordinators”
                   </i> */}
-                 
-    <Card sx={{ maxWidth: 345 }}>
-      {/* <CardMedia
-        component="img"
-        height="140"
-        // image="/static/images/cards/contemplative-reptile.jpg"
-        // alt="green iguana"
-      /> */}
+                 </Typography>
+                
+    {/* <Card sx={{ maxWidth: 345 }}>
+    
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
         {acc[0].name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-         {/* {acc[0].usn}<br/>
-         {acc[0].email}<br/>
-         {acc[0].dob}<br/> 
-         {acc[0].college}<br/>
-         {acc[0].gender}<br/>
-         {acc[0].branch}<br/>
-         {acc[0].section}<br/>
-         {acc[0].year}<br/> */}
-
+        
          <TableContainer component={Paper}>
       <Table sx={{ minWidth: 250 }} size="small" aria-label="a dense table">
         <TableHead>
@@ -243,11 +232,45 @@ export default function AnnounceACompany(props) {
               </Button>
               </Grid>
       </CardActions>
-    </Card>
-                </Typography>
-                </Container>
-                </Box>
-{/* <Grid container justifyContent="center">
+    </Card>  */}
+    <div className="vh-100" 
+     align="center"
+     color="text.secondary"
+     //paragraph
+     style={{
+       fontSize: m1 ? "17px" : "16px",
+       marginBottom: "-17px",
+     }}
+   
+    >
+      <MDBContainer className="container py-5 h-100">
+        <MDBRow className="justify-content-center align-items-center h-100">
+          <MDBCol md="12" xl="4">
+            <MDBCard style={{ borderRadius: '15px' }}>
+              <MDBCardBody className="text-center">
+                <div className="mt-3 mb-4">
+                  {acc[0].gender==2 ?
+                   <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp" 
+                    className="rounded-circle" fluid style={{ width: '100px' }} />: 
+                    <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp" 
+                     className="rounded-circle" fluid style={{ width: '100px' }} /> }
+                  
+                </div>
+                <MDBTypography tag="h4">{acc[0].name}</MDBTypography>
+                <MDBCardText className="text-muted mb-4">
+                {acc[0].email} <span className="mx-2">|</span> {acc[0].usn}
+                </MDBCardText>
+                {/* <div className="mb-4 pb-2">
+                  <MDBBtn outline floating>
+                    <MDBIcon fab icon="facebook" size="lg" />
+                  </MDBBtn>
+                  <MDBBtn outline floating className="mx-1">
+                    <MDBIcon fab icon="twitter" size="lg" />
+                  </MDBBtn>
+                  <MDBBtn outline floating>
+                    <MDBIcon fab icon="skype" size="lg" />
+                  </MDBBtn>
+                </div> */}
                 <Button
                 variant="contained"
                 align="center"
@@ -260,9 +283,29 @@ export default function AnnounceACompany(props) {
               >
                 Update Details
               </Button>
-              
-              </Grid> */}
-              
+                <div className="d-flex justify-content-between text-center mt-2 mb-2">
+                  <div>
+                    <MDBCardText className="mb-1 h5" tag="h4">{acc[0].year}th</MDBCardText>
+                    <MDBCardText className="small text-muted mb-0">Year</MDBCardText>
+                  </div>
+                  <div>
+                    <MDBCardText className="mb-1 h5" tag="h4">{acc[0].branch}</MDBCardText>
+                    <MDBCardText className="small text-muted mb-0">Branch</MDBCardText>
+                  </div>
+                  <div>
+                    <MDBCardText className="mb-1 h5" tag="h4">{acc[0].section}</MDBCardText>
+                    <MDBCardText className="small text-muted mb-5">Section</MDBCardText>
+                  </div>
+                </div>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    </div>
+    </Container>
+                </Box>  
+
               {model && acc.length > 0 ? (
             <DialogUI
               
