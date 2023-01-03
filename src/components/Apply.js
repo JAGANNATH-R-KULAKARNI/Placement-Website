@@ -133,7 +133,7 @@ export default function Home() {
   async function fetchCompany() {
     if (!student) return;
     // console.log(student);
-
+    //console.log('')
     const { data, error } = await supabase
       .from("forms")
       .select("*")
