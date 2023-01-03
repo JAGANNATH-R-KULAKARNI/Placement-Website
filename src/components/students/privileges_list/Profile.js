@@ -260,17 +260,7 @@ export default function AnnounceACompany(props) {
                 <MDBCardText className="text-muted mb-4">
                 {acc[0].email} <span className="mx-2">|</span> {acc[0].usn}
                 </MDBCardText>
-                {/* <div className="mb-4 pb-2">
-                  <MDBBtn outline floating>
-                    <MDBIcon fab icon="facebook" size="lg" />
-                  </MDBBtn>
-                  <MDBBtn outline floating className="mx-1">
-                    <MDBIcon fab icon="twitter" size="lg" />
-                  </MDBBtn>
-                  <MDBBtn outline floating>
-                    <MDBIcon fab icon="skype" size="lg" />
-                  </MDBBtn>
-                </div> */}
+                
                 <Button
                 variant="contained"
                 align="center"
