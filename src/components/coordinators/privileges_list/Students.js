@@ -207,7 +207,7 @@ export default function AnnounceACompany() {
                     marginBottom: "-20px",
                   }}
                 >
-                  {students.length > 0 ? (
+                  {students ? (
                     <Fab
                       variant="extended"
                       style={{

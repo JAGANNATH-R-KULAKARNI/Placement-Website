@@ -172,6 +172,18 @@ export default function Register(props) {
       return;
     }
 
+    if (cgpa == "") {
+      alert("Total CGPA should be filled");
+      return;
+    }
+
+    let gd = [];
+
+    for (let i = 0; i < grades.length; i++) {
+      if (grades[i] == "") gd.push(0);
+      else gd.push(grades[i]);
+    }
+
     const uploadData = {
       name: name,
       usn: usn,
@@ -190,19 +202,19 @@ export default function Register(props) {
       diplomo_passed_year: diplomo[2],
       branch: branch,
       year: year,
-      grades: grades,
-      current_arears: arears[0],
-      cleared_arears: arears[1],
-      current_backlogs: backlogs[0],
-      cleared_backlogs: backlogs[1],
-      max_year_education_gap: year_gap,
+      grades: gd,
+      current_arears: arears[0] == "" ? 0 : arears[0],
+      cleared_arears: arears[1] == "" ? 0 : arears[1],
+      max_year_education_gap: year_gap == "" ? 0 : year_gap,
+      current_backlogs: backlogs[0] == "" ? 0 : backlogs[0],
+      cleared_backlogs: backlogs[1] == "" ? 0 : backlogs[1],
       phone_num: phone[0],
       parent_phone_num: phone[1],
       home_addr: address[0],
       permanent_addr: address[1],
       documents: urls,
-      credits: credits,
-      cgpa: cgpa,
+      credits: credits == "" ? 0 : credits,
+      cgpa: cgpa == "" ? 0 : cgpa,
       company: company,
       college: college,
       company2: company2,
