@@ -23,6 +23,8 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import Paper from "@mui/material/Paper";
 import emailogo from "../images/email.webp";
+import upbg from "../images/upbg.png";
+import SearchUI from "./Search";
 
 const theme = createTheme();
 
@@ -76,75 +78,37 @@ export default function Privileges() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <main style={{ marginTop: m1 ? "-30px" : "-70px" }}>
-        <Paper
-          sx={{
-            bgcolor: "background.paper",
-            pt: 8,
-            pb: 6,
-            borderBottomRightRadius: "50px",
-            borderBottomLeftRadius: "50px",
-            // backgroundColor: "#EDFFFF",
-          }}
-          elevation={2}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-              style={{
-                fontFamily: "inherit",
-                fontSize: m1 ? "60px" : "45px",
-                fontWeight: 700,
-                color: "#007C7C",
-              }}
-            >
-              Admins Only
-            </Typography>
-            <Typography
-              variant="h5"
-              align="center"
-              color="text.secondary"
-              paragraph
-              style={{
-                fontSize: m1 ? "17px" : "16px",
-                marginBottom: "-17px",
-                color: "black",
-              }}
-            >
-              <i>
-                “You don’t have to worry about being a number one, number two,
-                or number three. Numbers don’t have anything to do with
-                placement. Numbers only have something to do with repetition.”
-              </i>
-            </Typography>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "30px",
-                marginBottom: "-30px",
-              }}
-            >
-              <Fab
-                variant="extended"
-                size="medium"
-                color="primary"
-                aria-label="add"
-                style={{ backgroundColor: "black" }}
-                onClick={() => {
-                  window.location.reload();
-                }}
-              >
-                <RefreshIcon sx={{ mr: 1 }} />
-                Refresh
-              </Fab>
-            </div>
-          </Container>
-        </Paper>
-
+        <div style={{ width: "100%" }}>
+          <img
+            src={upbg}
+            style={{ width: "100%", height: "auto", marginTop: "-30px" }}
+            alt=""
+          />
+          <h2
+            style={{
+              marginLeft: "7%",
+              marginRight: "7%",
+              textAlign: "left",
+              marginTop: "-170px",
+              color: "white",
+              fontSize: "20px",
+            }}
+          >
+            NIE has received more than 400+ offers this year !
+          </h2>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: m1 ? "60%" : "90%",
+              marginLeft: m1 ? "20%" : "6%",
+              marginTop: "25px",
+            }}
+          >
+            <SearchUI />
+          </div>
+        </div>
+        <div style={{ height: "100px" }}></div>
         <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
           <Grid container spacing={4}>
             {powers.map((power) => (
