@@ -25,7 +25,7 @@ import Paper from "@mui/material/Paper";
 import emailogo from "../images/email.webp";
 import upbg from "../images/upbg.png";
 import SearchUI from "./Search";
-
+import Company2UI from "./privileges_list/Company2";
 const theme = createTheme();
 
 export default function Privileges() {
@@ -107,6 +107,16 @@ export default function Privileges() {
           >
             <SearchUI />
           </div>
+        </div>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "30px",
+          }}
+        >
+          <Company2UI />
         </div>
         <div style={{ height: "100px" }}></div>
         <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
