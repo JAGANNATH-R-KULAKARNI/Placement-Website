@@ -50,7 +50,7 @@ export default function Register(props) {
   const [uploading, setUploading] = React.useState(false);
 
   const [name, setName] = React.useState("");
-
+  const [companyLogo, setCompanyLogo] = React.useState("");
   const [ctc, setCTC] = React.useState(0);
   const [ctcDisclosed, setCTCDisclosed] = React.useState(false);
   const [type, setType] = React.useState("");
@@ -92,6 +92,7 @@ export default function Register(props) {
       setDescription(props.desc);
       setCompanyId(props.id);
       setUrls(props.jds);
+      setCompanyLogo(props.data.logo);
     }
   });
   const registerCompany = async () => {
@@ -132,6 +133,7 @@ export default function Register(props) {
       min_cgpa: cgpa == "" ? 0 : cgpa,
       eligible_colleges: eligibleColleges,
       eligible_years: eligibleYears,
+      logo: companyLogo,
     };
 
     console.log("Upload Data Bro");
@@ -265,6 +267,17 @@ export default function Register(props) {
                     onChange={(e) => {
                       setName(e.target.value);
                     }}
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Company Logo (url)"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "5px" }}
+                    value={companyLogo}
+                    onChange={(e) => {
+                      setCompanyLogo(e.target.value);
+                    }}
+                    placeholder="Paste it from the internet"
                   />
                   <TextField
                     id="standard-basic ctc update companies"
