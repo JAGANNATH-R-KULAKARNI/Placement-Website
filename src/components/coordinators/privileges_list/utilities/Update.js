@@ -105,10 +105,7 @@ export default function Register(props) {
     } else if (type.length == 0) {
       alert("Type of company is required");
       return;
-    } else if (yearc.length == 0) {
-      alert("Eligible year of company is required");
-      return;
-    }else if (!intDateDisclosure && intDate.length == 0) {
+    } else if (!intDateDisclosure && intDate.length == 0) {
       alert("Tentative dates are required or else disable");
       return;
     } else if (eligibleBranches.length == 0) {
@@ -124,7 +121,7 @@ export default function Register(props) {
       type: type == "nyd" ? "" : type,
       tentative_interview_dates: !intDateDisclosure ? intDate : "---",
       eligible_branches: eligibleBranches,
-      year_c:yearc,
+      
       min_in_ten: minMInTen,
       min_in_twelve: minMInTwelve,
       max_year_education_gap: eduGap,
@@ -389,7 +386,8 @@ export default function Register(props) {
                       setEligibleBranches={setEligibleBranches}
                        el={props.el}
                     />
-                  </div>
+                    </div>
+                  {/* </div>
                   <TextField
                     id="standard-basic-year-c"
                     label="Eligible Year"
@@ -401,7 +399,7 @@ export default function Register(props) {
                     onChange={(e) => {
                       setYearc(e.target.value);
                     }}
-                  />
+                  /> */}
                   <TextField
                     id="standard-basic"
                     label="Min CGPA"
