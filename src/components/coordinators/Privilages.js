@@ -30,6 +30,8 @@ import com from "../images/company.jpg";
 import SearchUI from "./Search";
 import Company2UI from "./privileges_list/Company2";
 import RegisterUI from "./privileges_list/utilities2/Register";
+import RegisterUI2 from "./privileges_list/utilities/Register";
+import EmailUI from "./privileges_list/Email";
 import { supabase } from "../../Supabase";
 
 const theme = createTheme();
@@ -39,7 +41,9 @@ export default function Privileges() {
   const navigate = useNavigate();
   const location = useLocation();
   const [registerModal, setRegisterModal] = React.useState(false);
+  const [registerModal2, setRegisterModal2] = React.useState(false);
   const [companies, setCompanies] = React.useState([]);
+  const [openEmail, setOpenEmail] = React.useState(false);
 
   const powers = [
     {
@@ -102,6 +106,18 @@ export default function Privileges() {
         <RegisterUI
           registerModalHandler={() => setRegisterModal(!registerModal)}
           companies={companies}
+        />
+      ) : null}
+      {registerModal2 ? (
+        <RegisterUI2
+          registerModalHandler={() => setRegisterModal2(!registerModal2)}
+        />
+      ) : null}
+      {openEmail ? (
+        <EmailUI
+          emailModelHandler={() => {
+            setOpenEmail(!openEmail);
+          }}
         />
       ) : null}
       <main style={{ marginTop: m1 ? "-30px" : "-70px" }}>
@@ -171,7 +187,7 @@ export default function Privileges() {
                 }}
                 alt="Email"
                 onClick={() => {
-                  navigate("/admin/announce");
+                  setOpenEmail(true);
                 }}
               />
             </div>
@@ -183,7 +199,7 @@ export default function Privileges() {
                 backgroundColor: "#007F7F",
               }}
               onClick={() => {
-                navigate("/admin/announce");
+                setOpenEmail(true);
               }}
             >
               <h5
@@ -193,7 +209,7 @@ export default function Privileges() {
                   textAlign: "center",
                 }}
                 onClick={() => {
-                  navigate("/admin/announce");
+                  setOpenEmail(true);
                 }}
               >
                 Send An Email to the college or to a student
@@ -206,9 +222,7 @@ export default function Privileges() {
                 width: "100%",
                 backgroundColor: "white",
               }}
-              onClick={() => {
-                navigate("/admin/announce");
-              }}
+              onClick={() => {}}
             >
               <h6
                 style={{
@@ -218,9 +232,7 @@ export default function Privileges() {
                   marginTop: "8px",
                   marginBottom: "8px",
                 }}
-                onClick={() => {
-                  navigate("/admin/announce");
-                }}
+                onClick={() => {}}
               >
                 Not able to send an email ?{" "}
                 <span style={{ textDecoration: "underline" }}>Click here</span>
@@ -259,7 +271,7 @@ export default function Privileges() {
                 }}
                 alt="Stundets"
                 onClick={() => {
-                  setRegisterModal(true);
+                  setRegisterModal2(true);
                 }}
               />
             </div>
@@ -271,7 +283,7 @@ export default function Privileges() {
                 backgroundColor: "#007F7F",
               }}
               onClick={() => {
-                setRegisterModal(true);
+                setRegisterModal2(true);
               }}
             >
               <h5
@@ -281,7 +293,7 @@ export default function Privileges() {
                   textAlign: "center",
                 }}
                 onClick={() => {
-                  setRegisterModal(true);
+                  setRegisterModal2(true);
                 }}
               >
                 Register a company for placements
@@ -294,9 +306,7 @@ export default function Privileges() {
                 width: "100%",
                 backgroundColor: "white",
               }}
-              onClick={() => {
-                navigate("/admin/announce");
-              }}
+              onClick={() => {}}
             >
               <h6
                 style={{
@@ -306,11 +316,9 @@ export default function Privileges() {
                   marginTop: "8px",
                   marginBottom: "8px",
                 }}
-                onClick={() => {
-                  navigate("/admin/announce");
-                }}
+                onClick={() => {}}
               >
-                View the list of companies ?{" "}
+                View the registered companies ?{" "}
                 <span style={{ textDecoration: "underline" }}>Click here</span>
               </h6>
             </div>
@@ -375,10 +383,33 @@ export default function Privileges() {
                 Register a student for placements
               </h5>
             </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                backgroundColor: "white",
+              }}
+              onClick={() => {}}
+            >
+              <h6
+                style={{
+                  color: "#007F7F",
+                  fontWeight: 400,
+                  textAlign: "center",
+                  marginTop: "8px",
+                  marginBottom: "8px",
+                }}
+                onClick={() => {}}
+              >
+                View the registered students ?{" "}
+                <span style={{ textDecoration: "underline" }}>Click here</span>
+              </h6>
+            </div>
           </Paper>
         </div>
         <div style={{ height: "100px" }}></div>
-        <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
+        {/* <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
           <Grid container spacing={4}>
             {powers.map((power) => (
               <Grid item key={power.text} xs={12} sm={6} md={4}>
@@ -432,7 +463,7 @@ export default function Privileges() {
               </Grid>
             ))}
           </Grid>
-        </Container>
+        </Container> */}
       </main>
     </ThemeProvider>
   );
