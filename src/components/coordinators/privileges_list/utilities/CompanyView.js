@@ -225,7 +225,58 @@ export default function FullScreenDialog(props) {
             display: "flex",
             justifyContent: "center",
             width: "100%",
-            marginTop: "-5px",
+            marginTop: "-10px",
+          }}
+        >
+          <div style={{ width: "10%" }}></div>
+          <div
+            style={{ width: "80%", display: "flex", justifyContent: "center" }}
+          >
+            <Button
+              variant="contained"
+              style={{
+                width: "46%",
+                textTransform: "capitalize",
+                borderRadius: "20px",
+                backgroundColor: "#007F7F",
+                fontWeight: 600,
+              }}
+              onClick={() => {
+                setOpenForm(true);
+              }}
+              size="small"
+              disableElevation
+            >
+              Create Form
+            </Button>
+            <div style={{ width: "8%" }}></div>
+            <Button
+              variant="outlined"
+              style={{
+                width: "46%",
+                textTransform: "capitalize",
+                borderRadius: "20px",
+                color: "#007F7F",
+                fontWeight: 600,
+                border: "2px solid #007F7F",
+              }}
+              onClick={() => {
+                setEdit(true);
+              }}
+              size="small"
+              disableElevation
+            >
+              Edit info
+            </Button>
+          </div>
+          <div style={{ width: "10%" }}></div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            marginTop: "15px",
           }}
         >
           <div style={{ width: "5%" }}></div>
@@ -593,6 +644,41 @@ export default function FullScreenDialog(props) {
 
           <div style={{ width: "5%" }}></div>
         </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            marginTop: "-6px",
+          }}
+        >
+          <div style={{ width: "5%" }}></div>
+          <div style={{ width: "90%" }}>
+            {" "}
+            <h4
+              style={{
+                marginTop: "5px",
+                marginBottom: "7px",
+                fontSize: "17px",
+              }}
+            >
+              Description
+            </h4>
+            <p
+              style={{
+                marginTop: "0px",
+                fontSize: "15px",
+                fontWeight: 100,
+                display: "flex",
+              }}
+            >
+              {props.company.description}
+            </p>
+          </div>
+
+          <div style={{ width: "5%" }}></div>
+        </div>
         {/* <div
           style={{
             display: "flex",
@@ -617,21 +703,6 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "30%", marginTop: "5px" }}></div>
           <div style={{ width: "5%" }}></div>
         </div> */}
-        <button
-          onClick={() => {
-            setEdit(true);
-          }}
-        >
-          edit
-        </button>
-        <br />
-        <button
-          onClick={() => {
-            setOpenForm(true);
-          }}
-        >
-          create form
-        </button>
       </Dialog>
     </div>
   );
