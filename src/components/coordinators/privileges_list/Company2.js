@@ -141,10 +141,6 @@ export default function AnnounceACompany() {
     if (companies.length === 0) {
       fetchTheCompanies();
     }
-
-    // setInterval(() => {
-    //   fetchTheCompanies();
-    // }, 5000);
   }, []);
 
   React.useEffect(() => {
@@ -153,9 +149,9 @@ export default function AnnounceACompany() {
     }, 1000);
   });
 
-  React.useEffect(() => {
-    setWidth(caro.current.scrollWidth - caro.current.offsetWidth);
-  }, []);
+  // React.useEffect(() => {
+  //   setWidth(caro.current.scrollWidth - caro.current.offsetWidth);
+  // }, []);
 
   return (
     <div style={{ width: "100%" }}>
