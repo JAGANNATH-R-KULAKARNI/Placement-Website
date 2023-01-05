@@ -34,32 +34,42 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Chip from "@mui/material/Chip";
+import CompanyViewUI from "./utilities/CompanyView";
 
 export default function AnnounceACompany(props) {
   const m1 = useMediaQuery("(min-width:600px)");
   const [width, setWidth] = React.useState(0);
+  const [view, setView] = React.useState(false);
+  const [company, setCompany] = React.useState(null);
   const caro = React.useRef();
   const navigate = useNavigate();
   const location = useLocation();
-
-  //   React.useEffect(() => {
-  //     if (companies.length === 0) {
-  //       fetchTheCompanies();
-  //     }
-  //   }, []);
-
-  //   React.useEffect(() => {
-  //     setInterval(() => {
-  //       fetchTheProfile();
-  //     }, 1000);
-  //   });
-
+  const [registerModal, setRegisterModal] = React.useState(false);
+  const colors = {
+    Mass: "#6F7274",
+    Core: "#FFA500",
+    Dream: "#2E7D32",
+    "Open Dream": "#FFD700",
+  };
   React.useEffect(() => {
     setWidth(caro.current.scrollWidth - caro.current.offsetWidth);
   }, []);
 
   return (
     <div style={{ width: "100%" }}>
+      {registerModal ? (
+        <RegisterUI
+          registerModalHandler={() => setRegisterModal(!registerModal)}
+        />
+      ) : null}
+      {view && company ? (
+        <CompanyViewUI
+          setView={setView}
+          setCompany={setCompany}
+          company={company}
+        />
+      ) : null}
       {m1 ? (
         <h3
           style={{
@@ -81,9 +91,19 @@ export default function AnnounceACompany(props) {
             color: "#7A7A7A",
           }}
         >
-          Recent Registered Companies
+          Recent Registered Companies{" "}
+          {/* <button
+            style={{ color: "#017E7E", textDecoration: "underline" }}
+            onClick={() => {
+              alert("ok");
+              setRegisterModal(true);
+            }}
+          >
+            Register
+          </button> */}
         </h4>
       )}
+
       <div
         style={{
           width: "100%",
@@ -131,6 +151,10 @@ export default function AnnounceACompany(props) {
                         borderRadius: "10px",
                         marginBottom: "20px",
                       }}
+                      onClick={() => {
+                        setCompany(item);
+                        setView(true);
+                      }}
                     >
                       <div
                         key={item.id}
@@ -139,6 +163,32 @@ export default function AnnounceACompany(props) {
                         }}
                       >
                         <div style={{ width: "100%", height: "30px" }}></div>
+                        <div
+                          style={{
+                            width: "100%",
+                            zIndex: 4,
+                            position: "relative",
+                            marginTop: "-15px",
+                            height: "50px",
+                            display: "flex",
+                            justifyContent: "center",
+                            marginBottom: "-37px",
+                          }}
+                        >
+                          <h6
+                            style={{
+                              color: "white",
+                              textAlign: "left",
+                              fontWeight: 100,
+                              textTransform: "capitalize",
+                              width: "80%",
+                              maxWidth: "80%",
+                            }}
+                          >
+                            {item.type}
+                          </h6>
+                          {/* <Chip label={item.type} /> */}
+                        </div>
                         <Paper
                           style={{
                             width: "94%",
@@ -189,10 +239,6 @@ export default function AnnounceACompany(props) {
                             display: "flex",
                             justifyContent: "center",
                           }}
-                          onClick={() => {
-                            // window.open(item.url);
-                            alert("need the logic");
-                          }}
                         >
                           <h1
                             style={{
@@ -222,10 +268,6 @@ export default function AnnounceACompany(props) {
                             height: "50px",
                             display: "flex",
                             justifyContent: "center",
-                          }}
-                          onClick={() => {
-                            // window.open(item.url);
-                            alert("need the logic");
                           }}
                         >
                           <h6
