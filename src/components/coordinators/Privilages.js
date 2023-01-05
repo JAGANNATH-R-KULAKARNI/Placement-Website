@@ -212,7 +212,7 @@ export default function Privileges() {
                   setOpenEmail(true);
                 }}
               >
-                Send An Email to the college or to a student
+                Send an Email to the college or to a student
               </h5>
             </div>
             <div
@@ -409,7 +409,7 @@ export default function Privileges() {
           </Paper>
         </div>
         <div style={{ height: "10px" }}></div>
-        {/* <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
+        <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
           <Grid container spacing={4}>
             {powers.map((power) => (
               <Grid item key={power.text} xs={12} sm={6} md={4}>
@@ -463,7 +463,7 @@ export default function Privileges() {
               </Grid>
             ))}
           </Grid>
-        </Container> */}
+        </Container>
       </main>
     </ThemeProvider>
   );

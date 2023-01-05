@@ -21,6 +21,10 @@ import CategoryIcon from "@mui/icons-material/Category";
 import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Propane } from "@mui/icons-material";
+import { supabase } from "../../../../Supabase";
+import FeedIcon from "@mui/icons-material/Feed";
+import Chip from "@mui/material/Chip";
+import UpdateFormUI from "../utilities4/Update";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -34,6 +38,9 @@ export default function FullScreenDialog(props) {
   const [ecc, setEcc] = React.useState("");
   const [ebb, setEbb] = React.useState("");
   const [eyy, setEyy] = React.useState("");
+  const [forms, setForms] = React.useState([]);
+  const [updateFormStatus, setUpdateFormStatus] = React.useState(false);
+  const [updateFormData, setUpdateFormData] = React.useState(null);
 
   async function timeSince(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
@@ -69,7 +76,7 @@ export default function FullScreenDialog(props) {
   };
 
   async function calcInfo() {
-    console.log(await timeSince(new Date(parseInt(props.company.time_posted))));
+    //console.log(await timeSince(new Date(parseInt(props.company.time_posted))));
     setTimeAgo(await timeSince(new Date(parseInt(props.company.time_posted))));
 
     let el = props.company.eligible_colleges;
@@ -80,7 +87,7 @@ export default function FullScreenDialog(props) {
       else elt = elt + el[i];
     }
 
-    console.log(elt);
+    // console.log(elt);
     setEcc(elt);
     let ey = props.company.eligible_years;
     let eyt = "";
@@ -99,7 +106,7 @@ export default function FullScreenDialog(props) {
       else eyt = eyt + y;
     }
 
-    console.log(eyt);
+    // console.log(eyt);
     setEyy(eyt);
     let eb = props.company.eligible_branches;
     let ebt = "";
@@ -110,10 +117,46 @@ export default function FullScreenDialog(props) {
     }
 
     setEbb(ebt);
-    console.log(ebt);
+    // console.log(ebt);
   }
+
+  async function fetchForms() {
+    const { data, error } = await supabase
+      .from("forms")
+      .select("*")
+      .eq("company_id", props.company.id)
+      .order("time_created", { ascending: false });
+
+    if (data) {
+      //  console.log("FORMS");
+      //  console.log(data);
+
+      let temp = [];
+
+      for (let i = 0; i < data.length; i++) {
+        let flag = false;
+        let ref = Date.now();
+
+        if (ref > data[i].start_time && ref < data[i].end_time) flag = true;
+        temp.push({
+          ...data[i],
+          active: flag,
+          posted: await timeSince(new Date(parseInt(data[i].time_created))),
+          data: data[i],
+          company: props.company,
+        });
+      }
+
+      // console.log(temp);
+      setForms(temp);
+    }
+  }
+
   React.useEffect(() => {
-    calcInfo();
+    setInterval(() => {
+      calcInfo();
+      fetchForms();
+    }, 1000);
   }, []);
 
   return (
@@ -124,6 +167,14 @@ export default function FullScreenDialog(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
+        {updateFormStatus && updateFormData ? (
+          <UpdateFormUI
+            registerModalHandler={() => {
+              setUpdateFormStatus(!updateFormStatus);
+            }}
+            data={updateFormData}
+          />
+        ) : null}
         {openForm && props.company ? (
           <CreateFormUI
             company={props.company}
@@ -276,7 +327,75 @@ export default function FullScreenDialog(props) {
             display: "flex",
             justifyContent: "center",
             width: "100%",
-            marginTop: "15px",
+            marginTop: "-10px",
+          }}
+        >
+          <div style={{ width: "10%" }}></div>
+          <div
+            style={{ width: "80%", display: "flex", justifyContent: "center" }}
+          >
+            {forms && forms.length > 0 ? (
+              <div style={{ width: "100%" }}>
+                <h4 style={{ marginBottom: "8px" }}>Recently created forms</h4>
+                <div>
+                  {forms &&
+                    forms.map((item, index) => {
+                      return (
+                        <p
+                          style={{
+                            marginTop: "0px",
+                            marginBottom: "5px",
+                            display: "flex",
+                          }}
+                        >
+                          <FeedIcon style={{ marginRight: "7px" }} />{" "}
+                          <span
+                            style={{
+                              width: "57%",
+                              textDecoration: "underline",
+                            }}
+                            onClick={() => {
+                              setUpdateFormData(item);
+                              setUpdateFormStatus(true);
+                            }}
+                          >
+                            Form {forms.length - index} -{" "}
+                            <span
+                              style={{
+                                fontSize: "13px",
+                                marginTop: "3px",
+                                marginLeft: "5px",
+                              }}
+                            >
+                              {item.posted} ago
+                            </span>
+                          </span>
+                          <Chip
+                            label={item.active ? "active" : "inactive"}
+                            color={item.active ? "success" : "error"}
+                            size="small"
+                            style={{
+                              marginLeft: "7px",
+                              backgroundColor: item.active
+                                ? "#007F7F"
+                                : "#B10501",
+                            }}
+                          />
+                        </p>
+                      );
+                    })}
+                </div>
+              </div>
+            ) : null}
+          </div>
+          <div style={{ width: "10%" }}></div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            marginTop: forms && forms.length > 0 ? "15px" : "25px",
           }}
         >
           <div style={{ width: "5%" }}></div>
