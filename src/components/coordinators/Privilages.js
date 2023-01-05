@@ -24,14 +24,22 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import Paper from "@mui/material/Paper";
 import emailogo from "../images/email.webp";
 import upbg from "../images/upbg.png";
+import email from "../images/email2.png";
+import stu from "../images/nie.jpg";
+import com from "../images/company.jpg";
 import SearchUI from "./Search";
 import Company2UI from "./privileges_list/Company2";
+import RegisterUI from "./privileges_list/utilities2/Register";
+import { supabase } from "../../Supabase";
+
 const theme = createTheme();
 
 export default function Privileges() {
   const m1 = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const location = useLocation();
+  const [registerModal, setRegisterModal] = React.useState(false);
+  const [companies, setCompanies] = React.useState([]);
 
   const powers = [
     {
@@ -74,9 +82,28 @@ export default function Privileges() {
     },
   ];
 
+  async function fetchTheCompanies() {
+    const { data, error } = await supabase
+      .from("companies")
+      .select("*")
+      .order("time_posted", {
+        ascending: false,
+      });
+
+    if (data) {
+      setCompanies(data);
+    }
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {registerModal && companies ? (
+        <RegisterUI
+          registerModalHandler={() => setRegisterModal(!registerModal)}
+          companies={companies}
+        />
+      ) : null}
       <main style={{ marginTop: m1 ? "-30px" : "-70px" }}>
         <div style={{ width: "100%" }}>
           <img
@@ -117,6 +144,238 @@ export default function Privileges() {
           }}
         >
           <Company2UI />
+        </div>
+        <div
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+        >
+          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={2}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <img
+                src={email}
+                // style={{
+                //   width: "50%",
+                //   height: "auto",
+                //   animationDuration: "10s",
+                // }}
+                style={{
+                  width: "35%",
+                  height: "auto",
+                  paddingTop: "10px",
+                  paddingBottom: "10px",
+                }}
+                alt="Email"
+                onClick={() => {
+                  navigate("/admin/announce");
+                }}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                backgroundColor: "#007F7F",
+              }}
+              onClick={() => {
+                navigate("/admin/announce");
+              }}
+            >
+              <h5
+                style={{
+                  color: "white",
+                  fontWeight: 400,
+                  textAlign: "center",
+                }}
+                onClick={() => {
+                  navigate("/admin/announce");
+                }}
+              >
+                Send An Email to the college or to a student
+              </h5>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                backgroundColor: "white",
+              }}
+              onClick={() => {
+                navigate("/admin/announce");
+              }}
+            >
+              <h6
+                style={{
+                  color: "#007F7F",
+                  fontWeight: 400,
+                  textAlign: "center",
+                  marginTop: "8px",
+                  marginBottom: "8px",
+                }}
+                onClick={() => {
+                  navigate("/admin/announce");
+                }}
+              >
+                Not able to send an email ?{" "}
+                <span style={{ textDecoration: "underline" }}>Click here</span>
+              </h6>
+            </div>
+          </Paper>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            marginTop: "30px",
+          }}
+        >
+          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={2}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <img
+                src={com}
+                // style={{
+                //   width: "50%",
+                //   height: "auto",
+                //   animationDuration: "10s",
+                // }}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  borderTopLeftRadius: "10px",
+                  borderTopRightRadius: "10px",
+                }}
+                alt="Stundets"
+                onClick={() => {
+                  setRegisterModal(true);
+                }}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                backgroundColor: "#007F7F",
+              }}
+              onClick={() => {
+                setRegisterModal(true);
+              }}
+            >
+              <h5
+                style={{
+                  color: "white",
+                  fontWeight: 400,
+                  textAlign: "center",
+                }}
+                onClick={() => {
+                  setRegisterModal(true);
+                }}
+              >
+                Register a company for placements
+              </h5>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                backgroundColor: "white",
+              }}
+              onClick={() => {
+                navigate("/admin/announce");
+              }}
+            >
+              <h6
+                style={{
+                  color: "#007F7F",
+                  fontWeight: 400,
+                  textAlign: "center",
+                  marginTop: "8px",
+                  marginBottom: "8px",
+                }}
+                onClick={() => {
+                  navigate("/admin/announce");
+                }}
+              >
+                View the list of companies ?{" "}
+                <span style={{ textDecoration: "underline" }}>Click here</span>
+              </h6>
+            </div>
+          </Paper>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            marginTop: "30px",
+          }}
+        >
+          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={2}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <img
+                src={stu}
+                // style={{
+                //   width: "50%",
+                //   height: "auto",
+                //   animationDuration: "10s",
+                // }}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  borderTopLeftRadius: "10px",
+                  borderTopRightRadius: "10px",
+                }}
+                alt="Stundets"
+                onClick={() => {
+                  setRegisterModal(true);
+                }}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                backgroundColor: "#007F7F",
+              }}
+              onClick={() => {
+                setRegisterModal(true);
+              }}
+            >
+              <h5
+                style={{
+                  color: "white",
+                  fontWeight: 400,
+                  textAlign: "center",
+                }}
+                onClick={() => {
+                  setRegisterModal(true);
+                }}
+              >
+                Register a student for placements
+              </h5>
+            </div>
+          </Paper>
         </div>
         <div style={{ height: "100px" }}></div>
         <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">

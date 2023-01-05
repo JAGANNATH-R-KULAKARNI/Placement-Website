@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import UpdateUI from "./Update2";
+import CreateFormUI from "../utilities4/Create2";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -20,6 +21,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog(props) {
   const [open, setOpen] = React.useState(true);
   const [edit, setEdit] = React.useState(false);
+  const [openForm, setOpenForm] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -35,6 +37,14 @@ export default function FullScreenDialog(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
+        {openForm && props.company ? (
+          <CreateFormUI
+            company={props.company}
+            registerModalHandler={() => {
+              setOpenForm(!openForm);
+            }}
+          />
+        ) : null}
         {edit ? (
           <UpdateUI
             name={props.company.name}
@@ -77,6 +87,14 @@ export default function FullScreenDialog(props) {
           }}
         >
           edit
+        </button>
+        <br />
+        <button
+          onClick={() => {
+            setOpenForm(true);
+          }}
+        >
+          create form
         </button>
       </Dialog>
     </div>

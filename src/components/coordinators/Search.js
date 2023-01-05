@@ -139,7 +139,7 @@ export default function UseAutocomplete(props) {
               }}
             >
               {" "}
-              Search Available Services....{" "}
+              Search For Information....{" "}
             </span>
           </div>
         )}
