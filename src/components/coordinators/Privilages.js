@@ -25,8 +25,8 @@ import Paper from "@mui/material/Paper";
 import emailogo from "../images/email.webp";
 import upbg from "../images/upbg.png";
 import email from "../images/email2.png";
-import stu from "../images/nie.jpg";
-import com from "../images/company.jpg";
+import stu from "../images/stu.png";
+import com from "../images/comp.png";
 import SearchUI from "./Search";
 import Company2UI from "./privileges_list/Company2";
 import RegisterUI from "./privileges_list/utilities2/Register";
@@ -264,7 +264,7 @@ export default function Privileges() {
                 //   animationDuration: "10s",
                 // }}
                 style={{
-                  width: "100%",
+                  width: "70%",
                   height: "auto",
                   borderTopLeftRadius: "10px",
                   borderTopRightRadius: "10px",
@@ -348,7 +348,7 @@ export default function Privileges() {
                 //   animationDuration: "10s",
                 // }}
                 style={{
-                  width: "100%",
+                  width: "50%",
                   height: "auto",
                   borderTopLeftRadius: "10px",
                   borderTopRightRadius: "10px",
