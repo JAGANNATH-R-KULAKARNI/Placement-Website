@@ -100,7 +100,7 @@ function App() {
   return (
     <div
       // style={{ backgroundImage: `url(${bg})`, backgroundAttachment: "fixed" }}
-      style={{ backgroundAttachment: "fixed", backgroundColor: "#F6F6F6" }}
+      style={{ backgroundAttachment: "fixed", backgroundColor: "white" }}
     >
       {location &&
       (location.pathname === "/signin" || location.pathname === "/login") ? (

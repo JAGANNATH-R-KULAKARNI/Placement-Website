@@ -4,6 +4,7 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import DialogUI from "./Dialog";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -16,6 +17,12 @@ const Item = styled(Paper)(({ theme }) => ({
 const darkTheme = createTheme({ palette: { mode: "dark" } });
 
 export default function MoreDetails(props) {
+  const [model, setModel] = React.useState(false);
+
+  const toggleModel = () => {
+    setModel(!model);
+  };
+
   return (
     <Grid container spacing={2}>
       {[darkTheme].map((theme, index) => (
@@ -40,6 +47,7 @@ export default function MoreDetails(props) {
                   {props.ctc}{" "}
                 </span>{" "}
               </Item>
+
               <Button
                 variant="contained"
                 style={{
@@ -47,11 +55,51 @@ export default function MoreDetails(props) {
                   color: "white",
                   borderRadius: "15px",
                 }}
+                onClick={toggleModel}
               >
                 View More Details
               </Button>
             </Box>
           </ThemeProvider>
+          {model ? (
+            <DialogUI
+              nameD={props.name1}
+              emailD={props.email}
+              usnD={props.ctc}
+              dD={props.dob}
+              gD={props.gender}
+              cat={props.cat}
+              t={props.t}
+              t1={props.t1}
+              t2={props.t2}
+              tw={props.tw}
+              tw1={props.tw1}
+              tw2={props.tw1}
+              d={props.d}
+              d1={props.d1}
+              d2={props.d2}
+              br={props.br}
+              yr={props.yr}
+              gd={props.gd}
+              ca={props.ca}
+              cl={props.cl}
+              cb={props.cb}
+              clb={props.clb}
+              sec={props.sec}
+              cgpa={props.cgpa}
+              credits={props.credits}
+              ph={props.ph}
+              ph1={props.ph1}
+              addr={props.addr}
+              addr1={props.addr1}
+              companies={props.companies}
+              company={props.company}
+              id={props.id}
+              yg={props.yg}
+              toggleModel={toggleModel}
+              data={props.data}
+            />
+          ) : null}
         </Grid>
       ))}
     </Grid>

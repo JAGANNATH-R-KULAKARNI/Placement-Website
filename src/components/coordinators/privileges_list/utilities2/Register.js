@@ -36,6 +36,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { ContentPasteGoSharp } from "@mui/icons-material";
 import SeacrUI from "./Search2";
 import BackdropUI from "./Backdrop";
+import DateUI from "./Date";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -68,7 +69,10 @@ export default function Register(props) {
   const [credits, setCredits] = React.useState(0);
   const [cgpa, setCGPA] = React.useState(0);
   const [company, setCompany] = React.useState(0);
+  const [company2, setCompany2] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
+  const [year_gap, setYearGap] = React.useState(0);
+  const [college, setCollege] = React.useState("NIE");
 
   const [sending, setSending] = React.useState(false);
 
@@ -87,6 +91,7 @@ export default function Register(props) {
       category.length == 0 ||
       !tenth[0] ||
       tenth[1].length == 0 ||
+      year_gap.length == 0 ||
       !tenth[1] ||
       !twelth[2] ||
       twelth[1].length == 0 ||
@@ -97,6 +102,29 @@ export default function Register(props) {
       address[1].length == 0
     ) {
       alert("All fields should be filled");
+      return;
+    }
+
+    if (company == 0 && company2 != 0) {
+      alert("Fill the first field as your first company");
+      return;
+    }
+
+    if (company && company2 && company == company2) {
+      alert("You cant get two offers in the same company :|");
+      return;
+    }
+
+    if (cgpa == "") {
+      alert("Total CGPA should be filled");
+      return;
+    }
+
+    let gd = [];
+
+    for (let i = 0; i < grades.length; i++) {
+      if (grades[i] == "") gd.push(0);
+      else gd.push(grades[i]);
     }
 
     const uploadData = {
@@ -117,19 +145,22 @@ export default function Register(props) {
       diplomo_passed_year: diplomo[2],
       branch: branch,
       year: year,
-      grades: grades,
-      current_arears: arears[0],
-      cleared_arears: arears[1],
-      current_backlogs: backlogs[0],
-      cleared_backlogs: backlogs[1],
+      grades: gd,
+      current_arears: arears[0] == "" ? 0 : arears[0],
+      cleared_arears: arears[1] == "" ? 0 : arears[1],
+      max_year_education_gap: year_gap == "" ? 0 : year_gap,
+      current_backlogs: backlogs[0] == "" ? 0 : backlogs[0],
+      cleared_backlogs: backlogs[1] == "" ? 0 : backlogs[1],
       phone_num: phone[0],
       parent_phone_num: phone[1],
       home_addr: address[0],
       permanent_addr: address[1],
       documents: urls,
-      credits: credits,
-      cgpa: cgpa,
+      credits: credits == "" ? 0 : credits,
+      cgpa: cgpa == "" ? 0 : cgpa,
       company: company,
+      college: college,
+      company2: company2,
     };
 
     console.log("Upload Data Bro");
@@ -143,6 +174,7 @@ export default function Register(props) {
       console.log("Success");
       console.log(data);
       alert("Successfully Uploaded");
+      props.registerModalHandler();
     }
 
     if (error) {
@@ -164,6 +196,20 @@ export default function Register(props) {
     for (let i = 0; i < props.companies.length; i++) {
       if (props.companies[i]["name"] == com) {
         setCompany(props.companies[i]["id"]);
+        console.log(props.companies[i]);
+        console.log(props.companies[i]["id"]);
+        break;
+      }
+    }
+  };
+
+  const searchCompanyResults2 = (com) => {
+    console.log("Compnay");
+    console.log(com);
+
+    for (let i = 0; i < props.companies.length; i++) {
+      if (props.companies[i]["name"] == com) {
+        setCompany2(props.companies[i]["id"]);
         console.log(props.companies[i]);
         console.log(props.companies[i]["id"]);
         break;
@@ -309,6 +355,15 @@ export default function Register(props) {
                       <SeacrUI
                         companies={props.companies}
                         searchCompanyResults={searchCompanyResults}
+                        text="Search Company 1 (Finalized)"
+                      />
+                    )}
+                    {ccontrol ? null : <br />}
+                    {ccontrol ? null : (
+                      <SeacrUI
+                        companies={props.companies}
+                        searchCompanyResults={searchCompanyResults2}
+                        text="Search Company 2 (If two offers) (1st offer)"
                       />
                     )}
                     <FormGroup>
@@ -329,16 +384,10 @@ export default function Register(props) {
                       />
                     </FormGroup>
                   </div>
-                  <TextField
-                    id="standard-basic"
-                    label="Date Of Birth"
-                    variant="standard"
-                    style={{ width: "100%", marginTop: "15px" }}
-                    value={dob}
-                    onChange={(e) => {
-                      setDob(e.target.value);
-                    }}
-                  />
+
+                  <div style={{ marginTop: "35px" }}>
+                    <DateUI setIntDate={setDob} />
+                  </div>
                   <FormControl
                     variant="standard"
                     sx={{ width: "100%", marginTop: "20px" }}
@@ -495,7 +544,26 @@ export default function Register(props) {
                     }}
                     type="number"
                   />
-
+                  <FormControl
+                    variant="standard"
+                    sx={{ width: "100%", marginTop: "30px" }}
+                  >
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Engineering College
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      value={college}
+                      onChange={(e) => {
+                        setCollege(e.target.value);
+                      }}
+                      label="College"
+                    >
+                      <MenuItem value="NIE">NIE</MenuItem>
+                      <MenuItem value="NIEIT">NIEIT</MenuItem>
+                    </Select>
+                  </FormControl>
                   <FormControl
                     variant="standard"
                     sx={{ width: "100%", marginTop: "20px" }}
@@ -521,6 +589,8 @@ export default function Register(props) {
                       <MenuItem value="ME">Mechanical Engineering</MenuItem>
                       <MenuItem value="CIVIL">Civil Engineering</MenuItem>
                       <MenuItem value="IP">Industrial Production</MenuItem>
+                      <MenuItem value="MCA">MCA</MenuItem>
+                      <MenuItem value="MTECH">MTECH</MenuItem>{" "}
                     </Select>
                   </FormControl>
                   <TextField
@@ -554,6 +624,8 @@ export default function Register(props) {
                       <MenuItem value={2}>Second Year</MenuItem>
                       <MenuItem value={3}>Third Year</MenuItem>
                       <MenuItem value={4}>Fourth Year</MenuItem>
+                      <MenuItem value={5}>Mtech First Year</MenuItem>
+                      <MenuItem value={6}>Mtech Second Year</MenuItem>
                     </Select>
                   </FormControl>
                   <TextField
@@ -772,6 +844,20 @@ export default function Register(props) {
                   />
                   <TextField
                     id="standard-basic"
+                    label="Max year Education gap"
+                    variant="standard"
+                    type="number"
+                    style={{
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    value={year_gap}
+                    onChange={(e) => {
+                      setYearGap(e.target.value);
+                    }}
+                  />
+                  <TextField
+                    id="standard-basic"
                     label="Phone No"
                     variant="standard"
                     type="number"
@@ -829,6 +915,19 @@ export default function Register(props) {
                       setAddress(temp);
                     }}
                   />
+                  {/* <TextField
+                    id="standard-basic"
+                    label="Resume link (*Make Public)"
+                    variant="standard"
+                    type="text"
+                    style={{ width: "100%", marginTop: "15px" }}
+                    value={address[1]}
+                    onChange={(e) => {
+                      const temp = [...address];
+                      temp[1] = e.target.value;
+                      setAddress(temp);
+                    }}
+                  /> */}
 
                   <div
                     style={{

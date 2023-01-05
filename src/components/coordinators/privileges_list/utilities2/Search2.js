@@ -13,7 +13,17 @@ function sleep(delay = 0) {
 export default function Asynchronous(props) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
+  const [control, setControl] = React.useState(false);
+
   const loading = open && options.length === 0;
+  const searchRef = React.useRef();
+
+  React.useEffect(() => {
+    if (!control) {
+      setControl(true);
+      searchRef.current.value = props.company_name;
+    }
+  }, []);
 
   React.useEffect(() => {
     let active = true;
@@ -56,6 +66,7 @@ export default function Asynchronous(props) {
       getOptionLabel={(option) => option.name}
       options={options}
       loading={loading}
+      ref={searchRef}
       onChange={(e) => {
         if (e.target.innerHTML.substr(0, 5) === "<path")
           props.searchCompanyResults("Not Placed");
@@ -64,7 +75,7 @@ export default function Asynchronous(props) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Search Company"
+          label={props.text}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

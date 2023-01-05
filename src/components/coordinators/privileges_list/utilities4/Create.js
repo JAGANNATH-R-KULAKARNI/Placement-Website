@@ -49,6 +49,7 @@ import BackdropUI from "../utilities3/Backdrop";
 import DialogUI from "./Dialog";
 import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import UpdateUI from "../utilities/Update";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -60,6 +61,7 @@ export default function Register(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [currcompany, setCurrcompany] = React.useState(null);
   const [data, setData] = React.useState(null);
   const [companies, setCompanies] = React.useState([]);
   const [company, setCompany] = React.useState(null);
@@ -73,13 +75,14 @@ export default function Register(props) {
   const [loading, setLoading] = React.useState(false);
   const [dialog, setDialog] = React.useState(false);
   const [link, setLink] = React.useState("");
+  const [model, setModel] = React.useState(false);
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
 
     if (data) {
       setData(data);
-      if (data.email !== process.env.REACT_APP_ADMIN) navigate("/");
+      if (data.email != process.env.REACT_APP_ADMIN) navigate("/");
     }
   }
 
@@ -118,7 +121,6 @@ export default function Register(props) {
     let comp = null;
     console.log(students);
     const emails = [];
-    setLoading(true);
 
     for (let i = 0; i < students.length; i++) {
       emails.push(students[i].email);
@@ -134,19 +136,25 @@ export default function Register(props) {
       return;
     }
 
+    setLoading(true);
+    let compY = company.replace(/&amp;/g, "&");
+
     for (let i = 0; i < companies.length; i++) {
-      if (company == companies[i].name) {
+      console.log(companies[i]);
+      if (compY == companies[i].name) {
         comp = companies[i];
         break;
       }
     }
     console.log(company);
+    console.log(compY);
     console.log(comp);
+
     let uniid = "";
 
-    for (let j = 0; j < company.length; j++) {
-      if (company[j] == " ") continue;
-      uniid = uniid + company[j];
+    for (let j = 0; j < compY.length; j++) {
+      if (compY[j] == " ") continue;
+      uniid = uniid + compY[j];
     }
 
     let t = Date.now();
@@ -177,7 +185,7 @@ export default function Register(props) {
     await axios
       .post(process.env.REACT_APP_API_ENDPOINT, {
         htm: ` <div>
-        <i>Apply for <b>${company}</b> Now !</i>
+        <i>Apply for <b>${compY}</b> Now !</i>
         <p></p>
         <a href="${
           window.location.href.substr(0, window.location.href.length - 11) +
@@ -192,8 +200,8 @@ export default function Register(props) {
         }</a>
         <h3 style="text-align:right;marin-top:10px;"><b>- Placements NIE</b></h3>
       </div>`,
-        text: `Apply for ${company} Now`,
-        subject: `${company} - Campus Placements`,
+        text: `Apply for ${compY} Now`,
+        subject: `${compY} - Campus Placements`,
         to: emails,
         attachments: [],
       })
@@ -223,6 +231,15 @@ export default function Register(props) {
   async function searchCompanyResults(str) {
     console.log("Seach company result");
     console.log(str);
+    // let com = null;
+
+    for (let i = 0; i < companies.length; i++) {
+      if (str == companies[i].name) {
+        setCurrcompany(companies[i]);
+        break;
+      }
+    }
+
     setCompany(str);
   }
 
@@ -252,6 +269,28 @@ export default function Register(props) {
           }}
         >
           <NavBarUI handleClose={handleClose} />
+          {model && currcompany ? (
+            <UpdateUI
+              name={currcompany.name}
+              ctc={currcompany.ctc}
+              type={currcompany.type}
+              el={currcompany.eligible_branches}
+              t={currcompany.tentative_interview_dates}
+              mt={currcompany.min_in_ten}
+              mtw={currcompany.min_in_twelve}
+              max={currcompany.max_year_education_gap}
+              ba={currcompany.active_backlogs_allowed}
+              hba={currcompany.history_backlogs_allowed}
+              cgpa={currcompany.min_cgpa}
+              gender={currcompany.gender}
+              desc={currcompany.description}
+              id={currcompany.id}
+              jds={currcompany.jds}
+              toggleModel={() => {
+                setModel(!model);
+              }}
+            />
+          ) : null}
           {data ? (
             <div>
               <CssBaseline />
@@ -330,10 +369,10 @@ export default function Register(props) {
                       style={{
                         display: "flex",
                         justifyContent: "center",
-                        marginTop: "20px",
+                        marginTop: "0px",
                       }}
                     >
-                      <Accordion style={{ width: "85%" }} elevation={1}>
+                      {/* <Accordion style={{ width: "85%" }} elevation={1}>
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
                           aria-controls="panel1a-content"
@@ -346,7 +385,20 @@ export default function Register(props) {
                             Details about compnay should be displayed
                           </Typography>
                         </AccordionDetails>
-                      </Accordion>
+                      </Accordion> */}
+                      {/* <Button
+                        variant="contained"
+                        style={{
+                          backgroundColor: "#541554",
+                          color: "white",
+                          borderRadius: "15px",
+                        }}
+                        onClick={() => {
+                          setModel(!model);
+                        }}
+                      >
+                        View More Details
+                      </Button> */}
                     </div>
                   ) : null}
                   <div

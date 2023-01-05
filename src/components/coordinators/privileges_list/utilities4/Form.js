@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Chip from "@mui/material/Chip";
 import { InsertEmoticon } from "@mui/icons-material";
+import DetailsUI from "./Details";
 
 export default function CompanyList(props) {
   const [expanded, setExpanded] = React.useState(false);
@@ -13,6 +14,11 @@ export default function CompanyList(props) {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  // React.useEffect(() => {
+  //   console.log("BROOOOOOOOOOOOOOOOOOOOOO");
+  //   console.log(props.data);
+  // }, []);
 
   return (
     <div>
@@ -77,7 +83,7 @@ export default function CompanyList(props) {
         </AccordionSummary>
         <AccordionDetails>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            {/* <DetailsUI ctc={props.data.usn} /> */}
+            <DetailsUI openForm={props.openForm} data={props.data} />
           </div>
         </AccordionDetails>
       </Accordion>

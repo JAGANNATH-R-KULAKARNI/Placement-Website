@@ -43,7 +43,7 @@ export default function MaterialUIPickers(props) {
     setValue(newValue);
     console.log(date.getTime());
     props.timeHandler(date.getTime());
-    props.timeHandler2(newValue["$d"].toString());
+    props.timeHandler2(date.toLocaleString());
   };
 
   return (

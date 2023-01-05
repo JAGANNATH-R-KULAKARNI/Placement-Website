@@ -26,9 +26,12 @@ import DialogUI from "./utilities4/Dialog";
 import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import Form2UI from "./utilities4/Create";
+import Form3UI from "./utilities4/Update";
 import SearcUI2 from "./utilities4/Search2";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import FormUI from "./utilities4/Form";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 export default function AnnounceACompany() {
   const m1 = useMediaQuery("(min-width:600px)");
@@ -49,11 +52,21 @@ export default function AnnounceACompany() {
   const [dialog, setDialog] = React.useState(false);
   const [link, setLink] = React.useState("");
   const [form2, setForm2] = React.useState(false);
+  const [form3, setForm3] = React.useState(false);
   const [forms, setForms] = React.useState(null);
   const [forms2, setForms2] = React.useState(null);
 
   const [activeForms, setActiveForms] = React.useState(null);
   const [inactiveForms, setInActiveForms] = React.useState(null);
+  const [activeForms2, setActiveForms2] = React.useState(null);
+  const [inactiveForms2, setInActiveForms2] = React.useState(null);
+  const [updateFormData, setUpdateFormData] = React.useState(null);
+
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   async function fetchForms() {
     if (!companies) return;
@@ -88,6 +101,8 @@ export default function AnnounceACompany() {
 
       setActiveForms(ac);
       setInActiveForms(inac);
+      setActiveForms2(ac);
+      setInActiveForms2(inac);
       setForms(al);
       setForms2(al);
       console.log("Forms");
@@ -102,7 +117,7 @@ export default function AnnounceACompany() {
 
     if (data) {
       setData(data);
-      if (data.email !== process.env.REACT_APP_ADMIN) navigate("/");
+      if (data.email != process.env.REACT_APP_ADMIN) navigate("/");
     }
   }
 
@@ -151,18 +166,35 @@ export default function AnnounceACompany() {
 
   async function searchFormResults(fname) {
     const temp = [];
+    const ac = [];
+    const inac = [];
 
     if (!fname) {
       setForms2(forms);
+      setActiveForms2(activeForms);
+      setInActiveForms2(inactiveForms);
       return;
     }
+
     for (let i = 0; i < forms.length; i++) {
       if (fname == forms[i].company.name) {
         temp.push(forms[i]);
+
+        if (
+          forms[i].data.start_time <= Date.now() &&
+          Date.now() <= forms[i].data.end_time
+        ) {
+          ac.push(forms[i]);
+        } else {
+          inac.push(forms[i]);
+        }
       }
     }
 
+    console.log(temp);
     setForms2(temp);
+    setActiveForms2(ac);
+    setInActiveForms2(inac);
   }
 
   return (
@@ -175,6 +207,14 @@ export default function AnnounceACompany() {
               registerModalHandler={() => {
                 setForm2(!form2);
               }}
+            />
+          ) : null}
+          {form3 && updateFormData ? (
+            <Form3UI
+              registerModalHandler={() => {
+                setForm3(!form3);
+              }}
+              data={updateFormData}
             />
           ) : null}
           {loading ? <BackdropUI /> : null}
@@ -239,82 +279,130 @@ export default function AnnounceACompany() {
                 </div>
               </Container>
             </Box>
-            <Paper
+            <div
               style={{
-                width: "95%",
-                borderRadius: "20px",
                 display: "flex",
                 justifyContent: "center",
-                marginTop: "20px",
+                width: "100%",
               }}
             >
-              <div>
-                <h1
-                  style={{
-                    textAlign: "center",
-                    fontFamily: "inherit",
-                    fontWeight: 500,
-                  }}
-                >
-                  Forms List
-                </h1>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    // paddingLeft: "10%",
-                    // paddingRight: "10%",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ minWidth: "70%" }}>
-                    {forms && (
-                      <SearcUI2
-                        forms={forms}
-                        searchFormResults={searchFormResults}
-                      />
-                    )}
+              <Paper
+                style={{
+                  width: "95%",
+                  borderRadius: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "20px",
+                }}
+              >
+                <div>
+                  <h1
+                    style={{
+                      textAlign: "center",
+                      fontFamily: "inherit",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Forms List
+                  </h1>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      // paddingLeft: "10%",
+                      // paddingRight: "10%",
+                      width: "100%",
+                    }}
+                  >
+                    <div style={{ minWidth: "70%" }}>
+                      {forms && (
+                        <SearcUI2
+                          forms={forms}
+                          searchFormResults={searchFormResults}
+                        />
+                      )}
+                    </div>
+                    <div style={{ width: "20%", marginLeft: "10%" }}>
+                      <Fab
+                        color="primary"
+                        aria-label="add"
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          backgroundColor: "black",
+                        }}
+                        onClick={() => {
+                          window.location.reload();
+                        }}
+                      >
+                        <RefreshIcon />
+                      </Fab>
+                    </div>
                   </div>
-                  <div style={{ width: "20%", marginLeft: "10%" }}>
-                    <Fab
-                      color="primary"
-                      aria-label="add"
+                  <div style={{ width: "100%" }}>
+                    <Tabs
+                      value={value}
+                      onChange={handleChange}
+                      aria-label="disabled tabs example"
                       style={{
-                        width: "50px",
-                        height: "50px",
-                        backgroundColor: "black",
-                      }}
-                      onClick={() => {
-                        window.location.reload();
+                        marginTop: "10px",
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        marginLeft: "0px",
                       }}
                     >
-                      <RefreshIcon />
-                    </Fab>
+                      <Tab
+                        label="Active Forms"
+                        style={{
+                          width: "50%",
+                          fontSize: "12px",
+                          textAlign: "center",
+                        }}
+                      />
+                      <Tab
+                        label="Inactive Forms"
+                        style={{
+                          width: "50%",
+                          fontSize: "12px",
+                          textAlign: "cente",
+                        }}
+                      />
+                    </Tabs>
                   </div>
-                </div>
-                <br />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ minWidth: "100%", maxWidth: "111%" }}>
-                    {forms2 &&
-                      forms2.map((item) => {
-                        return (
-                          <div key={item}>
-                            <FormUI data={item} />{" "}
-                          </div>
-                        );
-                      })}
+                  <br />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <div style={{ minWidth: "100%", maxWidth: "100%" }}>
+                      {(value === 0 ? activeForms2 : inactiveForms2) &&
+                        (value === 0 ? activeForms2 : inactiveForms2).map(
+                          (item, index) => {
+                            return (
+                              <div key={item}>
+                                <FormUI
+                                  data={item}
+                                  openForm={() => {
+                                    setForm3(!form3);
+                                    setUpdateFormData(item);
+                                  }}
+                                />{" "}
+                              </div>
+                            );
+                          }
+                        )}
+                    </div>
                   </div>
+                  <br />
+                  <br />
                 </div>
-                <br />
-                <br />
-              </div>
-            </Paper>
+              </Paper>
+            </div>
           </main>
         </div>
       ) : (

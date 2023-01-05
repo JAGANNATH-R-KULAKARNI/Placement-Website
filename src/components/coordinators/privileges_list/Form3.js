@@ -50,7 +50,7 @@ export default function AnnounceACompany() {
 
     if (data) {
       setData(data);
-      if (data.email !== process.env.REACT_APP_ADMIN) navigate("/");
+      if (data.email != process.env.REACT_APP_ADMIN) navigate("/");
     }
   }
 
@@ -99,20 +99,24 @@ export default function AnnounceACompany() {
       alert("Select the checkbox");
       return;
     }
+    let compY = company.replace(/&amp;/g, "&");
 
     for (let i = 0; i < companies.length; i++) {
-      if (company == companies[i].name) {
+      console.log(companies[i]);
+      if (compY == companies[i].name) {
         comp = companies[i];
         break;
       }
     }
     console.log(company);
+    console.log(compY);
     console.log(comp);
+
     let uniid = "";
 
-    for (let j = 0; j < company.length; j++) {
-      if (company[j] == " ") continue;
-      uniid = uniid + company[j];
+    for (let j = 0; j < compY.length; j++) {
+      if (compY[j] == " ") continue;
+      uniid = uniid + compY[j];
     }
 
     let t = Date.now();
@@ -143,7 +147,7 @@ export default function AnnounceACompany() {
     await axios
       .post(process.env.REACT_APP_API_ENDPOINT, {
         htm: ` <div>
-        <i>Apply for <b>${company}</b> Now !</i>
+        <i>Apply for <b>${compY}</b> Now !</i>
         <p></p>
         <a href="${
           window.location.href.substr(0, window.location.href.length - 11) +
@@ -158,8 +162,8 @@ export default function AnnounceACompany() {
         }</a>
         <h3 style="text-align:right;marin-top:10px;"><b>- Placements NIE</b></h3>
       </div>`,
-        text: `Apply for ${company} Now`,
-        subject: `${company} - Campus Placements`,
+        text: `Apply for ${compY} Now`,
+        subject: `${compY} - Campus Placements`,
         to: emails,
         attachments: [],
       })

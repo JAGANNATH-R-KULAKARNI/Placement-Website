@@ -22,6 +22,11 @@ export default function CompanyList(props) {
     setExpanded(isExpanded ? panel : false);
   };
 
+  // React.useEffect(() => {
+  //   console.log("PROPS DATA BRO");
+  //   console.log(props.data);
+  // }, []);
+
   return (
     <div>
       <Accordion
@@ -77,7 +82,24 @@ export default function CompanyList(props) {
         </AccordionSummary>
         <AccordionDetails>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <DetailsUI ctc={props.data.ctc} />
+            <DetailsUI
+              ctc={props.data.ctc}
+              name1={props.data.name}
+              type={props.data.type}
+              el={props.data.eligible_branches}
+              t={props.data.tentative_interview_dates}
+              mt={props.data.min_in_ten}
+              mtw={props.data.min_in_twelve}
+              max={props.data.max_year_education_gap}
+              ba={props.data.active_backlogs_allowed}
+              hba={props.data.history_backlogs_allowed}
+              cgpa={props.data.min_cgpa}
+              gender={props.data.gender}
+              desc={props.data.description}
+              id={props.data.id}
+              jds={props.data.jds}
+              data={props.data}
+            />
           </div>
         </AccordionDetails>
       </Accordion>

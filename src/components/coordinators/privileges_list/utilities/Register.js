@@ -23,7 +23,9 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import BranchesUI from "./Branches";
+import BranchesUI from "./Branches2";
+import CollegeUI from "./College";
+import YearUI from "./Year";
 import Stack from "@mui/material/Stack";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { supabase } from "../../../../Supabase";
@@ -35,6 +37,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import BackDropUI from "./Backdrop";
+import DateUI from "./Date";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -47,12 +50,14 @@ export default function Register(props) {
   const [uploading, setUploading] = React.useState(false);
 
   const [name, setName] = React.useState("");
-
+  const [companyLogo, setCompanyLogo] = React.useState("");
   const [ctc, setCTC] = React.useState(0);
   const [ctcDisclosed, setCTCDisclosed] = React.useState(false);
   const [type, setType] = React.useState("");
   const [intDate, setIntDate] = React.useState("");
   const [intDateDisclosure, setIntDateDisclosure] = React.useState("");
+  const [eligibleColleges, setEligibleColleges] = React.useState([]);
+  const [eligibleYears, setEligibleYears] = React.useState([]);
   const [eligibleBranches, setEligibleBranches] = React.useState([]);
   const [minMInTen, setMinMInTen] = React.useState(0);
   const [minMInTwelve, setMinMInTwelve] = React.useState(0);
@@ -76,10 +81,21 @@ export default function Register(props) {
       alert("Type of company is required");
       return;
     } else if (!intDateDisclosure && intDate.length == 0) {
-      alert("Tentative dates are required or else disable");
+      alert("Tentative dates are required");
       return;
     } else if (eligibleBranches.length == 0) {
       alert("If no branches are eligible, then why the company is coming ? ");
+      return;
+    } else if (eligibleColleges.length == 0) {
+      alert("If no colleges are eligible, then why the company is coming ? ");
+      return;
+    } else if (eligibleYears.length == 0) {
+      alert(
+        "If no engineering years are eligible, then why the company is coming ? "
+      );
+      return;
+    } else if (companyLogo.length == 0) {
+      alert("Company logo is required");
       return;
     }
 
@@ -91,16 +107,19 @@ export default function Register(props) {
       type: type == "nyd" ? "" : type,
       tentative_interview_dates: !intDateDisclosure ? intDate : "---",
       eligible_branches: eligibleBranches,
-      min_in_ten: minMInTen,
-      min_in_twelve: minMInTwelve,
-      max_year_education_gap: eduGap,
+      min_in_ten: minMInTen == "" ? 0 : minMInTen,
+      min_in_twelve: minMInTwelve == "" ? 0 : minMInTwelve,
+      max_year_education_gap: eduGap == "" ? 0 : eduGap,
       active_backlogs_allowed: backlogs,
       history_backlogs_allowed: arears,
       description: description,
       jds: urls,
       time_posted: Date.now(),
       gender: gender,
-      min_cgpa: cgpa,
+      min_cgpa: cgpa == "" ? 0 : cgpa,
+      eligible_colleges: eligibleColleges,
+      eligible_years: eligibleYears,
+      logo: companyLogo,
     };
 
     console.log("Upload Data Bro");
@@ -113,7 +132,8 @@ export default function Register(props) {
       console.log("Success");
       console.log(data);
       setSending(false);
-      alert("Successfully Uploaded");
+      alert("Successfully Registered a company");
+      props.registerModalHandler();
     }
 
     if (error) {
@@ -244,6 +264,17 @@ export default function Register(props) {
                   />
                   <TextField
                     id="standard-basic"
+                    label="Company Logo (url)"
+                    variant="standard"
+                    style={{ width: "100%", marginTop: "5px" }}
+                    value={companyLogo}
+                    onChange={(e) => {
+                      setCompanyLogo(e.target.value);
+                    }}
+                    placeholder="Paste it from the internet"
+                  />
+                  <TextField
+                    id="standard-basic"
                     label="CTC (in LPA)"
                     variant="standard"
                     type="number"
@@ -295,7 +326,7 @@ export default function Register(props) {
                       <MenuItem value="Open Dream">Open Dream</MenuItem>
                     </Select>
                   </FormControl>
-                  <TextField
+                  {/* <TextField
                     id="standard-basic"
                     label="Tentative Interview Dates"
                     variant="standard"
@@ -306,8 +337,11 @@ export default function Register(props) {
                     onChange={(e) => {
                       setIntDate(e.target.value);
                     }}
-                  />
-                  <FormGroup>
+                  /> */}
+                  <div style={{ marginTop: "35px" }}>
+                    <DateUI setIntDate={setIntDate} />
+                  </div>
+                  {/* <FormGroup>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -321,16 +355,35 @@ export default function Register(props) {
                       }
                       label="Not yet disclosed"
                     />
-                  </FormGroup>
+                  </FormGroup> */}
                   <div
                     style={{
                       display: "flex",
                       justifyContent: "center",
-                      marginTop: "30px",
+                      marginTop: "15px",
+                    }}
+                  >
+                    <CollegeUI setEligibleColleges={setEligibleColleges} />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "15px",
+                    }}
+                  >
+                    <YearUI setEligibleYears={setEligibleYears} />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "15px",
                     }}
                   >
                     <BranchesUI setEligibleBranches={setEligibleBranches} />
                   </div>
+
                   <TextField
                     id="standard-basic"
                     label="Min CGPA"

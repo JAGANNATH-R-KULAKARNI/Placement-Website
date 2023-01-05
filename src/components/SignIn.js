@@ -48,7 +48,7 @@ export default function SignIn() {
 
     if (data) {
       setData(false);
-      if (data.email === process.env.REACT_APP_ADMIN) {
+      if (data.email == process.env.REACT_APP_ADMIN) {
         Cookies.set("refresh_twice", true);
         navigate("/admin");
       } else {
