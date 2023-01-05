@@ -80,10 +80,10 @@ export default function Register(props) {
     } else if (type.length == 0) {
       alert("Type of company is required");
       return;
-    } 
-   
-    else if (!intDateDisclosure && intDate.length == 0) {
-      alert("Tentative dates are required or else disable");
+
+    } else if (!intDateDisclosure && intDate.length == 0) {
+      alert("Tentative dates are required");
+
       return;
     } else if (eligibleBranches.length == 0) {
       alert("If no branches are eligible, then why the company is coming ? ");
@@ -106,17 +106,18 @@ export default function Register(props) {
       type: type == "nyd" ? "" : type,
       tentative_interview_dates: !intDateDisclosure ? intDate : "---",
       eligible_branches: eligibleBranches,
-      
-      min_in_ten: minMInTen,
-      min_in_twelve: minMInTwelve,
-      max_year_education_gap: eduGap,
+
+      min_in_ten: minMInTen == "" ? 0 : minMInTen,
+      min_in_twelve: minMInTwelve == "" ? 0 : minMInTwelve,
+      max_year_education_gap: eduGap == "" ? 0 : eduGap,
+
       active_backlogs_allowed: backlogs,
       history_backlogs_allowed: arears,
       description: description,
       jds: urls,
       time_posted: Date.now(),
       gender: gender,
-      min_cgpa: cgpa,
+      min_cgpa: cgpa == "" ? 0 : cgpa,
       eligible_colleges: eligibleColleges,
       eligible_years: eligibleYears,
     };
@@ -131,7 +132,8 @@ export default function Register(props) {
       console.log("Success");
       console.log(data);
       setSending(false);
-      alert("Successfully Uploaded");
+      alert("Successfully Registered a company");
+      props.registerModalHandler();
     }
 
     if (error) {

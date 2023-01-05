@@ -42,7 +42,7 @@ export default function NotEligible(props) {
                 variant="contained"
                 style={{ backgroundColor: "black" }}
                 onClick={() => {
-                  navigate(-1);
+                  navigate("/home");
                 }}
               >
                 Go to Home

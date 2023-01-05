@@ -76,7 +76,7 @@ export default function Home() {
 
       // console.log("Students data");
       if (stuData.data) {
-        //    console.log(stuData.data);
+        // console.log(stuData.data);
 
         const comData = await supabase
           .from("companies")
@@ -134,6 +134,8 @@ export default function Home() {
     if (!student) return;
     // console.log(student);
     //console.log('')
+    console.log("PATH NAME");
+    console.log(location.pathname.substr(9));
     const { data, error } = await supabase
       .from("forms")
       .select("*")
