@@ -122,7 +122,7 @@ const [resume,setResume] = React.useState([""]);
     }
 
     if (cgpa == "") {
-      alert("Total CGPA should be filled");
+      alert("Total CGPa should be filled");
       return;
     }
 

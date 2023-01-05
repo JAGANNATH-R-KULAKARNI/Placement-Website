@@ -24,10 +24,10 @@ const ResponsiveAppBar = (props) => {
         backgroundColor: "#017E7E",
         color: "white",
         fontFamily: "inherit",
-        paddingTop: "10px",
-        paddingBottom: "10px",
+        paddingTop: m1 ? "10px" : "3px",
+        paddingBottom: m1 ? "10px" : "0px",
       }}
-      elevation={1}
+      elevation={0}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -40,7 +40,7 @@ const ResponsiveAppBar = (props) => {
               src={logo}
               alt="Logo"
               style={{
-                width: m1 ? "50px" : "30px",
+                width: m1 ? "50px" : "35px",
                 height: "auto",
                 backgroundColor: "white",
                 padding: "5px",
@@ -55,7 +55,7 @@ const ResponsiveAppBar = (props) => {
           <h3
             style={{
               color: "white",
-              fontSize: m1 ? "25px" : "18px",
+              fontSize: m1 ? "25px" : "20px",
               marginLeft: m1 ? "30px" : "19px",
             }}
             className="hoverr2"
@@ -63,32 +63,27 @@ const ResponsiveAppBar = (props) => {
               navigate("/admin");
             }}
           >
-            {m1 ? "Training & Placements Cell" : "Placements"}
+            {m1 ? "Training & Placements Cell" : <span>Placements</span>}
           </h3>
 
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "none" },
-              marginLeft: "25px",
+              marginLeft: "40px",
             }}
           >
-            <Badge
-              badgeContent={3}
-              color="secondary"
-              style={{
-                marginTop: "8px",
-              }}
-            >
-              <NotificationsIcon />
-            </Badge>
-
             <Button
               variant="contained"
               style={{
-                fontSize: "10px",
+                fontSize: "12px",
                 marginLeft: "20px",
-                backgroundColor: "black",
+                backgroundColor: "#017E7E",
+                border: "2px solid white",
+                textTransform: "capitalize",
+                fontWeight: 700,
+                borderRadius: "20px",
+                marginTop: "-5px",
               }}
               startIcon={
                 <IconButton onClick={null} sx={{ p: 0 }}>

@@ -28,7 +28,7 @@ const ResponsiveAppBar = (props) => {
         paddingTop: "10px",
         paddingBottom: "10px",
       }}
-      elevation={1}
+      elevation={0}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
