@@ -408,7 +408,7 @@ export default function Privileges() {
             </div>
           </Paper>
         </div>
-        <div style={{ height: "100px" }}></div>
+        <div style={{ height: "10px" }}></div>
         {/* <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
           <Grid container spacing={4}>
             {powers.map((power) => (
