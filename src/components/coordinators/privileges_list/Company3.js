@@ -89,18 +89,21 @@ export default function AnnounceACompany(props) {
             marginBottom: "0px",
             fontWeight: 600,
             color: "#7A7A7A",
+            zIndex: 10,
+            position: "relative",
           }}
         >
           Recent Registered Companies{" "}
-          {/* <button
-            style={{ color: "#017E7E", textDecoration: "underline" }}
-            onClick={() => {
-              alert("ok");
-              setRegisterModal(true);
+          <span
+            style={{
+              color: "#017E7E",
+              textDecoration: "underline",
+              fontSize: "15px",
             }}
+            onClick={() => {}}
           >
-            Register
-          </button> */}
+            View More
+          </span>
         </h4>
       )}
 
@@ -110,6 +113,8 @@ export default function AnnounceACompany(props) {
           display: "flex",
           justifyContent: "center",
           marginTop: "-19px",
+          zIndex: 5,
+          position: "relative",
         }}
       >
         <div

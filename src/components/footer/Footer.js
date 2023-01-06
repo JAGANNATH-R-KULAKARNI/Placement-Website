@@ -175,6 +175,9 @@ function Footer() {
                     e.target.style.color = "white";
                     e.target.style.textDecoration = "none";
                   }}
+                  onClick={() => {
+                    alert("here");
+                  }}
                 >
                   {"Placements"}
                 </li>

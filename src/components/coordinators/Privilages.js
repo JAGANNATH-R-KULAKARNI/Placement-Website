@@ -29,8 +29,8 @@ import adminpagemain from "../images/adminpagemain.png";
 import stu from "../images/stu.png";
 import com from "../images/comp.png";
 import emailsee from "../images/emailsee.jpeg";
-import compimg from "../images/signinlogo.png";
-import stuimg from "../images/stuimg.png";
+import compimg from "../images/comi.jpg";
+import stuimg from "../images/stui.jpg";
 import SearchUI from "./Search";
 import Company2UI from "./privileges_list/Company2";
 import RegisterUI from "./privileges_list/utilities2/Register";
@@ -276,7 +276,7 @@ export default function Privileges() {
               <img
                 src={compimg}
                 style={{
-                  width: "90%",
+                  width: "100%",
                   height: "auto",
                   paddingTop: "10px",
                   paddingBottom: "10px",
@@ -367,7 +367,7 @@ export default function Privileges() {
               <img
                 src={stuimg}
                 style={{
-                  width: "80%",
+                  width: "100%",
                   height: "auto",
                   paddingTop: "10px",
                   paddingBottom: "10px",
