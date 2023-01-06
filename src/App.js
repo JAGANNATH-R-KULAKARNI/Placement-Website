@@ -2,6 +2,7 @@ import HomeUI from "./components/Home";
 import NavBarUI from "./components/NavBar";
 import NavBarUI2 from "./components/NavBar2";
 import NavBarUI3 from "./components/NavBar3";
+import Terms from "./components/Terms";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -130,6 +131,7 @@ function App() {
         <Route path="/home/companies" element={<CompanyUI />} />
         <Route path="/home/profile" element={<ProfileUI />} />
         <Route path="/company/:id" element={<ApplyUI />} />
+        <Route path="/terms" element={<Terms />} />
       </Routes>
       <div style={{ height: m1 ? "340px" : "170px" }}></div>
       <FooterUI />
