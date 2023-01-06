@@ -5,7 +5,7 @@ const termsAndConditionsStyle = {
   lineHeight: "1.5",
   color: "#555",
   //   margin: "0 0 50px",
-  margin: "25px 50px 75px 100px",
+  margin: "10px 10px 25px 10px",
 };
 
 const terms = () => {
