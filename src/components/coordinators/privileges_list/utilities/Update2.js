@@ -262,7 +262,7 @@ export default function Register(props) {
                     id="standard-basic"
                     label="Company Name"
                     variant="standard"
-                    style={{ width: "100%" }}
+                    style={{ width: "100%",borderBottom:"1px solid #007F7F" }}
                     value={name}
                     onChange={(e) => {
                       setName(e.target.value);
@@ -272,7 +272,8 @@ export default function Register(props) {
                     id="standard-basic"
                     label="Company Logo (url)"
                     variant="standard"
-                    style={{ width: "100%", marginTop: "5px" }}
+                    style={{ width: "100%", marginTop: "5px",
+                    borderBottom:"1px solid #007F7F" }}
                     value={companyLogo}
                     onChange={(e) => {
                       setCompanyLogo(e.target.value);
@@ -286,7 +287,9 @@ export default function Register(props) {
                     
                     variant="standard"
                     type="number"
-                    style={{ width: "100%", marginTop: "20px" }}
+                    style={{ width: "100%", marginTop: "20px"
+                      ,borderBottom:"1px solid #007F7F"
+                    }}
                     value={ctc}
                     onChange={(e) => {
                       setCTC(e.target.value);
@@ -404,7 +407,10 @@ export default function Register(props) {
                     id="standard-basic"
                     label="Min CGPA"
                     variant="standard"
-                    style={{ width: "100%", marginTop: "20px" }}
+                    //sx={{  backgroundColor: 'yellow' }}
+                    style={{ width: "100%", marginTop: "20px",
+                    //backgroundColor: 'yellow',
+                    borderBottom:"1px solid #007F7F" }}
                     type="number"
                     value={cgpa}
                     focused={true}

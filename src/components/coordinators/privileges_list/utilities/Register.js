@@ -581,7 +581,7 @@ export default function Register(props) {
                       backgroundColor : "white",
                       fontWeight: 600,
                       border: "2px solid #007F7F",}}
-                      // onClick={handleOpenPicker}
+                      
                       startIcon={<AttachFileIcon />}
                     >
                       {uploading ? "Uploading...Wait" : "Upload JD (optional)"}
