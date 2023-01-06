@@ -39,7 +39,7 @@ export default function FullScreenDialog(props) {
   const [ecc, setEcc] = React.useState("");
   const [ebb, setEbb] = React.useState("");
   const [eyy, setEyy] = React.useState("");
-  const [forms, setForms] = React.useState([]);
+  const [forms, setForms] = React.useState(null);
   const [updateFormStatus, setUpdateFormStatus] = React.useState(false);
   const [updateFormData, setUpdateFormData] = React.useState(null);
 
@@ -387,7 +387,19 @@ export default function FullScreenDialog(props) {
                     })}
                 </div>
               </div>
-            ) : null}
+            ) : (
+              <div>
+                {forms ? null : (
+                  <div style={{ marginTop: "25px", width: "100%" }}>
+                    <Skeleton
+                      variant="text"
+                      sx={{ fontSize: "1rem", width: "300px" }}
+                    />
+                    <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           <div style={{ width: "10%" }}></div>
         </div>
