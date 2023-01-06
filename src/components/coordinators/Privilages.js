@@ -25,14 +25,17 @@ import Paper from "@mui/material/Paper";
 import emailogo from "../images/email.webp";
 import upbg from "../images/upbg.png";
 import email from "../images/email2.png";
+import adminpagemain from "../images/adminpagemain.png";
 import stu from "../images/stu.png";
 import com from "../images/comp.png";
+import emailsee from "../images/emailsee.jpeg";
 import SearchUI from "./Search";
 import Company2UI from "./privileges_list/Company2";
 import RegisterUI from "./privileges_list/utilities2/Register";
 import RegisterUI2 from "./privileges_list/utilities/Register";
 import EmailUI from "./privileges_list/Email";
 import { supabase } from "../../Supabase";
+import ServciesUI from "./Services";
 
 const theme = createTheme();
 
@@ -161,10 +164,15 @@ export default function Privileges() {
         >
           <Company2UI />
         </div>
+        {/* <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <ServciesUI />
+        </div> */}
         <div
           style={{ display: "flex", justifyContent: "center", width: "100%" }}
         >
-          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={2}>
+          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={0}>
             <div
               style={{
                 display: "flex",
@@ -173,22 +181,14 @@ export default function Privileges() {
               }}
             >
               <img
-                src={email}
-                // style={{
-                //   width: "50%",
-                //   height: "auto",
-                //   animationDuration: "10s",
-                // }}
+                src={emailsee}
                 style={{
-                  width: "35%",
+                  width: "100%",
                   height: "auto",
                   paddingTop: "10px",
                   paddingBottom: "10px",
                 }}
                 alt="Email"
-                onClick={() => {
-                  setOpenEmail(true);
-                }}
               />
             </div>
             <div
@@ -196,47 +196,63 @@ export default function Privileges() {
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
-                backgroundColor: "#007F7F",
-              }}
-              onClick={() => {
-                setOpenEmail(true);
               }}
             >
-              <h5
+              <h2
                 style={{
-                  color: "white",
-                  fontWeight: 400,
+                  color: "#017E7E",
+                  fontWeight: 700,
                   textAlign: "center",
-                }}
-                onClick={() => {
-                  setOpenEmail(true);
+                  marginBottom: "10px",
                 }}
               >
-                Send an Email to the college or to a student
-              </h5>
+                Send an Email
+              </h2>
             </div>
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
-                backgroundColor: "white",
               }}
-              onClick={() => {}}
             >
-              <h6
+              <h4
                 style={{
-                  color: "#007F7F",
-                  fontWeight: 400,
+                  color: "#747684",
+                  fontWeight: 700,
                   textAlign: "center",
-                  marginTop: "8px",
-                  marginBottom: "8px",
+                  marginTop: "0px",
+                  marginBottom: "10px",
                 }}
-                onClick={() => {}}
               >
-                Not able to send an email ?{" "}
-                <span style={{ textDecoration: "underline" }}>Click here</span>
-              </h6>
+                Send an email to a student or to a particular branch or to the
+                whole college
+              </h4>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <Button
+                variant="contained"
+                disableElevation
+                style={{
+                  textTransform: "capitalize",
+                  backgroundColor: "#017E7E",
+                  borderRadius: "20px",
+                  paddingLeft: "25px",
+                  paddingRight: "25px",
+                }}
+                size="large"
+                onClick={() => {
+                  setOpenEmail(true);
+                }}
+              >
+                Send Email
+              </Button>
             </div>
           </Paper>
         </div>
