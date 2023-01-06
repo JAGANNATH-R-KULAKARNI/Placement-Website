@@ -23,27 +23,31 @@ export default function AlertDialog(props) {
   const whatsappClick = () => {
     console.log(props.company.name);
     const message = `
-    Company Name : ${props.company.name}
+    Company Name : *${props.company.name}*
     
-Package : ${props.company.ctc} LPA
-Eligible Colleges : ${props.ecc}
-Eligible Years : ${props.eyy}
-Eligible Branches : ${props.ebb}
-Tentative Interview Date : ${props.company.tentative_interview_dates.substr(
+Package : *${props.company.ctc} LPA*
+Eligible Colleges : *${props.ecc}*
+Eligible Years : *${props.eyy}*
+Eligible Branches : *${props.ebb}*
+Tentative Interview Date : *${props.company.tentative_interview_dates.substr(
       0,
       15
-    )}
-Minimum CGPA : ${props.company.min_cgpa} Pointer
-${props.company.gender == 1 ? "Female Candidates Only" : "Male Candidates Only"}
-Minimum in 10th : ${props.company.min_in_ten}
-Minimum in 12th : ${props.company.min_in_twelve}
-Max Year Education Gap : ${props.company.max_year_education_gap}
-Active backlogs are ${
+    )}*
+Minimum CGPA : *${props.company.min_cgpa} Pointer*
+*${
+      props.company.gender == 1
+        ? "Female Candidates Only"
+        : "Male Candidates Only"
+    }*
+Minimum in 10th : *${props.company.min_in_ten}%*
+Minimum in 12th : *${props.company.min_in_twelve}%*
+Max Year Education Gap : *${props.company.max_year_education_gap} years*
+Active backlogs are *${
       props.company.active_backlogs_allowed ? "" : "not "
-    } allowed
-History of backlogs are ${
+    } allowed*
+History of backlogs are *${
       props.company.history_backlogs_allowed ? "" : "not "
-    } allowed
+    } allowed*
 ${
   props.company.jds && props.company.jds.length > 0
     ? "JD - " + props.company.jds[0]
@@ -52,7 +56,7 @@ ${
 
 Apply here - ${props.link}
  
-Description :  ${props.company.description}
+*Description* :  ${props.company.description}
     `;
     const apiUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
       message
@@ -65,7 +69,7 @@ Description :  ${props.company.description}
     const recipients = "jagannathrkreal@gmail.com,4ni19is038_b@nie.ac.in"; // Replace with the email addresses of the recipients
     const subject = props.company.name + " - Campus Placement";
     const body = `    
-Package : ${props.company.ctc} LPA
+Package : *${props.company.ctc} LPA*
 Eligible Colleges : ${props.ecc}
 Eligible Years : ${props.eyy}
 Eligible Branches : ${props.ebb}

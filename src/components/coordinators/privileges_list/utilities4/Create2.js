@@ -148,6 +148,7 @@ export default function Register(props) {
       }
     }
     console.log(company);
+
     console.log(compY);
     console.log(comp);
 
