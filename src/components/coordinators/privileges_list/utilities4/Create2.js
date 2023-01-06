@@ -160,7 +160,7 @@ export default function Register(props) {
 
     let t = Date.now();
     setLink(
-      window.location.href.substr(0, window.location.href.length - 11) +
+      window.location.href.substr(0, window.location.href.length - 5) +
         "company/" +
         uniid +
         t
