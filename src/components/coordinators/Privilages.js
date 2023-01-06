@@ -25,8 +25,12 @@ import Paper from "@mui/material/Paper";
 import emailogo from "../images/email.webp";
 import upbg from "../images/upbg.png";
 import email from "../images/email2.png";
+import adminpagemain from "../images/adminpagemain.png";
 import stu from "../images/stu.png";
 import com from "../images/comp.png";
+import emailsee from "../images/emailsee.jpeg";
+import compimg from "../images/signinlogo.png";
+import stuimg from "../images/stuimg.png";
 import SearchUI from "./Search";
 import Company2UI from "./privileges_list/Company2";
 import RegisterUI from "./privileges_list/utilities2/Register";
@@ -102,17 +106,20 @@ export default function Privileges() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {/* student */}
       {registerModal && companies ? (
         <RegisterUI
           registerModalHandler={() => setRegisterModal(!registerModal)}
           companies={companies}
         />
       ) : null}
+
       {registerModal2 ? (
         <RegisterUI2
           registerModalHandler={() => setRegisterModal2(!registerModal2)}
         />
       ) : null}
+      {/* company */}
       {openEmail ? (
         <EmailUI
           emailModelHandler={() => {
@@ -120,6 +127,7 @@ export default function Privileges() {
           }}
         />
       ) : null}
+
       <main style={{ marginTop: m1 ? "-30px" : "-70px" }}>
         <div style={{ width: "100%" }}>
           <img
@@ -161,10 +169,11 @@ export default function Privileges() {
         >
           <Company2UI />
         </div>
+
         <div
           style={{ display: "flex", justifyContent: "center", width: "100%" }}
         >
-          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={2}>
+          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={0}>
             <div
               style={{
                 display: "flex",
@@ -173,22 +182,14 @@ export default function Privileges() {
               }}
             >
               <img
-                src={email}
-                // style={{
-                //   width: "50%",
-                //   height: "auto",
-                //   animationDuration: "10s",
-                // }}
+                src={emailsee}
                 style={{
-                  width: "35%",
+                  width: "100%",
                   height: "auto",
                   paddingTop: "10px",
                   paddingBottom: "10px",
                 }}
                 alt="Email"
-                onClick={() => {
-                  setOpenEmail(true);
-                }}
               />
             </div>
             <div
@@ -196,47 +197,63 @@ export default function Privileges() {
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
-                backgroundColor: "#007F7F",
-              }}
-              onClick={() => {
-                setOpenEmail(true);
               }}
             >
-              <h5
+              <h2
                 style={{
-                  color: "white",
-                  fontWeight: 400,
+                  color: "#017E7E",
+                  fontWeight: 700,
                   textAlign: "center",
-                }}
-                onClick={() => {
-                  setOpenEmail(true);
+                  marginBottom: "10px",
                 }}
               >
-                Send an Email to the college or to a student
-              </h5>
+                Send an Email
+              </h2>
             </div>
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
-                backgroundColor: "white",
               }}
-              onClick={() => {}}
             >
-              <h6
+              <h4
                 style={{
-                  color: "#007F7F",
-                  fontWeight: 400,
+                  color: "#747684",
+                  fontWeight: 700,
                   textAlign: "center",
-                  marginTop: "8px",
-                  marginBottom: "8px",
+                  marginTop: "0px",
+                  marginBottom: "10px",
                 }}
-                onClick={() => {}}
               >
-                Not able to send an email ?{" "}
-                <span style={{ textDecoration: "underline" }}>Click here</span>
-              </h6>
+                Send an email to a student or to a particular branch or to the
+                whole college
+              </h4>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <Button
+                variant="contained"
+                disableElevation
+                style={{
+                  textTransform: "capitalize",
+                  backgroundColor: "#017E7E",
+                  borderRadius: "20px",
+                  paddingLeft: "25px",
+                  paddingRight: "25px",
+                }}
+                size="large"
+                onClick={() => {
+                  setOpenEmail(true);
+                }}
+              >
+                Send Email
+              </Button>
             </div>
           </Paper>
         </div>
@@ -245,10 +262,10 @@ export default function Privileges() {
             display: "flex",
             justifyContent: "center",
             width: "100%",
-            marginTop: "30px",
+            marginTop: "40px",
           }}
         >
-          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={2}>
+          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={0}>
             <div
               style={{
                 display: "flex",
@@ -257,22 +274,14 @@ export default function Privileges() {
               }}
             >
               <img
-                src={com}
-                // style={{
-                //   width: "50%",
-                //   height: "auto",
-                //   animationDuration: "10s",
-                // }}
+                src={compimg}
                 style={{
-                  width: "70%",
+                  width: "90%",
                   height: "auto",
-                  borderTopLeftRadius: "10px",
-                  borderTopRightRadius: "10px",
+                  paddingTop: "10px",
+                  paddingBottom: "10px",
                 }}
-                alt="Stundets"
-                onClick={() => {
-                  setRegisterModal2(true);
-                }}
+                alt="ComImg"
               />
             </div>
             <div
@@ -280,47 +289,62 @@ export default function Privileges() {
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
-                backgroundColor: "#007F7F",
-              }}
-              onClick={() => {
-                setRegisterModal2(true);
               }}
             >
-              <h5
+              <h2
                 style={{
-                  color: "white",
-                  fontWeight: 400,
+                  color: "#017E7E",
+                  fontWeight: 700,
                   textAlign: "center",
-                }}
-                onClick={() => {
-                  setRegisterModal2(true);
+                  marginBottom: "10px",
                 }}
               >
-                Register a company for placements
-              </h5>
+                Register a Company
+              </h2>
             </div>
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
-                backgroundColor: "white",
               }}
-              onClick={() => {}}
             >
-              <h6
+              <h4
                 style={{
-                  color: "#007F7F",
-                  fontWeight: 400,
+                  color: "#747684",
+                  fontWeight: 700,
                   textAlign: "center",
-                  marginTop: "8px",
-                  marginBottom: "8px",
+                  marginTop: "0px",
+                  marginBottom: "10px",
                 }}
-                onClick={() => {}}
               >
-                View the registered companies ?{" "}
-                <span style={{ textDecoration: "underline" }}>Click here</span>
-              </h6>
+                Register a company by filling the details of the company
+              </h4>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <Button
+                variant="contained"
+                disableElevation
+                style={{
+                  textTransform: "capitalize",
+                  backgroundColor: "#017E7E",
+                  borderRadius: "20px",
+                  paddingLeft: "25px",
+                  paddingRight: "25px",
+                }}
+                size="large"
+                onClick={() => {
+                  setRegisterModal2(true);
+                }}
+              >
+                Register Now
+              </Button>
             </div>
           </Paper>
         </div>
@@ -329,10 +353,10 @@ export default function Privileges() {
             display: "flex",
             justifyContent: "center",
             width: "100%",
-            marginTop: "30px",
+            marginTop: "40px",
           }}
         >
-          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={2}>
+          <Paper style={{ width: "90%", borderRadius: "10px" }} elevation={0}>
             <div
               style={{
                 display: "flex",
@@ -341,22 +365,14 @@ export default function Privileges() {
               }}
             >
               <img
-                src={stu}
-                // style={{
-                //   width: "50%",
-                //   height: "auto",
-                //   animationDuration: "10s",
-                // }}
+                src={stuimg}
                 style={{
-                  width: "50%",
+                  width: "80%",
                   height: "auto",
-                  borderTopLeftRadius: "10px",
-                  borderTopRightRadius: "10px",
+                  paddingTop: "10px",
+                  paddingBottom: "10px",
                 }}
-                alt="Stundets"
-                onClick={() => {
-                  setRegisterModal(true);
-                }}
+                alt="Stuimg"
               />
             </div>
             <div
@@ -364,52 +380,69 @@ export default function Privileges() {
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
-                backgroundColor: "#007F7F",
-              }}
-              onClick={() => {
-                setRegisterModal(true);
               }}
             >
-              <h5
+              <h2
                 style={{
-                  color: "white",
-                  fontWeight: 400,
+                  color: "#017E7E",
+                  fontWeight: 700,
                   textAlign: "center",
-                }}
-                onClick={() => {
-                  setRegisterModal(true);
+                  marginBottom: "10px",
                 }}
               >
-                Register a student for placements
-              </h5>
+                Register a student
+              </h2>
             </div>
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
-                backgroundColor: "white",
               }}
-              onClick={() => {}}
             >
-              <h6
+              <h4
                 style={{
-                  color: "#007F7F",
-                  fontWeight: 400,
+                  color: "#747684",
+                  fontWeight: 700,
                   textAlign: "center",
-                  marginTop: "8px",
-                  marginBottom: "8px",
+                  marginTop: "0px",
+                  marginBottom: "10px",
                 }}
-                onClick={() => {}}
               >
-                View the registered students ?{" "}
-                <span style={{ textDecoration: "underline" }}>Click here</span>
-              </h6>
+                Register a student for campus placements by filling the details
+                of the student
+              </h4>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <Button
+                variant="contained"
+                disableElevation
+                style={{
+                  textTransform: "capitalize",
+                  backgroundColor: "#017E7E",
+                  borderRadius: "20px",
+                  paddingLeft: "25px",
+                  paddingRight: "25px",
+                }}
+                size="large"
+                onClick={() => {
+                  setRegisterModal(true);
+                }}
+              >
+                Register Now
+              </Button>
             </div>
           </Paper>
         </div>
+
         <div style={{ height: "10px" }}></div>
-        <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
+        {/* <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
           <Grid container spacing={4}>
             {powers.map((power) => (
               <Grid item key={power.text} xs={12} sm={6} md={4}>
@@ -463,7 +496,7 @@ export default function Privileges() {
               </Grid>
             ))}
           </Grid>
-        </Container>
+        </Container> */}
       </main>
     </ThemeProvider>
   );

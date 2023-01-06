@@ -25,6 +25,7 @@ import { supabase } from "../../../../Supabase";
 import FeedIcon from "@mui/icons-material/Feed";
 import Chip from "@mui/material/Chip";
 import UpdateFormUI from "../utilities4/Update";
+import Skeleton from "@mui/material/Skeleton";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
