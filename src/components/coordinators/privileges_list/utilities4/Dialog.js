@@ -24,7 +24,8 @@ export default function AlertDialog(props) {
     console.log(props.company.name);
     const message = `
     Company Name : *${props.company.name}*
-    
+
+Type : *${props.company.type}*    
 Package : *${props.company.ctc} LPA*
 Eligible Colleges : ${props.ecc}
 Eligible Years : ${props.eyy}
@@ -65,6 +66,7 @@ Apply here - ${props.link}
     const recipients = "jagannathrkreal@gmail.com,4ni19is038_b@nie.ac.in"; // Replace with the email addresses of the recipients
     const subject = props.company.name + " - Campus Placement";
     const body = `    
+Type : *${props.company.type}*        
 Package : ${props.company.ctc} LPA
 Eligible Colleges : ${props.ecc}
 Eligible Years : ${props.eyy}
