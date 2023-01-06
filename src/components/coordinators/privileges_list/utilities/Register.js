@@ -291,11 +291,11 @@ export default function Register(props) {
                     // InputLabelProps={{
                     //   style: { color: "#017E7E" },
                     // }}
-                    // sx={{
-                    //   input: {
-                    //     borderBottom: "2px solid #017E7E",
-                    //   },
-                    // }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={name}
                     onChange={(e) => {
                       setName(e.target.value);
@@ -309,6 +309,11 @@ export default function Register(props) {
                     value={companyLogo}
                     onChange={(e) => {
                       setCompanyLogo(e.target.value);
+                    }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
                     }}
                     placeholder="Paste it from the internet"
                   />
