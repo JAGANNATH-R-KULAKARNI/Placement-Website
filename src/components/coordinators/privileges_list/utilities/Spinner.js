@@ -17,7 +17,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
+    backgroundColor: theme.palette.mode === "#007F7F" ? "#007F7F" : "#007F7F",
   },
 }));
 
@@ -41,7 +41,7 @@ function FacebookCircularProgress(props) {
         disableShrink
         sx={{
           color: (theme) =>
-            theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
+            theme.palette.mode === "light" ? "#007F7F" : "#007F7F",
           animationDuration: "550ms",
           position: "absolute",
           left: 0,

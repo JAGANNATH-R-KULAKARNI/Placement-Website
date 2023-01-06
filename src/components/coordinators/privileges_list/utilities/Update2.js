@@ -39,7 +39,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import BackDropUI from "./Backdrop";
 import DateUI from "./Date2";
-
+//import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+//import DateUI from "./Date";
+import handshakemobile from "../../../images/handshakemobile.jpg";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -219,44 +221,53 @@ export default function Register(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-          <AppBar
-          sx={{ position: "relative", backgroundColor: "#017E7E" }}
-          elevation={0}
-        >
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <ArrowBackIcon/>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-          <div style={{ height: "80px" }}></div>
-          <div>
-            {/* <Paper
-              variant="outlined"
-              style={{
-                borderBottomLeftRadius: "50px",
-                borderBottomRightRadius: "50px",
-              }}
-              elevation={10}
-            > */}
-              <h1
-                style={{
-                  textAlign: "center",
-                  marginTop: m1 ? "50px" : "15px",
-                  fontSize: m1 ? "45px" : "35px",
-                }}
-              >
-                Company Details
-              </h1>
-            {/* </Paper> */}
-            
+        {sending ? <BackDropUI /> : false}
+        <div>
+           <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            style={{
+              marginLeft: "10px",
+              marginTop: "10px",
+              color: "white",
+            }}
+          >
+            <ArrowBackIcon style={{ fontSize: "30px" }} />
+          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-58px",
+            }}
+          >
+            <img
+              src={handshakemobile}
+              style={{ width: "100%", height: "auto" }}
+              alt="Hand shake"
+            />
+          </div>
+
+          <div
+            style={{
+              backgroundColor: "#F5F8F9",
+            }}
+          >
+            <br />
+          
             <div style={{ display: "flex", justifyContent: "center" }}>
-              
+            <Paper
+                style={{
+                  width: "95%",
+                  padding: "5%",
+                  display: "flex",
+                  justifyContent: "center",
+                  borderRadius: "10px",
+                }}
+                elevation={1}
+              >
                 <div style={{ width: "90%" }}>
                   <TextField
                     id="standard-basic"
@@ -577,9 +588,9 @@ export default function Register(props) {
                     <Button
                       variant="contained"
                       component="label"
-                      style={{ width: "66%",
+                      style={{ width: "76%",
                       textTransform: "capitalize",
-                      borderRadius: "20px",
+                     
                       color: "#007F7F",
                       backgroundColor : "white",
                       fontWeight: 600,
@@ -648,10 +659,10 @@ export default function Register(props) {
                     </Button>
                   </div>
                 </div>
-              {/* </Paper> */}
+              </Paper> 
             </div>
           </div>
-       
+       </div>
       </Dialog>
     </div>
   );

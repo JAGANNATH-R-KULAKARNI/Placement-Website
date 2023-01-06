@@ -38,6 +38,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import BackDropUI from "./Backdrop";
 import DateUI from "./Date";
+import handshakemobile from "../../../images/handshakemobile.jpg";
+import { withStyles } from "@material-ui/core/styles";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -208,57 +210,74 @@ export default function Register(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-         <AppBar
-          sx={{ position: "relative", backgroundColor: "#017E7E" }}
-          elevation={0}
-        >
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon/>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-          <div style={{ height: "80px" }}></div>
-          <div>
-            {/* <Paper
-              variant="outlined"
+        {sending ? <BackDropUI /> : false}
+        <div>
+          
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            style={{
+              marginLeft: "10px",
+              marginTop: "10px",
+              color: "white",
+            }}
+          >
+            <CloseIcon style={{ fontSize: "30px" }} />
+          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-58px",
+            }}
+          >
+            <img
+              src={handshakemobile}
+              style={{ width: "100%", height: "auto" }}
+              alt="Hand shake"
+            />
+          </div>
+
+          <div
+            style={{
+              backgroundColor: "#F5F8F9",
+            }}
+          >
+            <br />
+            <div
               style={{
-                borderBottomLeftRadius: "50px",
-                borderBottomRightRadius: "50px",
+                display: "flex",
+                justifyContent: "center",
               }}
-              elevation={10}
-            > */}
-              <h1
-                style={{
-                  textAlign: "center",
-                  marginTop: m1 ? "50px" : "25px",
-                  fontSize: m1 ? "45px" : "35px",
-                }}
-              >
-                Register Company
-              </h1>
-         
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              {/* <Paper
+            >
+              <Paper
                 style={{
                   width: "95%",
                   padding: "5%",
                   display: "flex",
                   justifyContent: "center",
-                  borderRadius: "30px",
+                  borderRadius: "10px",
                 }}
-              > */}
+                elevation={1}
+              >
                 <div style={{ width: "90%" }}>
                   <TextField
                     id="standard-basic"
                     label="Company Name"
                     variant="standard"
-                    style={{ width: "100%" }}
+                    style={{
+                      width: "100%",
+                    }}
+                    // InputLabelProps={{
+                    //   style: { color: "#017E7E" },
+                    // }}
+                    // sx={{
+                    //   input: {
+                    //     borderBottom: "2px solid #017E7E",
+                    //   },
+                    // }}
                     value={name}
                     onChange={(e) => {
                       setName(e.target.value);
@@ -291,7 +310,7 @@ export default function Register(props) {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           value={ctcDisclosed}
                           onChange={(e) => {
                             setCTCDisclosed(e.target.checked);
@@ -305,7 +324,10 @@ export default function Register(props) {
 
                   <FormControl
                     variant="standard"
-                    sx={{ width: "100%", marginTop: "10px" }}
+                    sx={{
+                      width: "100%",
+                      marginTop: "10px",
+                    }}
                   >
                     <InputLabel id="demo-simple-select-standard-label">
                       Company Type
@@ -465,7 +487,7 @@ export default function Register(props) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                             checked={backlogs}
                             onChange={(e) => {
                               setBacklogs(e.target.checked);
@@ -491,7 +513,7 @@ export default function Register(props) {
                             onChange={(e) => {
                               setArears(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="History of Backlogs allowed ?"
@@ -517,7 +539,7 @@ export default function Register(props) {
                                 setGender(0);
                               }
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Female Candidates Only ?"
@@ -542,7 +564,7 @@ export default function Register(props) {
                                 setGender(0);
                               }
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Male Candidates Only ?"
@@ -572,16 +594,14 @@ export default function Register(props) {
                     }}
                   >
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       component="label"
-                      style={{  width: "66%",
-                      textTransform: "capitalize",
-                      borderRadius: "20px",
-                      color: "#007F7F",
-                      backgroundColor : "white",
-                      fontWeight: 600,
-                      border: "2px solid #007F7F",}}
-                      
+                      style={{
+                        color: "#017E7E",
+                        fontWeight: 700,
+                        border: "2px solid #017E7E",
+                      }}
+                      // onClick={handleOpenPicker}
                       startIcon={<AttachFileIcon />}
                     >
                       {uploading ? "Uploading...Wait" : "Upload JD (optional)"}
@@ -630,12 +650,10 @@ export default function Register(props) {
                     <Button
                       variant="contained"
                       style={{
-                       width: "56%",
-                textTransform: "capitalize",
-                borderRadius: "20px",
-                backgroundColor: "#007F7F",
-                fontWeight: 600,
-                marginBottom: "10px",
+                        backgroundColor: "#017E7E",
+                        width: "100%",
+                        height: "50px",
+                        borderRadius: "16px",
                       }}
                       onClick={registerCompany}
                     >
@@ -643,10 +661,11 @@ export default function Register(props) {
                     </Button>
                   </div>
                 </div>
-              {/* </Paper> */}
+               </Paper> 
             </div>
+            <br />
           </div>
-        
+        </div>
       </Dialog>
     </div>
   );

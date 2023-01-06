@@ -36,8 +36,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import { ContentPasteGoSharp } from "@mui/icons-material";
 import SeacrUI from "./Search2";
 import BackdropUI from "./Backdrop";
-import DateUI from "./Date";
 
+import BackDropUI from "./Backdrop";
+import DateUI from "./Date";
+import handshakemobile from "../../../images/handshakemobile.jpg";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -73,9 +75,8 @@ export default function Register(props) {
   const [ccontrol, setCControl] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
 const [resume,setResume] = React.useState([""]);
-  const[college,setCollege]=React.useState(0);
-
-  //const [college, setCollege] = React.useState("NIE");
+const[college,setCollege]=React.useState(0);
+ 
 
 
   const [sending, setSending] = React.useState(false);
@@ -286,52 +287,53 @@ const [resume,setResume] = React.useState([""]);
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-         <AppBar
-          sx={{ position: "relative", backgroundColor: "#017E7E" }}
-          elevation={0}
-        >
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon/>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-          <div style={{ height: "80px" }}></div>
+          {sending ? <BackDropUI /> : false}
+         
           <div>
-            {/* <Paper
-              variant="outlined"
-              style={{
-                borderBottomLeftRadius: "50px",
-                borderBottomRightRadius: "50px",
-              }}
-              elevation={10}
-            > */}
-              <h1
-                style={{
-                  textAlign: "center",
-                  marginTop: m1 ? "50px" : "25px",
-                  fontSize: m1 ? "45px" : "35px",
-                }}
-              >
-                Register Student
-              </h1>
-            {/* </Paper> */}
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            style={{
+              marginLeft: "10px",
+              marginTop: "10px",
+              color: "white",
+            }}
+          >
+            <CloseIcon style={{ fontSize: "30px" }} />
+          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-58px",
+            }}
+          >
+            <img
+              src={handshakemobile}
+              style={{ width: "100%", height: "auto" }}
+              alt="Hand shake"
+            />
+          </div>
+          <div
+            style={{
+              backgroundColor: "#F5F8F9",
+            }}
+          >
+           
             <br />
             <div style={{ display: "flex", justifyContent: "center" }}>
-              {/* <Paper
+               <Paper
                 style={{
                   width: "95%",
                   padding: "5%",
                   display: "flex",
                   justifyContent: "center",
-                  borderRadius: "30px",
+                  borderRadius: "10px",
                 }}
-              > */}
+                elevation={1}
+              > 
                 <div style={{ width: "90%" }}>
                   <TextField
                     id="standard-basic"
@@ -1007,10 +1009,10 @@ const [resume,setResume] = React.useState([""]);
                     </Button>
                   </div>
                 </div>
-              {/* </Paper> */}
+               </Paper> 
             </div>
           </div>
-        
+        </div>
       </Dialog>
     </div>
   );
