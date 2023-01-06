@@ -216,6 +216,9 @@ export default function FullScreenDialog(props) {
         {openForm && props.company ? (
           <CreateFormUI
             company={props.company}
+            ecc={ecc}
+            eyy={eyy}
+            ebb={ebb}
             registerModalHandler={() => {
               setOpenForm(!openForm);
             }}

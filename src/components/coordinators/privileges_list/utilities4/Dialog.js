@@ -10,6 +10,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { Paper } from "@mui/material";
 import MailIcon from "@mui/icons-material/Mail";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { PanToolSharp } from "@mui/icons-material";
 
 export default function AlertDialog(props) {
   const [open, setOpen] = React.useState(true);
@@ -20,7 +21,39 @@ export default function AlertDialog(props) {
   };
 
   const whatsappClick = () => {
-    const message = "Hello, this is a message from my React app!"; // Replace with the message that you want to share
+    console.log(props.company.name);
+    const message = `
+    Company Name : ${props.company.name}
+    
+Package : ${props.company.ctc} LPA
+Eligible Colleges : ${props.ecc}
+Eligible Years : ${props.eyy}
+Eligible Branches : ${props.ebb}
+Tentative Interview Date : ${props.company.tentative_interview_dates.substr(
+      0,
+      15
+    )}
+Minimum CGPA : ${props.company.min_cgpa} Pointer
+${props.company.gender == 1 ? "Female Candidates Only" : "Male Candidates Only"}
+Minimum in 10th : ${props.company.min_in_ten}
+Minimum in 12th : ${props.company.min_in_twelve}
+Max Year Education Gap : ${props.company.max_year_education_gap}
+Active backlogs are ${
+      props.company.active_backlogs_allowed ? "" : "not "
+    } allowed
+History of backlogs are ${
+      props.company.history_backlogs_allowed ? "" : "not "
+    } allowed
+${
+  props.company.jds && props.company.jds.length > 0
+    ? "JD - " + props.company.jds[0]
+    : ""
+}
+
+Apply here - ${props.link}
+ 
+Description :  ${props.company.description}
+    `;
     const apiUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
       message
     )}`;
@@ -30,8 +63,37 @@ export default function AlertDialog(props) {
 
   const emailClick = () => {
     const recipients = "jagannathrkreal@gmail.com,4ni19is038_b@nie.ac.in"; // Replace with the email addresses of the recipients
-    const subject = "Hello from my React app"; // Replace with the subject of the email
-    const body = "This is a message from my React app"; // Replace with the body of the email
+    const subject = props.company.name + " - Campus Placement";
+    const body = `    
+Package : ${props.company.ctc} LPA
+Eligible Colleges : ${props.ecc}
+Eligible Years : ${props.eyy}
+Eligible Branches : ${props.ebb}
+Tentative Interview Date : ${props.company.tentative_interview_dates.substr(
+      0,
+      15
+    )}
+Minimum CGPA : ${props.company.min_cgpa} Pointer
+${props.company.gender == 1 ? "Female Candidates Only" : "Male Candidates Only"}
+Minimum in 10th : ${props.company.min_in_ten}
+Minimum in 12th : ${props.company.min_in_twelve}
+Max Year Education Gap : ${props.company.max_year_education_gap}
+Active backlogs are ${
+      props.company.active_backlogs_allowed ? "" : "not "
+    } allowed
+History of backlogs are ${
+      props.company.history_backlogs_allowed ? "" : "not "
+    } allowed
+${
+  props.company.jds && props.company.jds.length > 0
+    ? "JD - " + props.company.jds[0]
+    : ""
+}
+
+Apply here - ${props.link}
+ 
+Description :  ${props.company.description}
+    `;
     const apiUrl = `mailto:${recipients}?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
@@ -99,9 +161,7 @@ export default function AlertDialog(props) {
                 marginTop: "-3px",
               }}
               onClick={() => {
-                navigator.clipboard.writeText(
-                  "This is the message that will be copied to the clipboard"
-                );
+                navigator.clipboard.writeText(props.link);
                 setCopied(true);
               }}
             />

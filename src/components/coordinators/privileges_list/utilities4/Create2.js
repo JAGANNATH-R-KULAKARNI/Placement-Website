@@ -321,8 +321,11 @@ export default function Register(props) {
               {loading ? <BackdropUI /> : null}
               {dialog ? (
                 <DialogUI
-                  company={company}
+                  company={props.company}
                   link={link}
+                  ecc={props.ecc}
+                  eyy={props.eyy}
+                  ebb={props.ebb}
                   handlerClose={() => {
                     handleClose();
                   }}
