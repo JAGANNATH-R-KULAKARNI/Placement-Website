@@ -42,6 +42,8 @@ export default function FullScreenDialog(props) {
   const [forms, setForms] = React.useState(null);
   const [updateFormStatus, setUpdateFormStatus] = React.useState(false);
   const [updateFormData, setUpdateFormData] = React.useState(null);
+  const [active, setActive] = React.useState(0);
+  const [inactive, setInactive] = React.useState(0);
 
   async function timeSince(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
@@ -133,21 +135,56 @@ export default function FullScreenDialog(props) {
       //  console.log(data);
 
       let temp = [];
+      let notFlaga = true;
+      let notFlagi = true;
 
       for (let i = 0; i < data.length; i++) {
-        let flag = false;
+        let flaga = false;
+        let flagi = false;
+        let status;
+
         let ref = Date.now();
 
-        if (ref > data[i].start_time && ref < data[i].end_time) flag = true;
+        if (ref > data[i].start_time && ref < data[i].end_time) {
+          flaga = true;
+          status = 1;
+        }
+
+        if (ref < data[i].start_time && ref < data[i].end_time) {
+          flagi = true;
+          status = 0;
+        }
+
+        if (ref > data[i].start_time && ref > data[i].end_time) {
+          status = 2;
+        }
+
+        if (flaga) {
+          setActive(1);
+          notFlaga = false;
+        }
+        if (flagi) {
+          setInactive(1);
+          notFlagi = false;
+        }
+
         temp.push({
           ...data[i],
-          active: flag,
+          active: flaga,
           posted: await timeSince(new Date(parseInt(data[i].time_created))),
           data: data[i],
           company: props.company,
+          status: status,
         });
       }
 
+      if (notFlaga) {
+        setActive(0);
+      }
+
+      if (notFlagi) {
+        setInactive(0);
+      }
       // console.log(temp);
       setForms(temp);
     }
@@ -284,23 +321,35 @@ export default function FullScreenDialog(props) {
           <div
             style={{ width: "80%", display: "flex", justifyContent: "center" }}
           >
-            <Button
-              variant="contained"
-              style={{
-                width: "46%",
-                textTransform: "capitalize",
-                borderRadius: "20px",
-                backgroundColor: "#007F7F",
-                fontWeight: 600,
-              }}
-              onClick={() => {
-                setOpenForm(true);
-              }}
-              size="small"
-              disableElevation
-            >
-              Create Form
-            </Button>
+            {active || inactive ? (
+              <h5
+                style={{
+                  marginTop: "6px",
+                  marginBottom: "0px",
+                  // color: "#007F7F",
+                }}
+              >
+                {active ? "1 Active Form" : "1 Scheduled form"}
+              </h5>
+            ) : (
+              <Button
+                variant="contained"
+                style={{
+                  width: "46%",
+                  textTransform: "capitalize",
+                  borderRadius: "20px",
+                  backgroundColor: "#007F7F",
+                  fontWeight: 600,
+                }}
+                onClick={() => {
+                  setOpenForm(true);
+                }}
+                size="small"
+                disableElevation
+              >
+                Create Form
+              </Button>
+            )}
             <div style={{ width: "8%" }}></div>
             <Button
               variant="outlined"
@@ -372,14 +421,23 @@ export default function FullScreenDialog(props) {
                             </span>
                           </span>
                           <Chip
-                            label={item.active ? "active" : "inactive"}
+                            label={
+                              item.status == 0
+                                ? "inactive"
+                                : item.status == 1
+                                ? "active"
+                                : "closed"
+                            }
                             color={item.active ? "success" : "error"}
                             size="small"
                             style={{
                               marginLeft: "7px",
-                              backgroundColor: item.active
-                                ? "#007F7F"
-                                : "#B10501",
+                              backgroundColor:
+                                item.status == 0
+                                  ? "#FFB715"
+                                  : item.status == 1
+                                  ? "#007F7F"
+                                  : "#B10501",
                             }}
                           />
                         </p>
