@@ -38,6 +38,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import BackDropUI from "./Backdrop";
 import DateUI from "./Date";
+import handshakemobile from "../../../images/handshakemobile.jpg";
+import { withStyles } from "@material-ui/core/styles";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -213,50 +215,87 @@ export default function Register(props) {
         TransitionComponent={Transition}
       >
         {sending ? <BackDropUI /> : false}
-        <div
-          style={{
-            backgroundImage: `url(${bg})`,
-            backgroundAttachment: "fixed",
-          }}
-        >
-          <NavBarUI handleClose={handleClose} />
-          <div style={{ height: "80px" }}></div>
-          <div>
-            <Paper
-              variant="outlined"
-              style={{
-                borderBottomLeftRadius: "50px",
-                borderBottomRightRadius: "50px",
-              }}
-              elevation={10}
-            >
-              <h1
-                style={{
-                  textAlign: "center",
-                  marginTop: m1 ? "50px" : "25px",
-                  fontSize: m1 ? "45px" : "35px",
-                }}
+        <div>
+          {/* <AppBar
+            sx={{ position: "relative", backgroundColor: "#0C7475" }}
+            elevation={0}
+          >
+            <Toolbar>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
               >
-                Register Company
-              </h1>
-            </Paper>
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar> */}
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            style={{
+              marginLeft: "10px",
+              marginTop: "10px",
+              color: "white",
+            }}
+          >
+            <CloseIcon style={{ fontSize: "30px" }} />
+          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-58px",
+            }}
+          >
+            <img
+              src={handshakemobile}
+              style={{ width: "100%", height: "auto" }}
+              alt="Hand shake"
+            />
+          </div>
+
+          <div
+            style={{
+              backgroundColor: "#F5F8F9",
+            }}
+          >
             <br />
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <Paper
                 style={{
                   width: "95%",
                   padding: "5%",
                   display: "flex",
                   justifyContent: "center",
-                  borderRadius: "30px",
+                  borderRadius: "10px",
                 }}
+                elevation={1}
               >
                 <div style={{ width: "90%" }}>
                   <TextField
                     id="standard-basic"
                     label="Company Name"
                     variant="standard"
-                    style={{ width: "100%" }}
+                    style={{
+                      width: "100%",
+                    }}
+                    // InputLabelProps={{
+                    //   style: { color: "#017E7E" },
+                    // }}
+                    // sx={{
+                    //   input: {
+                    //     borderBottom: "2px solid #017E7E",
+                    //   },
+                    // }}
                     value={name}
                     onChange={(e) => {
                       setName(e.target.value);
@@ -289,7 +328,7 @@ export default function Register(props) {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           value={ctcDisclosed}
                           onChange={(e) => {
                             setCTCDisclosed(e.target.checked);
@@ -303,7 +342,10 @@ export default function Register(props) {
 
                   <FormControl
                     variant="standard"
-                    sx={{ width: "100%", marginTop: "10px" }}
+                    sx={{
+                      width: "100%",
+                      marginTop: "10px",
+                    }}
                   >
                     <InputLabel id="demo-simple-select-standard-label">
                       Company Type
@@ -446,7 +488,7 @@ export default function Register(props) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                             checked={backlogs}
                             onChange={(e) => {
                               setBacklogs(e.target.checked);
@@ -472,7 +514,7 @@ export default function Register(props) {
                             onChange={(e) => {
                               setArears(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="History of Backlogs allowed ?"
@@ -498,7 +540,7 @@ export default function Register(props) {
                                 setGender(0);
                               }
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Female Candidates Only ?"
@@ -523,7 +565,7 @@ export default function Register(props) {
                                 setGender(0);
                               }
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Male Candidates Only ?"
@@ -553,9 +595,13 @@ export default function Register(props) {
                     }}
                   >
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       component="label"
-                      style={{ backgroundColor: "#541554" }}
+                      style={{
+                        color: "#017E7E",
+                        fontWeight: 700,
+                        border: "1px solid #017E7E",
+                      }}
                       // onClick={handleOpenPicker}
                       startIcon={<AttachFileIcon />}
                     >
@@ -605,7 +651,7 @@ export default function Register(props) {
                     <Button
                       variant="contained"
                       style={{
-                        backgroundColor: "black",
+                        backgroundColor: "#017E7E",
                         width: "100%",
                         height: "50px",
                         borderRadius: "16px",
@@ -618,6 +664,7 @@ export default function Register(props) {
                 </div>
               </Paper>
             </div>
+            <br />
           </div>
         </div>
       </Dialog>

@@ -106,17 +106,20 @@ export default function Privileges() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {/* student */}
       {registerModal && companies ? (
         <RegisterUI
           registerModalHandler={() => setRegisterModal(!registerModal)}
           companies={companies}
         />
       ) : null}
+
       {registerModal2 ? (
         <RegisterUI2
           registerModalHandler={() => setRegisterModal2(!registerModal2)}
         />
       ) : null}
+      {/* company */}
       {openEmail ? (
         <EmailUI
           emailModelHandler={() => {
@@ -124,6 +127,7 @@ export default function Privileges() {
           }}
         />
       ) : null}
+
       <main style={{ marginTop: m1 ? "-30px" : "-70px" }}>
         <div style={{ width: "100%" }}>
           <img
