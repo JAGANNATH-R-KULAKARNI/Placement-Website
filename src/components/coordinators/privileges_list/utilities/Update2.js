@@ -10,6 +10,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Slide from "@mui/material/Slide";
 import NavBarUI from "../../../NavBar4";
 import Paper from "@mui/material/Paper";
@@ -162,7 +163,7 @@ export default function Register(props) {
     setOpen(false);
     props.toggleModel();
   };
-
+ 
   const handleUpload = async (e) => {
     console.log("files upload bro");
     if (!e.target.files) {
@@ -218,45 +219,44 @@ export default function Register(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        {sending ? <BackDropUI /> : false}
-        <div
-          style={{
-            backgroundImage: `url(${bg})`,
-            backgroundAttachment: "fixed",
-          }}
+          <AppBar
+          sx={{ position: "relative", backgroundColor: "#017E7E" }}
+          elevation={0}
         >
-          <NavBarUI handleClose={handleClose} />
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <ArrowBackIcon/>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
           <div style={{ height: "80px" }}></div>
           <div>
-            <Paper
+            {/* <Paper
               variant="outlined"
               style={{
                 borderBottomLeftRadius: "50px",
                 borderBottomRightRadius: "50px",
               }}
               elevation={10}
-            >
+            > */}
               <h1
                 style={{
                   textAlign: "center",
-                  marginTop: m1 ? "50px" : "25px",
+                  marginTop: m1 ? "50px" : "15px",
                   fontSize: m1 ? "45px" : "35px",
                 }}
               >
                 Company Details
               </h1>
-            </Paper>
-            <br />
+            {/* </Paper> */}
+            
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Paper
-                style={{
-                  width: "95%",
-                  padding: "5%",
-                  display: "flex",
-                  justifyContent: "center",
-                  borderRadius: "30px",
-                }}
-              >
+              
                 <div style={{ width: "90%" }}>
                   <TextField
                     id="standard-basic"
@@ -279,9 +279,11 @@ export default function Register(props) {
                     }}
                     placeholder="Paste it from the internet"
                   />
+                  
                   <TextField
                     id="standard-basic ctc update companies"
                     label="CTC (in LPA)"
+                    
                     variant="standard"
                     type="number"
                     style={{ width: "100%", marginTop: "20px" }}
@@ -569,7 +571,13 @@ export default function Register(props) {
                     <Button
                       variant="contained"
                       component="label"
-                      style={{ backgroundColor: "#541554" }}
+                      style={{ width: "66%",
+                      textTransform: "capitalize",
+                      borderRadius: "20px",
+                      color: "#007F7F",
+                      backgroundColor : "white",
+                      fontWeight: 600,
+                      border: "2px solid #007F7F", }}
                       // onClick={handleOpenPicker}
                       startIcon={<AttachFileIcon />}
                     >
@@ -619,10 +627,14 @@ export default function Register(props) {
                     <Button
                       variant="contained"
                       style={{
-                        backgroundColor: "black",
-                        width: "100%",
-                        height: "50px",
-                        borderRadius: "16px",
+                       
+                       
+                        width: "56%",
+                textTransform: "capitalize",
+                borderRadius: "20px",
+                backgroundColor: "#007F7F",
+                fontWeight: 600,
+                marginBottom: "10px",
                       }}
                       onClick={registerCompany}
                     >
@@ -630,10 +642,10 @@ export default function Register(props) {
                     </Button>
                   </div>
                 </div>
-              </Paper>
+              {/* </Paper> */}
             </div>
           </div>
-        </div>
+       
       </Dialog>
     </div>
   );

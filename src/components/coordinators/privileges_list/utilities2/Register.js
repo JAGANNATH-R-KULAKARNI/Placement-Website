@@ -286,24 +286,31 @@ const [resume,setResume] = React.useState([""]);
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        {sending ? <BackdropUI /> : null}
-        <div
-          style={{
-            backgroundImage: `url(${bg})`,
-            backgroundAttachment: "fixed",
-          }}
+         <AppBar
+          sx={{ position: "relative", backgroundColor: "#017E7E" }}
+          elevation={0}
         >
-          <NavBarUI handleClose={handleClose} />
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon/>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
           <div style={{ height: "80px" }}></div>
           <div>
-            <Paper
+            {/* <Paper
               variant="outlined"
               style={{
                 borderBottomLeftRadius: "50px",
                 borderBottomRightRadius: "50px",
               }}
               elevation={10}
-            >
+            > */}
               <h1
                 style={{
                   textAlign: "center",
@@ -313,10 +320,10 @@ const [resume,setResume] = React.useState([""]);
               >
                 Register Student
               </h1>
-            </Paper>
+            {/* </Paper> */}
             <br />
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Paper
+              {/* <Paper
                 style={{
                   width: "95%",
                   padding: "5%",
@@ -324,7 +331,7 @@ const [resume,setResume] = React.useState([""]);
                   justifyContent: "center",
                   borderRadius: "30px",
                 }}
-              >
+              > */}
                 <div style={{ width: "90%" }}>
                   <TextField
                     id="standard-basic"
@@ -955,55 +962,7 @@ const [resume,setResume] = React.useState([""]);
                       setResume(temp);
                     }}
                   /> 
-{/* 
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "30px",
-                    }}
-                  >
-                    <Button
-                      variant="contained"
-                      component="label"
-                      style={{ backgroundColor: "#541554" }}
-                      // onClick={handleOpenPicker}
-                    >
-                      {uploading ? "Uploading...Wait" : "Upload Resume"}
 
-                      <input
-                        hidden
-                        multiple
-                        type="file"
-                        onChange={(e) => {
-                          console.log(e);
-                          handleUpload(e);
-                        }}
-                      />
-                    </Button>
-                  </div>
-                  <br /> 
-                   {uploading ? (
-                    <div>
-                      <SpinnerUI />
-                    </div>
-                  ) : null}
-                  <br />
-                  {urls &&
-                    urls.map((item) => {
-                      return (
-                        <iframe
-                          src={item}
-                          style={{
-                            width: m1 ? "10%" : "50%",
-                            height: "100px",
-                            overflow: "hidden",
-                          }}
-                          scrolling="no"
-                          key={item}
-                        ></iframe>
-                      );
-                    })}  */}
                   <FormGroup>
                     <FormControlLabel
                       control={
@@ -1034,10 +993,13 @@ const [resume,setResume] = React.useState([""]);
                     <Button
                       variant="contained"
                       style={{
-                        backgroundColor: "black",
-                        width: "100%",
-                        height: "50px",
-                        borderRadius: "16px",
+                        
+                        width: "56%",
+                textTransform: "capitalize",
+                borderRadius: "20px",
+                backgroundColor: "#007F7F",
+                fontWeight: 600,
+                marginBottom: "10px",
                       }}
                       onClick={registerCompany}
                     >
@@ -1045,10 +1007,10 @@ const [resume,setResume] = React.useState([""]);
                     </Button>
                   </div>
                 </div>
-              </Paper>
+              {/* </Paper> */}
             </div>
           </div>
-        </div>
+        
       </Dialog>
     </div>
   );

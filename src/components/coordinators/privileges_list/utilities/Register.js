@@ -197,14 +197,6 @@ export default function Register(props) {
       }
     }
 
-    // if (count == 0) {
-    //   alert("Uploaded Successfully");
-    // } else if (count == e.target.files.length) {
-    //   alert("Something went wrong :( try again");
-    // } else {
-    //   alert("All files are not uploaded :( try again");
-    // }
-
     setUploading(false);
   };
 
@@ -216,24 +208,31 @@ export default function Register(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        {sending ? <BackDropUI /> : false}
-        <div
-          style={{
-            backgroundImage: `url(${bg})`,
-            backgroundAttachment: "fixed",
-          }}
+         <AppBar
+          sx={{ position: "relative", backgroundColor: "#017E7E" }}
+          elevation={0}
         >
-          <NavBarUI handleClose={handleClose} />
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon/>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
           <div style={{ height: "80px" }}></div>
           <div>
-            <Paper
+            {/* <Paper
               variant="outlined"
               style={{
                 borderBottomLeftRadius: "50px",
                 borderBottomRightRadius: "50px",
               }}
               elevation={10}
-            >
+            > */}
               <h1
                 style={{
                   textAlign: "center",
@@ -243,10 +242,9 @@ export default function Register(props) {
               >
                 Register Company
               </h1>
-            </Paper>
-            <br />
+         
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Paper
+              {/* <Paper
                 style={{
                   width: "95%",
                   padding: "5%",
@@ -254,7 +252,7 @@ export default function Register(props) {
                   justifyContent: "center",
                   borderRadius: "30px",
                 }}
-              >
+              > */}
                 <div style={{ width: "90%" }}>
                   <TextField
                     id="standard-basic"
@@ -576,7 +574,13 @@ export default function Register(props) {
                     <Button
                       variant="contained"
                       component="label"
-                      style={{ backgroundColor: "#541554" }}
+                      style={{  width: "66%",
+                      textTransform: "capitalize",
+                      borderRadius: "20px",
+                      color: "#007F7F",
+                      backgroundColor : "white",
+                      fontWeight: 600,
+                      border: "2px solid #007F7F",}}
                       // onClick={handleOpenPicker}
                       startIcon={<AttachFileIcon />}
                     >
@@ -626,10 +630,12 @@ export default function Register(props) {
                     <Button
                       variant="contained"
                       style={{
-                        backgroundColor: "black",
-                        width: "100%",
-                        height: "50px",
-                        borderRadius: "16px",
+                       width: "56%",
+                textTransform: "capitalize",
+                borderRadius: "20px",
+                backgroundColor: "#007F7F",
+                fontWeight: 600,
+                marginBottom: "10px",
                       }}
                       onClick={registerCompany}
                     >
@@ -637,10 +643,10 @@ export default function Register(props) {
                     </Button>
                   </div>
                 </div>
-              </Paper>
+              {/* </Paper> */}
             </div>
           </div>
-        </div>
+        
       </Dialog>
     </div>
   );
