@@ -528,62 +528,20 @@ export default function AnnounceACompany() {
           {sending ? <BackDropUI /> : null}
           <CssBaseline />
           <div style={{ height: m1 ? "70px" : "40px" }}></div>
-          <main>
-            <Box
-              sx={{
-                bgcolor: "background.paper",
-                pt: 8,
-                pb: 6,
-                borderBottomRightRadius: "50px",
-                borderBottomLeftRadius: "50px",
-              }}
-            >
-              <Container maxWidth="sm">
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  color="text.primary"
-                  gutterBottom
-                  style={{
-                    fontFamily: "inherit",
-                    fontSize: m1 ? "60px" : "50px",
-                    fontWeight: 500,
-                  }}
-                >
-                  Send a mail
-                </Typography>
-                <Typography
-                  variant="h5"
-                  align="center"
-                  color="text.secondary"
-                  paragraph
-                  style={{
-                    fontSize: m1 ? "17px" : "16px",
-                    marginBottom: "-17px",
-                  }}
-                >
-                  <i>
-                    "Send an email to all the students or to a particulr
-                    student. You can send email to the company selects or to all
-                    the students. You can also send files"
-                  </i>
-                </Typography>
-              </Container>
-            </Box>
+          <main style={{ display: "flex", justifyContent: "center" }}>
             <Paper
               style={{
-                marginTop: "30px",
+                marginTop: "0px",
                 borderRadius: "40px",
                 display: "flex",
                 justifyContent: "center",
-                width: "100%",
+                width: "95%",
               }}
             >
               <div
                 style={{
                   width: "100%",
-                  marginTop: "25px",
+                  marginTop: "0px",
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "center" }}>
@@ -653,7 +611,7 @@ export default function AnnounceACompany() {
                       control={
                         <Checkbox
                           defaultChecked
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={wholeCollege}
                           onChange={(e) => {
                             setWholeCollege(e.target.checked);
@@ -686,7 +644,7 @@ export default function AnnounceACompany() {
                       control={
                         <Checkbox
                           defaultChecked
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={particularBranch}
                           onChange={(e) => {
                             setParticularBranch(e.target.checked);
@@ -822,7 +780,7 @@ export default function AnnounceACompany() {
                       control={
                         <Checkbox
                           defaultChecked
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={selectCompany}
                           onChange={(e) => {
                             setSelectCompany(e.target.checked);
@@ -906,7 +864,7 @@ export default function AnnounceACompany() {
                       control={
                         <Checkbox
                           defaultChecked
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={selectStudent}
                           onChange={(e) => {
                             setSelectStudent(e.target.checked);
@@ -985,9 +943,16 @@ export default function AnnounceACompany() {
                   }}
                 >
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     component="label"
-                    style={{ backgroundColor: "#541554", width: "85%" }}
+                    style={{
+                      color: "#017E7E",
+                      fontWeight: 700,
+                      backgroundColor: "white",
+                      border: "2px solid #017E7E",
+                      borderRadius: "20px",
+                      textTransform: "capitalize",
+                    }}
                     // onClick={handleOpenPicker}
                     startIcon={<AttachFileIcon />}
                   >
@@ -1064,7 +1029,7 @@ export default function AnnounceACompany() {
                     <Button
                       variant="contained"
                       style={{
-                        backgroundColor: "black",
+                        backgroundColor: "#017E7E",
                         width: "100%",
                         height: "50px",
                         borderRadius: "16px",
