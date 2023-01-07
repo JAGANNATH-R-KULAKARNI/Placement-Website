@@ -35,17 +35,20 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Company3UI from "./Company3";
+import useSWR from "swr";
 
 export default function AnnounceACompany() {
   const m1 = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const location = useLocation();
+  const finalData = useSWR("/api/endpoint", fetchTheCompanies);
 
   const [data, setData] = React.useState(null);
   const [registerModal, setRegisterModal] = React.useState(false);
 
   const [companies, setCompanies] = React.useState([]);
   const [fCompanies, setFCompanies] = React.useState([]);
+  const [companiesHash, setCompaniesHash] = React.useState(null);
   const [sCResult, setSCResult] = React.useState(null);
   const [control, setControl] = React.useState(false);
   const [times, setTimes] = React.useState([]);
@@ -107,7 +110,7 @@ export default function AnnounceACompany() {
     return Math.floor(seconds) + " seconds";
   }
 
-  async function fetchTheCompanies() {
+  async function fetchTheCompanies(argc) {
     const { data, error } = await supabase
       .from("companies")
       .select("*")
@@ -118,23 +121,38 @@ export default function AnnounceACompany() {
     if (data) {
       const temp = [];
       const times = [];
+      let hash = {};
       for (let i = 0; i < data.length; i++) {
         if (data[i]["id"] !== 0) {
           temp.push(data[i]);
+          hash[data[i].id] = data[i];
           times.push(await timeSince(new Date(parseInt(data[i].time_posted))));
         }
       }
+
+      setCompaniesHash(hash);
       setFCompanies(temp);
+      console.log(times);
       setTimes(times);
       setCompanies(temp);
     }
   }
 
-  React.useEffect(() => {
-    if (companies.length === 0) {
-      fetchTheCompanies();
-    }
-  }, []);
+  // async function updateTime() {
+  //   if (!fCompanies) return;
+
+  //   let times = [];
+
+  //   for (let i = 0; i < fCompanies.length; i++) {
+  //     if (fCompanies[i]["id"] !== 0) {
+  //       times.push(
+  //         await timeSince(new Date(parseInt(fCompanies[i].time_posted)))
+  //       );
+  //     }
+  //   }
+
+  //   setTimes(times);
+  // }
 
   React.useEffect(() => {
     setInterval(() => {
@@ -148,8 +166,16 @@ export default function AnnounceACompany() {
 
   return (
     <div style={{ width: "100%" }}>
-      {fCompanies && fCompanies.length > 0 && times && times.length > 0 ? (
-        <Company3UI fCompanies={fCompanies} times={times} />
+      {fCompanies &&
+      fCompanies.length > 0 &&
+      times &&
+      times.length > 0 &&
+      companiesHash ? (
+        <Company3UI
+          fCompanies={fCompanies}
+          times={times}
+          companiesHash={companiesHash}
+        />
       ) : null}
     </div>
   );
