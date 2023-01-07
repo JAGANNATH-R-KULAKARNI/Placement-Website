@@ -346,6 +346,11 @@ const[college,setCollege]=React.useState(0);
                     label="Full Name"
                     variant="standard"
                     style={{ width: "100%" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={name}
                     onChange={(e) => {
                       setName(e.target.value);
@@ -356,6 +361,11 @@ const[college,setCollege]=React.useState(0);
                     label="USN"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={usn}
                     onChange={(e) => {
                       setUSN(e.target.value);
@@ -366,6 +376,11 @@ const[college,setCollege]=React.useState(0);
                     label="Email"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
@@ -392,7 +407,7 @@ const[college,setCollege]=React.useState(0);
                       <FormControlLabel
                         control={
                           <Checkbox
-                            style={{ color: "#541554" }}
+                            style={{ color: "#541554",}}
                             checked={ccontrol}
                             onChange={(e) => {
                               setCControl(e.target.checked);
@@ -413,7 +428,7 @@ const[college,setCollege]=React.useState(0);
                   </div>
                   <FormControl
                     variant="standard"
-                    sx={{ width: "100%", marginTop: "20px" }}
+                    sx={{ width: "100%", marginTop: "20px" ,borderBottom:"2px solid #017E7E"}}
                   >
                     <InputLabel id="demo-simple-select-standard-label">
                       Gender
@@ -437,6 +452,11 @@ const[college,setCollege]=React.useState(0);
                     label="Category"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={category}
                     onChange={(e) => {
                       setCategory(e.target.value);
@@ -448,6 +468,11 @@ const[college,setCollege]=React.useState(0);
                     variant="standard"
                     type="number"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={tenth[0]}
                     onChange={(e) => {
                       const temp = [...tenth];
@@ -462,6 +487,11 @@ const[college,setCollege]=React.useState(0);
                     label="10th/SSLC Board"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={tenth[1]}
                     onChange={(e) => {
                       const temp = [...tenth];
@@ -476,6 +506,11 @@ const[college,setCollege]=React.useState(0);
                     label="10th/SSLC Qualified Year"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={tenth[2]}
                     onChange={(e) => {
                       const temp = [...tenth];
@@ -490,6 +525,11 @@ const[college,setCollege]=React.useState(0);
                     label="12th/PUC Percentage"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={twelth[0]}
                     onChange={(e) => {
                       const temp = [...twelth];
@@ -504,6 +544,11 @@ const[college,setCollege]=React.useState(0);
                     label="12th/PUC Board"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={twelth[1]}
                     onChange={(e) => {
                       const temp = [...twelth];
@@ -517,6 +562,11 @@ const[college,setCollege]=React.useState(0);
                     label="12th/PUC Qualified Year"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={twelth[2]}
                     onChange={(e) => {
                       const temp = [...twelth];
@@ -531,6 +581,11 @@ const[college,setCollege]=React.useState(0);
                     label="Diplomo Percentage (If Lateral Entry)"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={diplomo[0]}
                     onChange={(e) => {
                       const temp = [...diplomo];
@@ -545,6 +600,11 @@ const[college,setCollege]=React.useState(0);
                     label="Diplomo Board (If Lateral Entry)"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={diplomo[1]}
                     onChange={(e) => {
                       const temp = [...diplomo];
@@ -558,6 +618,11 @@ const[college,setCollege]=React.useState(0);
                     label="Diplomo Qualified Year (If Lateral Entry)"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={diplomo[2]}
                     onChange={(e) => {
                       const temp = [...diplomo];
@@ -569,7 +634,7 @@ const[college,setCollege]=React.useState(0);
                   />
                   <FormControl
                     variant="standard"
-                    sx={{ width: "100%", marginTop: "30px" }}
+                    sx={{ width: "100%", marginTop: "30px",borderBottom:"2px solid #017E7E" }}
                   >
                     <InputLabel id="demo-simple-select-standard-label">
                       Engineering College
@@ -643,6 +708,11 @@ const[college,setCollege]=React.useState(0);
                     variant="standard"
                     type="text"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={section}
                     onChange={(e) => {
                       setSection(e.target.value);
@@ -678,6 +748,11 @@ const[college,setCollege]=React.useState(0);
                     variant="standard"
                     type="number"
                     style={{ width: "47%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={grades[0]}
                     onChange={(e) => {
                       const temp = [...grades];
@@ -695,6 +770,11 @@ const[college,setCollege]=React.useState(0);
                       marginTop: "20px",
                       marginLeft: "6%",
                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={grades[1]}
                     onChange={(e) => {
                       const temp = [...grades];
@@ -708,6 +788,11 @@ const[college,setCollege]=React.useState(0);
                     variant="standard"
                     type="number"
                     style={{ width: "47%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={grades[2]}
                     onChange={(e) => {
                       const temp = [...grades];
@@ -725,6 +810,11 @@ const[college,setCollege]=React.useState(0);
                       marginTop: "20px",
                       marginLeft: "6%",
                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={grades[3]}
                     onChange={(e) => {
                       const temp = [...grades];
@@ -738,6 +828,11 @@ const[college,setCollege]=React.useState(0);
                     variant="standard"
                     type="number"
                     style={{ width: "47%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={grades[4]}
                     onChange={(e) => {
                       const temp = [...grades];
@@ -755,6 +850,11 @@ const[college,setCollege]=React.useState(0);
                       marginTop: "20px",
                       marginLeft: "6%",
                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={grades[5]}
                     onChange={(e) => {
                       const temp = [...grades];
@@ -768,6 +868,11 @@ const[college,setCollege]=React.useState(0);
                     variant="standard"
                     type="number"
                     style={{ width: "47%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={grades[6]}
                     onChange={(e) => {
                       const temp = [...grades];
@@ -785,6 +890,11 @@ const[college,setCollege]=React.useState(0);
                       marginTop: "20px",
                       marginLeft: "6%",
                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={grades[7]}
                     onChange={(e) => {
                       const temp = [...grades];
@@ -801,6 +911,11 @@ const[college,setCollege]=React.useState(0);
                       width: "100%",
                       marginTop: "20px",
                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={cgpa}
                     onChange={(e) => {
                       setCGPA(e.target.value);
@@ -816,6 +931,11 @@ const[college,setCollege]=React.useState(0);
                       width: "100%",
                       marginTop: "20px",
                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={credits}
                     onChange={(e) => {
                       setCredits(e.target.value);
@@ -829,6 +949,11 @@ const[college,setCollege]=React.useState(0);
                     style={{
                       width: "100%",
                       marginTop: "20px",
+                    }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
                     }}
                     value={arears[0]}
                     onChange={(e) => {
@@ -847,6 +972,11 @@ const[college,setCollege]=React.useState(0);
                       width: "100%",
                       marginTop: "20px",
                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={arears[1]}
                     onChange={(e) => {
                       const temp = [...arears];
@@ -862,6 +992,11 @@ const[college,setCollege]=React.useState(0);
                     style={{
                       width: "100%",
                       marginTop: "20px",
+                    }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
                     }}
                     value={backlogs[0]}
                     onChange={(e) => {
@@ -879,6 +1014,11 @@ const[college,setCollege]=React.useState(0);
                       width: "100%",
                       marginTop: "20px",
                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={backlogs[1]}
                     onChange={(e) => {
                       const temp = [...backlogs];
@@ -895,6 +1035,11 @@ const[college,setCollege]=React.useState(0);
                       width: "100%",
                       marginTop: "20px",
                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={year_gap}
                     onChange={(e) => {
                       setYearGap(e.target.value);
@@ -908,6 +1053,11 @@ const[college,setCollege]=React.useState(0);
                     style={{
                       width: "100%",
                       marginTop: "20px",
+                    }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
                     }}
                     value={phone[0]}
                     onChange={(e) => {
@@ -925,6 +1075,11 @@ const[college,setCollege]=React.useState(0);
                       width: "100%",
                       marginTop: "20px",
                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={phone[1]}
                     onChange={(e) => {
                       const temp = [...phone];
@@ -939,6 +1094,11 @@ const[college,setCollege]=React.useState(0);
                     variant="standard"
                     type="text"
                     style={{ width: "100%", marginTop: "15px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={address[0]}
                     onChange={(e) => {
                       const temp = [...address];
@@ -952,6 +1112,11 @@ const[college,setCollege]=React.useState(0);
                     variant="standard"
                     type="text"
                     style={{ width: "100%", marginTop: "15px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={address[1]}
                     onChange={(e) => {
                       const temp = [...address];
@@ -965,6 +1130,11 @@ const[college,setCollege]=React.useState(0);
                     variant="standard"
                     type="text"
                     style={{ width: "100%", marginTop: "15px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={resume[0]}
                     onChange={(e) => {
                       const temp = [...resume];

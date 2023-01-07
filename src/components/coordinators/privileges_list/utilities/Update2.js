@@ -281,7 +281,12 @@ export default function Register(props) {
                     id="standard-basic"
                     label="Company Name"
                     variant="standard"
-                    style={{ width: "100%",borderBottom:"1px solid #007F7F" }}
+                    style={{ width: "100%" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={name}
                     onChange={(e) => {
                       setName(e.target.value);
@@ -292,7 +297,12 @@ export default function Register(props) {
                     label="Company Logo (url)"
                     variant="standard"
                     style={{ width: "100%", marginTop: "5px",
-                    borderBottom:"1px solid #007F7F" }}
+                     }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={companyLogo}
                     onChange={(e) => {
                       setCompanyLogo(e.target.value);
@@ -307,7 +317,12 @@ export default function Register(props) {
                     variant="standard"
                     type="number"
                     style={{ width: "100%", marginTop: "20px"
-                      ,borderBottom:"1px solid #007F7F"
+                      
+                    }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
                     }}
                     value={ctc}
                     onChange={(e) => {
@@ -333,9 +348,17 @@ export default function Register(props) {
 
                   <FormControl
                     variant="standard"
-                    sx={{ width: "100%", marginTop: "10px" }}
+                    sx={{ width: "100%", marginTop: "10px",input: {
+                      borderBottom: "2px solid #017E7E",
+                    }, }}
+                    
                   >
-                    <InputLabel id="demo-simple-select-standard-label">
+                    <InputLabel id="demo-simple-select-standard-label"
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}>
                       Company Type
                     </InputLabel>
                     <Select
@@ -346,6 +369,11 @@ export default function Register(props) {
                         setType(e.target.value);
                       }}
                       label="Company Type"
+                      sx={{
+                        input: {
+                          borderBottom: "2px solid #017E7E",
+                        },
+                      }}
                     >
                       {/* <MenuItem value="nyd">
                         <em>Not yet disclosed</em>
@@ -428,11 +456,16 @@ export default function Register(props) {
                     variant="standard"
                     //sx={{  backgroundColor: 'yellow' }}
                     style={{ width: "100%", marginTop: "20px",
-                    //backgroundColor: 'yellow',
-                    borderBottom:"1px solid #007F7F" }}
+                    
+                     }}
+                    sx={{
+                      input:{
+                        borderBottom:"2px solid #007F7F"
+                      }
+                    }}
                     type="number"
                     value={cgpa}
-                    focused={true}
+                   // focused={true}
                     onChange={(e) => {
                       setCGPA(e.target.value);
                     }}
@@ -442,9 +475,14 @@ export default function Register(props) {
                     label="Min % in 10th"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     type="number"
                     value={minMInTen}
-                    focused={true}
+                    //focused={true}
                     onChange={(e) => {
                       setMinMInTen(e.target.value);
                     }}
@@ -454,9 +492,14 @@ export default function Register(props) {
                     label="Min % in 12th"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     type="number"
                     value={minMInTwelve}
-                    focused={true}
+                    //focused={true}
                     onChange={(e) => {
                       setMinMInTwelve(e.target.value);
                     }}
@@ -466,9 +509,14 @@ export default function Register(props) {
                     label="Max Year Education Gap"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     type="number"
                     value={eduGap}
-                    focused={true}
+                    //focused={true}
                     onChange={(e) => {
                       setEduGap(e.target.value);
                     }}
@@ -581,6 +629,11 @@ export default function Register(props) {
                     placeholder="3 Years of Service agreement & additional benefits on top."
                     variant="standard"
                     style={{ width: "100%", marginTop: "10px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={description}
                     onChange={(e) => {
                       setDescription(e.target.value);

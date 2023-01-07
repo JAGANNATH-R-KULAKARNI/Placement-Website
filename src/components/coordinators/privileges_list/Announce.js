@@ -522,27 +522,29 @@ export default function AnnounceACompany() {
   };
 
   return (
-    <div>
+    <div
+    style={{
+      backgroundColor: "#F5F8F9",
+    }}>
       {data ? (
-        <div>
-          {sending ? <BackDropUI /> : false}
-          {/* //<CssBaseline /> */}
-          <div style={{ height: m1 ? "70px" : "40px" }}></div>
-           <main> 
+        <div style={{ display: "flex", justifyContent: "center" }}>
+           
+          
             
             <Paper
               style={{
-                marginTop: "30px",
-                borderRadius: "40px",
+                width: "95%",
+                padding: "5%",
                 display: "flex",
                 justifyContent: "center",
-                width: "100%",
+                borderRadius: "10px",
               }}
+              elevation={1}
             >
               <div
                 style={{
                   width: "100%",
-                  marginTop: "25px",
+                  marginTop: "15px",
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "center" }}>
@@ -566,6 +568,11 @@ export default function AnnounceACompany() {
                       label="Subject"
                       variant="standard"
                       style={{ width: "100%" }}
+                      sx={{
+                        input: {
+                          borderBottom: "2px solid #017E7E",
+                        },
+                      }}
                       placeholder="Goldman Sachs shortlists"
                       value={subject}
                       onChange={(e) => {
@@ -589,12 +596,18 @@ export default function AnnounceACompany() {
                       multiline
                       rows={4}
                       value={description}
+                      style={{ width: "100%" }}
+                      sx={{
+                        input: {
+                          borderBottom: "2px solid #017E7E",
+                        },
+                      }}
                       onChange={(e) => {
                         setDescription(e.target.value);
                       }}
                       variant="standard"
                       placeholder="All of the GS selects, assemble near placement office"
-                      style={{ width: "100%" }}
+                     
                     />
                   </div>
                 </div>
@@ -944,9 +957,14 @@ export default function AnnounceACompany() {
                   }}
                 >
                   <Button
-                    variant="contained"
                     component="label"
-                    style={{ backgroundColor: "#541554", width: "85%" }}
+                    style={{ width: "76%",
+                    textTransform: "capitalize",
+                   
+                    color: "#007F7F",
+                    backgroundColor : "white",
+                    fontWeight: 600,
+                    border: "2px solid #007F7F", }}
                     // onClick={handleOpenPicker}
                     startIcon={<AttachFileIcon />}
                   >
@@ -1023,10 +1041,13 @@ export default function AnnounceACompany() {
                     <Button
                       variant="contained"
                       style={{
-                        backgroundColor: "black",
-                        width: "100%",
-                        height: "50px",
-                        borderRadius: "16px",
+                        
+                        width: "56%",
+                textTransform: "capitalize",
+                borderRadius: "20px",
+                backgroundColor: "#007F7F",
+                fontWeight: 600,
+                marginBottom: "-15px",
                       }}
                       onClick={handleFilter}
                       // onClick={submitHandler}
@@ -1038,8 +1059,10 @@ export default function AnnounceACompany() {
                 <div style={{ height: "50px" }}></div>
               </div>
             </Paper>
+            
             <div style={{ height: "70px" }}></div>
-           </main> 
+           
+            
         </div>
       ) : (
         <div

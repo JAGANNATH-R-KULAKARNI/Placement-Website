@@ -12,14 +12,19 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import AnnounceUI from "./Announce";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+import BackDropUI from "./utilities3/Backdrop";
+//import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+//import DateUI from "./Date";
+import handshakemobile from "../../images/handshakemobile.jpg";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function FullScreenDialog(props) {
   const [open, setOpen] = React.useState(true);
-
+  const [sending, setSending] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
     props.emailModelHandler();
@@ -33,19 +38,40 @@ export default function FullScreenDialog(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: "relative" }}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+         {sending ? <BackDropUI /> : false} 
+         <div>
+        <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            style={{
+              marginLeft: "10px",
+              marginTop: "10px",
+              color: "white",
+            }}
+          >
+            <CloseIcon style={{ fontSize: "30px" }} />
+          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-58px",
+            }}
+          >
+            <img
+              src={handshakemobile}
+              style={{ width: "100%", height: "auto" }}
+              alt="Hand shake"
+            />
+          </div>
+          
+          
         <AnnounceUI />
+        
+      
+        </div>
       </Dialog>
     </div>
   );

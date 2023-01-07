@@ -313,6 +313,11 @@ export default function Register(props) {
                     variant="standard"
                     type="number"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={ctc}
                     onChange={(e) => {
                       setCTC(e.target.value);
@@ -439,10 +444,15 @@ export default function Register(props) {
                     label="Min CGPA"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     type="number"
                     onWheel={(e) => e.target.blur()} 
                     value={cgpa}
-                    focused={true}
+                    //focused={true}
                     onChange={(e) => {
                       setCGPA(e.target.value);
                     }}
@@ -452,10 +462,15 @@ export default function Register(props) {
                     label="Min % in 10th"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     type="number"
                     onWheel={(e) => e.target.blur()} 
                     value={minMInTen}
-                    focused={true}
+                   // focused={true}
                     onChange={(e) => {
                       setMinMInTen(e.target.value);
                     }}
@@ -465,10 +480,15 @@ export default function Register(props) {
                     label="Min % in 12th"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     type="number"
                     onWheel={(e) => e.target.blur()} 
                     value={minMInTwelve}
-                    focused={true}
+                   // focused={true}
                     onChange={(e) => {
                       setMinMInTwelve(e.target.value);
                     }}
@@ -478,10 +498,15 @@ export default function Register(props) {
                     label="Max Year Education Gap"
                     variant="standard"
                     style={{ width: "100%", marginTop: "20px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     type="number"
                     onWheel={(e) => e.target.blur()} 
                     value={eduGap}
-                    focused={true}
+                    //focused={true}
                     onChange={(e) => {
                       setEduGap(e.target.value);
                     }}
@@ -594,6 +619,11 @@ export default function Register(props) {
                     placeholder="3 Years of Service agreement & additional benefits on top."
                     variant="standard"
                     style={{ width: "100%", marginTop: "10px" }}
+                    sx={{
+                      input: {
+                        borderBottom: "2px solid #017E7E",
+                      },
+                    }}
                     value={description}
                     onChange={(e) => {
                       setDescription(e.target.value);
