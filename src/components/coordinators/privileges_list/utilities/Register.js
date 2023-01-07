@@ -40,6 +40,7 @@ import BackDropUI from "./Backdrop";
 import DateUI from "./Date";
 import handshakemobile from "../../../images/handshakemobile.jpg";
 import { withStyles } from "@material-ui/core/styles";
+import ModalUI from "../../../Dialog";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -69,35 +70,118 @@ export default function Register(props) {
   const [description, setDescription] = React.useState("");
   const [gender, setGender] = React.useState(0);
   const [cgpa, setCGPA] = React.useState(0);
+  const [modalHandler, setModalHandler] = React.useState({
+    status: false,
+    msg: "",
+    func: null,
+  });
 
   const [sending, setSending] = React.useState(false);
 
   const registerCompany = async () => {
     if (name.length == 0) {
-      alert("Name is required");
+      setModalHandler({
+        status: true,
+        msg: `Name is required`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (!ctcDisclosed && ctc <= 0) {
-      alert("CTC should be valid or else disable");
+      setModalHandler({
+        status: true,
+        msg: `CTC should be valid or else disable`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (type.length == 0) {
-      alert("Type of company is required");
+      setModalHandler({
+        status: true,
+        msg: `Type of company is required`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (!intDateDisclosure && intDate.length == 0) {
-      alert("Tentative dates are required");
+      setModalHandler({
+        status: true,
+        msg: `Tentative dates are required`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (eligibleBranches.length == 0) {
-      alert("If no branches are eligible, then why the company is coming ? ");
+      setModalHandler({
+        status: true,
+        msg: `If no branches are eligible, then why the company is coming ? `,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (eligibleColleges.length == 0) {
-      alert("If no colleges are eligible, then why the company is coming ? ");
+      setModalHandler({
+        status: true,
+        msg: `If no colleges are eligible, then why the company is coming ? `,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (eligibleYears.length == 0) {
-      alert(
-        "If no engineering years are eligible, then why the company is coming ? "
-      );
+      setModalHandler({
+        status: true,
+        msg: `If no engineering years are eligible, then why the company is coming ? `,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (companyLogo.length == 0) {
-      alert("Company logo is required");
+      setModalHandler({
+        status: true,
+        msg: `Company logo is required`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
@@ -142,7 +226,18 @@ export default function Register(props) {
       console.log("Success");
       console.log(data);
       setSending(false);
-      alert("Successfully Registered a company");
+
+      setModalHandler({
+        status: true,
+        msg: `Successfully Registered a company`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       props.registerModalHandler();
     }
 
@@ -150,7 +245,18 @@ export default function Register(props) {
       console.log("Error");
       console.log(error);
       setSending(false);
-      alert(error.message);
+
+      setModalHandler({
+        status: true,
+        msg: `error.message`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
     }
   };
 
@@ -197,19 +303,21 @@ export default function Register(props) {
       }
 
       if (error) {
-        alert("Something went wrong :( try again");
+        setModalHandler({
+          status: true,
+          msg: `Something went wrong :( try again`,
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         console.log("Unsuccessful");
         console.log(error.message);
       }
     }
-
-    // if (count == 0) {
-    //   alert("Uploaded Successfully");
-    // } else if (count == e.target.files.length) {
-    //   alert("Something went wrong :( try again");
-    // } else {
-    //   alert("All files are not uploaded :( try again");
-    // }
 
     setUploading(false);
   };
@@ -223,6 +331,7 @@ export default function Register(props) {
         TransitionComponent={Transition}
       >
         {sending ? <BackDropUI /> : false}
+        {modalHandler.status ? <ModalUI data={modalHandler} /> : null}
         <div>
           {/* <AppBar
             sx={{ position: "relative", backgroundColor: "#0C7475" }}
@@ -299,11 +408,11 @@ export default function Register(props) {
                     // InputLabelProps={{
                     //   style: { color: "#017E7E" },
                     // }}
-                    sx={{
-                      input: {
-                        borderBottom: "2px solid #017E7E",
-                      },
-                    }}
+                    // sx={{
+                    //   input: {
+                    //     borderBottom: "2px solid #017E7E",
+                    //   },
+                    // }}
                     value={name}
                     onChange={(e) => {
                       setName(e.target.value);
@@ -318,11 +427,11 @@ export default function Register(props) {
                     onChange={(e) => {
                       setCompanyLogo(e.target.value);
                     }}
-                    sx={{
-                      input: {
-                        borderBottom: "2px solid #017E7E",
-                      },
-                    }}
+                    // sx={{
+                    //   input: {
+                    //     borderBottom: "2px solid #017E7E",
+                    //   },
+                    // }}
                     placeholder="Paste it from the internet"
                   />
                   <TextField
@@ -614,6 +723,8 @@ export default function Register(props) {
                         color: "#017E7E",
                         fontWeight: 700,
                         border: "1px solid #017E7E",
+                        textTransform: "capitalize",
+                        borderRadius: "20px",
                       }}
                       // onClick={handleOpenPicker}
                       startIcon={<AttachFileIcon />}
