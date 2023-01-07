@@ -50,6 +50,7 @@ import DialogUI from "./Dialog";
 import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import UpdateUI from "../utilities/Update";
+import handshakemobile from "../../../images/handshakemobile.jpg";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -268,7 +269,33 @@ export default function Register(props) {
             backgroundAttachment: "fixed",
           }}
         >
-          <NavBarUI handleClose={handleClose} />
+          {/* <NavBarUI handleClose={handleClose} /> */}
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            style={{
+              marginLeft: "10px",
+              marginTop: "10px",
+              color: "white",
+            }}
+          >
+            <CloseIcon style={{ fontSize: "30px" }} />
+          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-58px",
+            }}
+          >
+            <img
+              src={handshakemobile}
+              style={{ width: "100%", height: "auto" }}
+              alt="Hand shake"
+            />
+          </div>
           {model && currcompany ? (
             <UpdateUI
               name={currcompany.name}
@@ -306,32 +333,6 @@ export default function Register(props) {
               ) : null}
               <div style={{ height: m1 ? "70px" : "40px" }}></div>
               <main>
-                <Box
-                  sx={{
-                    bgcolor: "background.paper",
-                    pt: 8,
-                    pb: 6,
-                    borderBottomRightRadius: "50px",
-                    borderBottomLeftRadius: "50px",
-                  }}
-                >
-                  <Container maxWidth="sm">
-                    <Typography
-                      component="h1"
-                      variant="h2"
-                      align="center"
-                      color="text.primary"
-                      gutterBottom
-                      style={{
-                        fontFamily: "inherit",
-                        fontSize: m1 ? "60px" : "50px",
-                        fontWeight: 500,
-                      }}
-                    >
-                      Create Forms
-                    </Typography>
-                  </Container>
-                </Box>
                 <Paper style={{ marginTop: "30px", borderRadius: "40px" }}>
                   <div style={{ height: "20px" }}></div>
                   <div

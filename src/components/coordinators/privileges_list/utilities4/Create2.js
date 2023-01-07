@@ -50,6 +50,7 @@ import DialogUI from "./Dialog";
 import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import UpdateUI from "../utilities/Update";
+import handshakemobile from "../../../images/handshakemobile.jpg";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -147,6 +148,7 @@ export default function Register(props) {
       }
     }
     console.log(company);
+
     console.log(compY);
     console.log(comp);
 
@@ -159,7 +161,7 @@ export default function Register(props) {
 
     let t = Date.now();
     setLink(
-      window.location.href.substr(0, window.location.href.length - 11) +
+      window.location.href.substr(0, window.location.href.length - 5) +
         "company/" +
         uniid +
         t
@@ -182,37 +184,37 @@ export default function Register(props) {
 
     console.log(uploadData);
 
-    await axios
-      .post(process.env.REACT_APP_API_ENDPOINT, {
-        htm: ` <div>
-        <i>Apply for <b>${compY}</b> Now !</i>
-        <p></p>
-        <a href="${
-          window.location.href.substr(0, window.location.href.length - 11) +
-          "company/" +
-          uniid +
-          t
-        }" style="margin-top:10px;width:100%;">${
-          window.location.href.substr(0, window.location.href.length - 11) +
-          "company/" +
-          uniid +
-          t
-        }</a>
-        <h3 style="text-align:right;marin-top:10px;"><b>- Placements NIE</b></h3>
-      </div>`,
-        text: `Apply for ${compY} Now`,
-        subject: `${compY} - Campus Placements`,
-        to: emails,
-        attachments: [],
-      })
-      .then((u) => {
-        console.log("Success");
-        console.log(u);
-      })
-      .catch((err) => {
-        console.log("Error");
-        console.log(err);
-      });
+    // await axios
+    //   .post(process.env.REACT_APP_API_ENDPOINT, {
+    //     htm: ` <div>
+    //     <i>Apply for <b>${compY}</b> Now !</i>
+    //     <p></p>
+    //     <a href="${
+    //       window.location.href.substr(0, window.location.href.length - 11) +
+    //       "company/" +
+    //       uniid +
+    //       t
+    //     }" style="margin-top:10px;width:100%;">${
+    //       window.location.href.substr(0, window.location.href.length - 11) +
+    //       "company/" +
+    //       uniid +
+    //       t
+    //     }</a>
+    //     <h3 style="text-align:right;marin-top:10px;"><b>- Placements NIE</b></h3>
+    //   </div>`,
+    //     text: `Apply for ${compY} Now`,
+    //     subject: `${compY} - Campus Placements`,
+    //     to: emails,
+    //     attachments: [],
+    //   })
+    //   .then((u) => {
+    //     console.log("Success");
+    //     console.log(u);
+    //   })
+    //   .catch((err) => {
+    //     console.log("Error");
+    //     console.log(err);
+    //   });
 
     const { data, error } = await supabase.from("forms").insert([uploadData]);
 
@@ -264,13 +266,34 @@ export default function Register(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <div
-          style={{
-            backgroundImage: `url(${bg})`,
-            backgroundAttachment: "fixed",
-          }}
-        >
-          <NavBarUI handleClose={handleClose} />
+        <div>
+          {/* <NavBarUI handleClose={handleClose} /> */}
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            style={{
+              marginLeft: "10px",
+              marginTop: "10px",
+              color: "white",
+            }}
+          >
+            <CloseIcon style={{ fontSize: "30px" }} />
+          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-58px",
+            }}
+          >
+            <img
+              src={handshakemobile}
+              style={{ width: "100%", height: "auto" }}
+              alt="Hand shake"
+            />
+          </div>
           {model && currcompany ? (
             <UpdateUI
               name={currcompany.name}
@@ -299,73 +322,26 @@ export default function Register(props) {
               {loading ? <BackdropUI /> : null}
               {dialog ? (
                 <DialogUI
-                  company={company}
+                  company={props.company}
                   link={link}
+                  ecc={props.ecc}
+                  eyy={props.eyy}
+                  ebb={props.ebb}
                   handlerClose={() => {
                     handleClose();
                   }}
                 />
               ) : null}
-              <div style={{ height: m1 ? "70px" : "40px" }}></div>
+
               <main>
-                <Box
-                  sx={{
-                    bgcolor: "background.paper",
-                    pt: 8,
-                    pb: 6,
-                    borderBottomRightRadius: "50px",
-                    borderBottomLeftRadius: "50px",
-                  }}
-                >
-                  <Container maxWidth="sm">
-                    <Typography
-                      component="h1"
-                      variant="h2"
-                      align="center"
-                      color="text.primary"
-                      gutterBottom
-                      style={{
-                        fontFamily: "inherit",
-                        fontSize: m1 ? "60px" : "50px",
-                        fontWeight: 500,
-                      }}
-                    >
-                      Create Forms
-                    </Typography>
-                  </Container>
-                </Box>
-                <Paper style={{ marginTop: "30px", borderRadius: "40px" }}>
-                  <div style={{ height: "20px" }}></div>
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <img
-                      src={formimage}
-                      alt="formimage"
-                      style={{ width: "50px", height: "auto" }}
-                    />
-                  </div>
-                  <br />
+                <Paper style={{ marginTop: "0px", borderRadius: "40px" }}>
                   <div
                     style={{
                       display: "flex",
                       justifyContent: "center",
                       minWidth: "100%",
                     }}
-                  >
-                    {/* <div style={{ width: "85%" }}>
-                      {companies && (
-                      <SearchUI
-                        companies={companies}
-                        searchCompanyResults={searchCompanyResults}
-                      />
-                      )}
-                    </div> */}
-                  </div>
+                  ></div>
                   {company ? (
                     <div
                       style={{
@@ -414,7 +390,7 @@ export default function Register(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              style={{ color: "#541554" }}
+                              style={{ color: "#017E7E" }}
                               checked={control}
                               onChange={(e) => {
                                 setControl(e.target.checked);
@@ -454,7 +430,7 @@ export default function Register(props) {
                       <Button
                         variant="contained"
                         style={{
-                          backgroundColor: "black",
+                          backgroundColor: "#017E7E",
                           width: "85%",
                           borderRadius: "10px",
                         }}
