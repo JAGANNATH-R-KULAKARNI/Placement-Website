@@ -37,6 +37,8 @@ import { ContentPasteGoSharp } from "@mui/icons-material";
 import SeacrUI from "./Search2";
 import BackdropUI from "./Backdrop";
 import DateUI from "./Date";
+import handshakemobile from "../../../images/handshakemobile.jpg";
+import ModalUI from "../../../Dialog";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -77,10 +79,25 @@ export default function Register(props) {
   const [college, setCollege] = React.useState("NIE");
 
   const [sending, setSending] = React.useState(false);
+  const [modalHandler, setModalHandler] = React.useState({
+    status: false,
+    msg: "",
+    func: null,
+  });
 
   const registerCompany = async () => {
     if (!policy) {
-      alert("Please accept the Terms & Conditions");
+      setModalHandler({
+        status: true,
+        msg: `Please accept the Terms & Conditions`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
@@ -103,22 +120,62 @@ export default function Register(props) {
       address[0].length == 0 ||
       address[1].length == 0
     ) {
-      alert("All fields should be filled");
+      setModalHandler({
+        status: true,
+        msg: `All fields should be filled`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
     if (company == 0 && company2 != 0) {
-      alert("Fill the first field as your first company");
+      setModalHandler({
+        status: true,
+        msg: `Fill the first field as your first company`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
     if (company && company2 && company == company2) {
-      alert("You cant get two offers in the same company :|");
+      setModalHandler({
+        status: true,
+        msg: `You cant get two offers in the same company :|`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
     if (cgpa == "") {
-      alert("Total CGPA should be filled");
+      setModalHandler({
+        status: true,
+        msg: `Total CGPA should be filled`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
@@ -177,14 +234,36 @@ export default function Register(props) {
     if (data) {
       console.log("Success");
       console.log(data);
-      alert("Successfully Uploaded");
+
+      setModalHandler({
+        status: true,
+        msg: `Successfully Uploaded`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       props.registerModalHandler();
     }
 
     if (error) {
       console.log("Error");
       console.log(error);
-      alert(error.message);
+
+      setModalHandler({
+        status: true,
+        msg: error.message,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
     }
   };
 
@@ -261,19 +340,21 @@ export default function Register(props) {
       }
 
       if (error) {
-        alert("Something went wrong :( try again");
+        setModalHandler({
+          status: true,
+          msg: "Something went wrong :( try again",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         console.log("Unsuccessful");
         console.log(error.message);
       }
     }
-
-    // if (count == 0) {
-    //   alert("Uploaded Successfully");
-    // } else if (count == e.target.files.length) {
-    //   alert("Something went wrong :( try again");
-    // } else {
-    //   alert("All files are not uploaded :( try again");
-    // }
 
     setUploading(false);
   };
@@ -287,35 +368,43 @@ export default function Register(props) {
         TransitionComponent={Transition}
       >
         {sending ? <BackdropUI /> : null}
-        <div
-          style={{
-            backgroundImage: `url(${bg})`,
-            backgroundAttachment: "fixed",
-          }}
-        >
-          <NavBarUI handleClose={handleClose} />
-          <div style={{ height: "80px" }}></div>
+        {modalHandler.status ? <ModalUI data={modalHandler} /> : null}
+        <div>
+          {/* <NavBarUI handleClose={handleClose} /> */}
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            style={{
+              marginLeft: "10px",
+              marginTop: "10px",
+              color: "white",
+            }}
+          >
+            <CloseIcon style={{ fontSize: "30px" }} />
+          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-58px",
+            }}
+          >
+            <img
+              src={handshakemobile}
+              style={{ width: "100%", height: "auto" }}
+              alt="Hand shake"
+            />
+          </div>
           <div>
-            <Paper
-              variant="outlined"
+            <div
               style={{
-                borderBottomLeftRadius: "50px",
-                borderBottomRightRadius: "50px",
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "30px",
               }}
-              elevation={10}
             >
-              <h1
-                style={{
-                  textAlign: "center",
-                  marginTop: m1 ? "50px" : "25px",
-                  fontSize: m1 ? "45px" : "35px",
-                }}
-              >
-                Register Student
-              </h1>
-            </Paper>
-            <br />
-            <div style={{ display: "flex", justifyContent: "center" }}>
               <Paper
                 style={{
                   width: "95%",
@@ -377,7 +466,7 @@ export default function Register(props) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                             checked={ccontrol}
                             onChange={(e) => {
                               setCControl(e.target.checked);
@@ -945,9 +1034,16 @@ export default function Register(props) {
                     }}
                   >
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       component="label"
-                      style={{ backgroundColor: "#541554" }}
+                      style={{
+                        color: "#017E7E",
+                        fontWeight: 700,
+                        border: "1px solid #017E7E",
+                        textTransform: "capitalize",
+                        borderRadius: "20px",
+                      }}
+
                       // onClick={handleOpenPicker}
                     >
                       {uploading ? "Uploading...Wait" : "Upload Resume"}
@@ -989,7 +1085,7 @@ export default function Register(props) {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={policy}
                           onChange={(e) => {
                             setPolicy(e.target.checked);
@@ -1015,7 +1111,7 @@ export default function Register(props) {
                     <Button
                       variant="contained"
                       style={{
-                        backgroundColor: "black",
+                        backgroundColor: "#017E7E",
                         width: "100%",
                         height: "50px",
                         borderRadius: "16px",
