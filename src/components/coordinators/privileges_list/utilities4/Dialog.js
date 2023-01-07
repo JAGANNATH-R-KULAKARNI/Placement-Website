@@ -63,7 +63,7 @@ Apply here - ${props.link}
   };
 
   const emailClick = () => {
-    const recipients = "jagannathrkreal@gmail.com,4ni19is038_b@nie.ac.in"; // Replace with the email addresses of the recipients
+    const recipients = props.receipients;
     const subject = props.company.name + " - Campus Placement";
     const body = `    
 Type : *${props.company.type}*        

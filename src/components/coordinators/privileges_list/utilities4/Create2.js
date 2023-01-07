@@ -323,6 +323,7 @@ export default function Register(props) {
               {dialog ? (
                 <DialogUI
                   company={props.company}
+                  receipients={props.receipients}
                   link={link}
                   ecc={props.ecc}
                   eyy={props.eyy}

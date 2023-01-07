@@ -44,6 +44,7 @@ export default function FullScreenDialog(props) {
   const [updateFormData, setUpdateFormData] = React.useState(null);
   const [active, setActive] = React.useState(0);
   const [inactive, setInactive] = React.useState(0);
+  const [receipients, setReceipients] = React.useState("");
 
   async function timeSince(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
@@ -190,11 +191,59 @@ export default function FullScreenDialog(props) {
     }
   }
 
+  async function fetchRecipients() {
+    const { data, error } = await supabase
+      .from("students")
+      .select("*")
+      .in("college", props.company.eligible_colleges)
+      .in("year", props.company.eligible_years)
+      .in("branch", props.company.eligible_branches)
+      .gte("cgpa", props.company.min_cgpa)
+      .in("gender", props.company.gender == 0 ? [1, 2] : [props.company.gender])
+      .gte("tenth_percentage", props.company.min_in_ten)
+      .gte("twelth_percentage", props.company.min_in_twelve)
+      .lte("max_year_education_gap", props.company.max_year_education_gap);
+
+    if (data) {
+      console.log("Students");
+      console.log(data);
+
+      let temp = "";
+
+      for (let i = 0; i < data.length; i++) {
+        if (!data[i].current_backlogs) {
+          if (i != data.length - 1) {
+            temp = temp + data[i].email + ",";
+          } else {
+            temp = temp + data[i].email;
+          }
+        } else if (
+          data[i].current_backlogs &&
+          props.company.active_backlogs_allowed
+        ) {
+          if (i != data.length - 1) {
+            temp = temp + data[i].email + ",";
+          } else {
+            temp = temp + data[i].email;
+          }
+        } else if (
+          data[i].current_backlogs &&
+          !props.company.active_backlogs_allowed
+        ) {
+        }
+      }
+
+      console.log("TEMP");
+      console.log(temp);
+      setReceipients(temp);
+    }
+  }
   React.useEffect(() => {
     setInterval(() => {
       calcInfo();
       fetchForms();
     }, 1000);
+    fetchRecipients();
   }, []);
 
   return (
@@ -213,12 +262,13 @@ export default function FullScreenDialog(props) {
             data={updateFormData}
           />
         ) : null}
-        {openForm && props.company ? (
+        {openForm && props.company && receipients.length > 0 ? (
           <CreateFormUI
             company={props.company}
             ecc={ecc}
             eyy={eyy}
             ebb={ebb}
+            receipients={receipients}
             registerModalHandler={() => {
               setOpenForm(!openForm);
             }}
@@ -343,14 +393,19 @@ export default function FullScreenDialog(props) {
                   borderRadius: "20px",
                   backgroundColor: "#007F7F",
                   fontWeight: 600,
+                  fontSize: receipients.length == 0 ? "9px" : "13px",
+                  color: "white",
                 }}
                 onClick={() => {
                   setOpenForm(true);
                 }}
                 size="small"
                 disableElevation
+                disabled={receipients.length == 0}
               >
-                Create Form
+                {receipients.length == 0
+                  ? "No students are Eligible"
+                  : "Create Form"}
               </Button>
             )}
             <div style={{ width: "8%" }}></div>
