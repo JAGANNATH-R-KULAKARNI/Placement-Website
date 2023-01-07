@@ -525,52 +525,11 @@ export default function AnnounceACompany() {
     <div>
       {data ? (
         <div>
-          {sending ? <BackDropUI /> : null}
-          <CssBaseline />
+          {sending ? <BackDropUI /> : false}
+          {/* //<CssBaseline /> */}
           <div style={{ height: m1 ? "70px" : "40px" }}></div>
-          <main>
-            <Box
-              sx={{
-                bgcolor: "background.paper",
-                pt: 8,
-                pb: 6,
-                borderBottomRightRadius: "50px",
-                borderBottomLeftRadius: "50px",
-              }}
-            >
-              <Container maxWidth="sm">
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  color="text.primary"
-                  gutterBottom
-                  style={{
-                    fontFamily: "inherit",
-                    fontSize: m1 ? "60px" : "50px",
-                    fontWeight: 500,
-                  }}
-                >
-                  Send a mail
-                </Typography>
-                <Typography
-                  variant="h5"
-                  align="center"
-                  color="text.secondary"
-                  paragraph
-                  style={{
-                    fontSize: m1 ? "17px" : "16px",
-                    marginBottom: "-17px",
-                  }}
-                >
-                  <i>
-                    "Send an email to all the students or to a particulr
-                    student. You can send email to the company selects or to all
-                    the students. You can also send files"
-                  </i>
-                </Typography>
-              </Container>
-            </Box>
+           <main> 
+            
             <Paper
               style={{
                 marginTop: "30px",
@@ -1080,7 +1039,7 @@ export default function AnnounceACompany() {
               </div>
             </Paper>
             <div style={{ height: "70px" }}></div>
-          </main>
+           </main> 
         </div>
       ) : (
         <div
