@@ -55,6 +55,7 @@ import handshakemobile from "../../../images/handshakemobile.jpg";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import MailIcon from "@mui/icons-material/Mail";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import ModalUI from "../../../Dialog";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -87,6 +88,12 @@ export default function UpdateForm(props) {
   const [prevData, setPrevData] = React.useState(null);
 
   const [download, setDownload] = React.useState(false);
+
+  const [modalHandler, setModalHandler] = React.useState({
+    status: false,
+    msg: "",
+    func: null,
+  });
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -221,12 +228,32 @@ Description :  ${props.company.description}
     }
 
     if (end - start <= 0) {
-      alert("Invalid Start and end time");
+      setModalHandler({
+        status: true,
+        msg: `Invalid Start and end time`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
     if (!control) {
-      alert("Select the checkbox");
+      setModalHandler({
+        status: true,
+        msg: `Select the checkbox`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
@@ -301,13 +328,31 @@ Description :  ${props.company.description}
 
     if (data) {
       setLoading(false);
-      setDialog(true);
+      setModalHandler({
+        status: true,
+        msg: `Form has been updated`,
+        func: () => {
+          handleClose();
+        },
+      });
+
       return;
     }
 
     if (error) {
       setLoading(false);
-      alert(error.message);
+
+      setModalHandler({
+        status: true,
+        msg: error.message,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
     }
   }
 
@@ -375,7 +420,18 @@ Description :  ${props.company.description}
 
     if (error) {
       setLoading(false);
-      alert(error.message);
+
+      setModalHandler({
+        status: true,
+        msg: error.message,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
     }
   }
 
@@ -428,6 +484,7 @@ Description :  ${props.company.description}
         onClose={handleClose}
         TransitionComponent={Transition}
       >
+        {modalHandler.status ? <ModalUI data={modalHandler} /> : null}
         <div
         // style={{
         //   backgroundImage: `url(${bg})`,
