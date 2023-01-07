@@ -372,9 +372,9 @@ export default function Register(props) {
                       }}
                       label="Company Type"
                     >
-                      <MenuItem value="nyd">
+                      {/* <MenuItem value="nyd">
                         <em>Not yet disclosed</em>
-                      </MenuItem>
+                      </MenuItem> */}
                       <MenuItem value="Mass">Mass</MenuItem>
                       <MenuItem value="Core">Core</MenuItem>
                       <MenuItem value="Dream">Dream</MenuItem>

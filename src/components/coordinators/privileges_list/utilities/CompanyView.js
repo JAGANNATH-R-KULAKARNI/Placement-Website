@@ -255,8 +255,16 @@ export default function FullScreenDialog(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        {updateFormStatus && updateFormData ? (
+        {updateFormStatus &&
+        updateFormData &&
+        props.company &&
+        receipients.length > 0 ? (
           <UpdateFormUI
+            company={props.company}
+            ecc={ecc}
+            eyy={eyy}
+            ebb={ebb}
+            receipients={receipients}
             registerModalHandler={() => {
               setUpdateFormStatus(!updateFormStatus);
             }}
@@ -464,6 +472,7 @@ export default function FullScreenDialog(props) {
                               textDecoration: "underline",
                             }}
                             onClick={() => {
+                              console.log(item);
                               setUpdateFormData(item);
                               setUpdateFormStatus(true);
                             }}

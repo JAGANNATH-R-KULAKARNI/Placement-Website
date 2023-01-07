@@ -52,6 +52,9 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import UpdateUI from "../utilities/Update";
 import DownloadUI from "./Download";
 import handshakemobile from "../../../images/handshakemobile.jpg";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import MailIcon from "@mui/icons-material/Mail";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -59,6 +62,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function UpdateForm(props) {
   const [open, setOpen] = React.useState(true);
+  const [copied, setCopied] = React.useState(false);
   const m1 = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const location = useLocation();
@@ -124,6 +128,89 @@ export default function UpdateForm(props) {
     }
   }
 
+  const whatsappClick = () => {
+    console.log(props.company.name);
+    const message = `
+    Company Name : *${props.company.name}*
+
+Type : *${props.company.type}*    
+Package : *${props.company.ctc} LPA*
+Eligible Colleges : ${props.ecc}
+Eligible Years : ${props.eyy}
+Eligible Branches : ${props.ebb}
+Tentative Interview Date : ${props.company.tentative_interview_dates.substr(
+      0,
+      15
+    )}
+Minimum CGPA : ${props.company.min_cgpa} Pointer
+${props.company.gender == 1 ? "Female Candidates Only" : "Male Candidates Only"}
+Minimum in 10th : ${props.company.min_in_ten}%
+Minimum in 12th : ${props.company.min_in_twelve}%
+Max Year Education Gap : ${props.company.max_year_education_gap} years
+Active backlogs are ${
+      props.company.active_backlogs_allowed ? "" : "*not* "
+    } allowed
+History of backlogs are ${
+      props.company.history_backlogs_allowed ? "" : "not "
+    } allowed
+${
+  props.company.jds && props.company.jds.length > 0
+    ? "JD - " + props.company.jds[0]
+    : ""
+}
+
+Apply here - ${prevData.data.url}
+ 
+*Description* :  ${props.company.description}
+    `;
+    const apiUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+      message
+    )}`;
+
+    window.open(apiUrl);
+  };
+
+  const emailClick = () => {
+    const recipients = props.receipients;
+    const subject = props.company.name + " - Campus Placement";
+    const body = `    
+Type : *${props.company.type}*        
+Package : ${props.company.ctc} LPA
+Eligible Colleges : ${props.ecc}
+Eligible Years : ${props.eyy}
+Eligible Branches : ${props.ebb}
+Tentative Interview Date : ${props.company.tentative_interview_dates.substr(
+      0,
+      15
+    )}
+Minimum CGPA : ${props.company.min_cgpa} Pointer
+${props.company.gender == 1 ? "Female Candidates Only" : "Male Candidates Only"}
+Minimum in 10th : ${props.company.min_in_ten}
+Minimum in 12th : ${props.company.min_in_twelve}
+Max Year Education Gap : ${props.company.max_year_education_gap}
+Active backlogs are ${
+      props.company.active_backlogs_allowed ? "" : "not "
+    } allowed
+History of backlogs are ${
+      props.company.history_backlogs_allowed ? "" : "not "
+    } allowed
+${
+  props.company.jds && props.company.jds.length > 0
+    ? "JD - " + props.company.jds[0]
+    : ""
+}
+
+Apply here - ${prevData.data.url}
+ 
+Description :  ${props.company.description}
+    `;
+    const apiUrl = `mailto:${recipients}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.open(apiUrl);
+  };
+
   async function updateFormBro() {
     let comp = null;
     console.log(students);
@@ -181,31 +268,31 @@ export default function UpdateForm(props) {
     console.log(prevData.data.route_id);
     console.log(uploadData);
 
-    await axios
-      .post(process.env.REACT_APP_API_ENDPOINT, {
-        htm: ` <div>
-        <i>Apply for <b>${compY}</b> Now !</i>
-        <p></p>
-        <a href="${prevData.data.url}" style="margin-top:10px;width:100%;">${
-          window.location.href.substr(0, window.location.href.length - 11) +
-          "company/" +
-          prevData.data.route_id
-        }</a>
-        <h3 style="text-align:right;marin-top:10px;"><b>- Placements NIE</b></h3>
-      </div>`,
-        text: `Apply for ${compY} Now`,
-        subject: `${compY} - Campus Placements`,
-        to: emails,
-        attachments: [],
-      })
-      .then((u) => {
-        console.log("Success");
-        console.log(u);
-      })
-      .catch((err) => {
-        console.log("Error");
-        console.log(err);
-      });
+    // await axios
+    //   .post(process.env.REACT_APP_API_ENDPOINT, {
+    //     htm: ` <div>
+    //     <i>Apply for <b>${compY}</b> Now !</i>
+    //     <p></p>
+    //     <a href="${prevData.data.url}" style="margin-top:10px;width:100%;">${
+    //       window.location.href.substr(0, window.location.href.length - 11) +
+    //       "company/" +
+    //       prevData.data.route_id
+    //     }</a>
+    //     <h3 style="text-align:right;marin-top:10px;"><b>- Placements NIE</b></h3>
+    //   </div>`,
+    //     text: `Apply for ${compY} Now`,
+    //     subject: `${compY} - Campus Placements`,
+    //     to: emails,
+    //     attachments: [],
+    //   })
+    //   .then((u) => {
+    //     console.log("Success");
+    //     console.log(u);
+    //   })
+    //   .catch((err) => {
+    //     console.log("Error");
+    //     console.log(err);
+    //   });
 
     const { data, error } = await supabase
       .from("forms")
@@ -215,6 +302,74 @@ export default function UpdateForm(props) {
     if (data) {
       setLoading(false);
       setDialog(true);
+      return;
+    }
+
+    if (error) {
+      setLoading(false);
+      alert(error.message);
+    }
+  }
+
+  async function closeFormBro() {
+    let comp = null;
+    console.log(students);
+    const emails = [];
+
+    for (let i = 0; i < students.length; i++) {
+      emails.push(students[i].email);
+    }
+
+    let noww = Date.now();
+
+    setLoading(true);
+
+    let compY = company.replace(/&amp;/g, "&");
+
+    for (let i = 0; i < companies.length; i++) {
+      console.log(companies[i]);
+      if (compY == companies[i].name) {
+        comp = companies[i];
+        break;
+      }
+    }
+    console.log(company);
+    console.log(comp);
+    let uniid = "";
+
+    for (let j = 0; j < compY.length; j++) {
+      if (compY[j] == " ") continue;
+      uniid = uniid + compY[j];
+    }
+    let t = Date.now();
+    setLink(prevData.data.url);
+
+    const uploadData = {
+      company_id: comp.id,
+      start_time: noww - 2,
+      end_time: noww - 1,
+      start: sstart,
+      end: send,
+      route_id: prevData.data.route_id,
+      time_created: t,
+      url: prevData.data.url,
+    };
+
+    console.log("uploadData");
+    console.log(prevData);
+    console.log(prevData.data.route_id);
+    console.log(uploadData);
+
+    const { data, error } = await supabase
+      .from("forms")
+      .update(uploadData)
+      .match({ id: prevData.data.id });
+
+    if (data) {
+      setLoading(false);
+      setDialog(true);
+      handleClose();
+
       return;
     }
 
@@ -352,7 +507,46 @@ export default function UpdateForm(props) {
                   }}
                 />
               ) : null}
-              <div style={{ height: m1 ? "70px" : "40px" }}></div>
+              {/* <div style={{ height: m1 ? "70px" : "40px" }}></div> */}
+              <div style={{ width: "100%" }}>
+                <h4 style={{ fontWeight: 600, textAlign: "center" }}>
+                  Share it with {copied ? "(copied)" : null}
+                </h4>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <WhatsAppIcon
+                    style={{
+                      fontSize: "50px",
+                      color: "white",
+                      backgroundColor: "#1BD741",
+                      borderRadius: "8px",
+                    }}
+                    onClick={whatsappClick}
+                  />
+                  <MailIcon
+                    style={{
+                      fontSize: "65px",
+                      color: "#EA4335",
+                      borderRadius: "8px",
+                      marginLeft: "20px",
+                      marginTop: "-8px",
+                    }}
+                    onClick={emailClick}
+                  />
+                  <ContentCopyIcon
+                    style={{
+                      fontSize: "55px",
+                      color: "#7F7F7F",
+                      borderRadius: "8px",
+                      marginLeft: "20px",
+                      marginTop: "-3px",
+                    }}
+                    onClick={() => {
+                      navigator.clipboard.writeText(prevData.data.url);
+                      setCopied(true);
+                    }}
+                  />
+                </div>
+              </div>
               <main>
                 <Box
                   sx={{
@@ -364,28 +558,75 @@ export default function UpdateForm(props) {
                   }}
                 >
                   <Container maxWidth="sm">
-                    <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginTop: "-20px",
+                      }}
+                    >
                       {currcompany && company ? (
                         <Button
                           variant="contained"
                           style={{
-                            backgroundColor: "#541554",
+                            backgroundColor: "#017E7E",
                             color: "white",
-                            borderRadius: "15px",
-                            marginTop: "10px",
+                            borderRadius: "20px",
+                            marginTop: "0px",
                             marginBottom: "-15px",
+                            textTransform: "capitalize",
+                            fontSize: "13px",
+                            paddingLeft: "20px",
+                            paddingRight: "20px",
                           }}
                           onClick={() => {
                             setDownload(!download);
                           }}
+                          size={
+                            currcompany &&
+                            company &&
+                            Date.now() < prevData.data.end_time
+                              ? "small"
+                              : "large"
+                          }
+                          disableElevation
                         >
                           Download Report
+                        </Button>
+                      ) : null}
+                      {/* <div style={{ width: "7%" }}></div> */}
+                      {currcompany &&
+                      company &&
+                      Date.now() < prevData.data.end_time ? (
+                        <Button
+                          variant="contained"
+                          style={{
+                            color: "#B10501",
+                            borderRadius: "20px",
+                            marginTop: "0px",
+                            marginBottom: "-15px",
+                            textTransform: "capitalize",
+                            fontSize: "13px",
+                            paddingLeft: "20px",
+                            paddingRight: "20px",
+                            backgroundColor: "white",
+                            border: "2px solid #B10501",
+                            fontWeight: 700,
+                            marginLeft: "7%",
+                          }}
+                          onClick={() => {
+                            closeFormBro();
+                          }}
+                          size="small"
+                          disableElevation
+                        >
+                          Close this Form
                         </Button>
                       ) : null}
                     </div>
                   </Container>
                 </Box>
-                <Paper style={{ marginTop: "30px", borderRadius: "40px" }}>
+                <Paper style={{ marginTop: "0px", borderRadius: "40px" }}>
                   {/* {company ? (
                     <div
                       style={{
@@ -411,7 +652,13 @@ export default function UpdateForm(props) {
                       ) : null}
                     </div>
                   ) : null} */}
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "-10px",
+                    }}
+                  >
                     <h2>Update Form</h2>
                   </div>
                   <div
@@ -459,7 +706,7 @@ export default function UpdateForm(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              style={{ color: "#541554" }}
+                              style={{ color: "#017E7E" }}
                               checked={control}
                               onChange={(e) => {
                                 setControl(e.target.checked);
@@ -499,7 +746,7 @@ export default function UpdateForm(props) {
                       <Button
                         variant="contained"
                         style={{
-                          backgroundColor: "black",
+                          backgroundColor: "#017E7E",
                           width: "85%",
                           borderRadius: "10px",
                         }}

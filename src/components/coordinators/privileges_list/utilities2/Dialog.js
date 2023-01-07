@@ -221,6 +221,8 @@ export default function Register(props) {
       company: company,
       college: college,
       company2: company2,
+      type_status1: companyType,
+      type_status2: company2Type,
     };
 
     console.log("Upload Data Bro");
