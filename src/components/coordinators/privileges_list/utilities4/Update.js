@@ -51,6 +51,7 @@ import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import UpdateUI from "../utilities/Update";
 import DownloadUI from "./Download";
+import handshakemobile from "../../../images/handshakemobile.jpg";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -273,12 +274,38 @@ export default function UpdateForm(props) {
         TransitionComponent={Transition}
       >
         <div
-          style={{
-            backgroundImage: `url(${bg})`,
-            backgroundAttachment: "fixed",
-          }}
+        // style={{
+        //   backgroundImage: `url(${bg})`,
+        //   backgroundAttachment: "fixed",
+        // }}
         >
-          <NavBarUI handleClose={handleClose} />
+          {/* <NavBarUI handleClose={handleClose} /> */}
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            style={{
+              marginLeft: "10px",
+              marginTop: "10px",
+              color: "white",
+            }}
+          >
+            <CloseIcon style={{ fontSize: "30px" }} />
+          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-58px",
+            }}
+          >
+            <img
+              src={handshakemobile}
+              style={{ width: "100%", height: "auto" }}
+              alt="Hand shake"
+            />
+          </div>
           {model && currcompany ? (
             <UpdateUI
               name={currcompany.name}
@@ -337,20 +364,6 @@ export default function UpdateForm(props) {
                   }}
                 >
                   <Container maxWidth="sm">
-                    <Typography
-                      component="h1"
-                      variant="h2"
-                      align="center"
-                      color="text.primary"
-                      gutterBottom
-                      style={{
-                        fontFamily: "inherit",
-                        fontSize: m1 ? "60px" : "50px",
-                        fontWeight: 500,
-                      }}
-                    >
-                      Download or Update
-                    </Typography>
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       {currcompany && company ? (
                         <Button
@@ -373,47 +386,7 @@ export default function UpdateForm(props) {
                   </Container>
                 </Box>
                 <Paper style={{ marginTop: "30px", borderRadius: "40px" }}>
-                  <div style={{ height: "20px" }}></div>
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <img
-                      src={formimage}
-                      alt="formimage"
-                      style={{ width: "50px", height: "auto" }}
-                    />
-                  </div>
-                  <br />
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      minWidth: "100%",
-                    }}
-                  >
-                    <div style={{ width: "85%" }}>
-                      {/* {companies && (
-                        <SearchUI
-                          companies={companies}
-                          searchCompanyResults={searchCompanyResults}
-                        />
-                      )} */}
-                      <h2
-                        style={{
-                          color: "black",
-                          width: "100%",
-                          textAlign: "center",
-                        }}
-                      >
-                        {company}
-                      </h2>
-                    </div>
-                  </div>
-                  {company ? (
+                  {/* {company ? (
                     <div
                       style={{
                         display: "flex",
@@ -421,20 +394,6 @@ export default function UpdateForm(props) {
                         marginTop: "0px",
                       }}
                     >
-                      {/* <Accordion style={{ width: "85%" }} elevation={1}>
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon />}
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <Typography>View more details</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Details about compnay should be displayed
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion> */}
                       {currcompany ? (
                         <Button
                           variant="contained"
@@ -451,12 +410,15 @@ export default function UpdateForm(props) {
                         </Button>
                       ) : null}
                     </div>
-                  ) : null}
+                  ) : null} */}
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <h2>Update Form</h2>
+                  </div>
                   <div
                     style={{
                       display: "flex",
                       justifyContent: "center",
-                      marginTop: "50px",
+                      marginTop: "10px",
                     }}
                   >
                     {prevData && (

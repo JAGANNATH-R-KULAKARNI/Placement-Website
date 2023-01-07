@@ -94,6 +94,7 @@ export default function Privileges() {
     const { data, error } = await supabase
       .from("companies")
       .select("*")
+      .neq("id", 0)
       .order("time_posted", {
         ascending: false,
       });
@@ -102,6 +103,10 @@ export default function Privileges() {
       setCompanies(data);
     }
   }
+
+  React.useEffect(() => {
+    fetchTheCompanies();
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

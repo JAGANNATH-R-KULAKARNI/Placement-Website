@@ -202,7 +202,8 @@ export default function FullScreenDialog(props) {
       .in("gender", props.company.gender == 0 ? [1, 2] : [props.company.gender])
       .gte("tenth_percentage", props.company.min_in_ten)
       .gte("twelth_percentage", props.company.min_in_twelve)
-      .lte("max_year_education_gap", props.company.max_year_education_gap);
+      .lte("max_year_education_gap", props.company.max_year_education_gap)
+      .lt("type_status1", props.company.type_status);
 
     if (data) {
       console.log("Students");

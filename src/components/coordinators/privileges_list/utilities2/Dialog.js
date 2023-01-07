@@ -70,6 +70,8 @@ export default function Register(props) {
   const [cgpa, setCGPA] = React.useState(0);
   const [company, setCompany] = React.useState(0);
   const [company2, setCompany2] = React.useState(0);
+  const [companyType, setCompanyType] = React.useState(0);
+  const [company2Type, setCompany2Type] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
   const [studentId, setStudentId] = React.useState(0);
   const [sending, setSending] = React.useState(false);
@@ -117,7 +119,7 @@ export default function Register(props) {
         hash[props.companies[i].id] = props.companies[i];
       }
       setCompany(props.company);
-
+      setCompanyType(props.data.type_status1);
       if (props.company != 0) {
         setCompanyText(hash[props.company].name);
       } else {
@@ -125,6 +127,7 @@ export default function Register(props) {
       }
 
       setCompany2(props.data.company2);
+      setCompany2Type(props.data.type_status2);
       if (props.data.company2 != 0) {
         setCompanyText(hash[props.data.company2].name);
       }
@@ -253,6 +256,7 @@ export default function Register(props) {
     for (let i = 0; i < props.companies.length; i++) {
       if (props.companies[i]["name"] == com) {
         setCompany(props.companies[i]["id"]);
+        setCompanyType(props.companies[i]["type_status"]);
         console.log(props.companies[i]);
         console.log(props.companies[i]["id"]);
         break;
@@ -266,6 +270,7 @@ export default function Register(props) {
     for (let i = 0; i < props.companies.length; i++) {
       if (props.companies[i]["name"] == com) {
         setCompany2(props.companies[i]["id"]);
+        setCompany2Type(props.companies[i]["type_status"]);
         console.log(props.companies[i]);
         console.log(props.companies[i]["id"]);
         break;
@@ -434,6 +439,7 @@ export default function Register(props) {
                               setCControl(e.target.checked);
                               if (e.target.checked) {
                                 setCompany(0);
+                                setCompany2(0);
                               }
                             }}
                           />

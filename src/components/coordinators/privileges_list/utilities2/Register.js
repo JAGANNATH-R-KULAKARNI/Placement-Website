@@ -70,6 +70,8 @@ export default function Register(props) {
   const [cgpa, setCGPA] = React.useState(0);
   const [company, setCompany] = React.useState(0);
   const [company2, setCompany2] = React.useState(0);
+  const [companyType, setCompanyType] = React.useState(0);
+  const [company2Type, setCompany2Type] = React.useState(0);
   const [ccontrol, setCControl] = React.useState(false);
   const [year_gap, setYearGap] = React.useState(0);
   const [college, setCollege] = React.useState("NIE");
@@ -161,6 +163,8 @@ export default function Register(props) {
       company: company,
       college: college,
       company2: company2,
+      type_status1: companyType,
+      type_status2: company2Type,
     };
 
     console.log("Upload Data Bro");
@@ -196,6 +200,7 @@ export default function Register(props) {
     for (let i = 0; i < props.companies.length; i++) {
       if (props.companies[i]["name"] == com) {
         setCompany(props.companies[i]["id"]);
+        setCompanyType(props.companies[i]["type_status"]);
         console.log(props.companies[i]);
         console.log(props.companies[i]["id"]);
         break;
@@ -210,6 +215,7 @@ export default function Register(props) {
     for (let i = 0; i < props.companies.length; i++) {
       if (props.companies[i]["name"] == com) {
         setCompany2(props.companies[i]["id"]);
+        setCompany2Type(props.companies[i]["type_status"]);
         console.log(props.companies[i]);
         console.log(props.companies[i]["id"]);
         break;
@@ -355,17 +361,18 @@ export default function Register(props) {
                       <SeacrUI
                         companies={props.companies}
                         searchCompanyResults={searchCompanyResults}
-                        text="Search Company 1 (Finalized)"
+                        text="Placed Company"
                       />
                     )}
-                    {ccontrol ? null : <br />}
-                    {ccontrol ? null : (
+                    {/* {ccontrol ? null : <br />} */}
+                    {/* {ccontrol ? null : (
                       <SeacrUI
                         companies={props.companies}
                         searchCompanyResults={searchCompanyResults2}
                         text="Search Company 2 (If two offers) (1st offer)"
                       />
-                    )}
+                    )} */}
+
                     <FormGroup>
                       <FormControlLabel
                         control={
@@ -376,6 +383,7 @@ export default function Register(props) {
                               setCControl(e.target.checked);
                               if (e.target.checked) {
                                 setCompany(0);
+                                setCompany2(0);
                               }
                             }}
                           />

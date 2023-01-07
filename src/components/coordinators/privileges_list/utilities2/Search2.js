@@ -19,6 +19,7 @@ export default function Asynchronous(props) {
   const searchRef = React.useRef();
 
   React.useEffect(() => {
+    console.log(props.companies);
     if (!control) {
       setControl(true);
       searchRef.current.value = props.company_name;
