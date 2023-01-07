@@ -26,6 +26,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SpinnerUI from "./utilities/Spinner";
 import Button from "@mui/material/Button";
 import BackDropUI from "./utilities3/Backdrop";
+import ModalUI from "../../Dialog";
 
 const Root = styled("div")(
   ({ theme }) => `
@@ -224,6 +225,12 @@ export default function AnnounceACompany() {
   const [uploading, setUploading] = React.useState(false);
   const [sending, setSending] = React.useState(false);
 
+  const [modalHandler, setModalHandler] = React.useState({
+    status: false,
+    msg: "",
+    func: null,
+  });
+
   const handleUpload = async (e) => {
     console.log("files upload bro");
     if (!e.target.files) {
@@ -265,7 +272,17 @@ export default function AnnounceACompany() {
       }
 
       if (error) {
-        alert("Something went wrong :( try again");
+        setModalHandler({
+          status: true,
+          msg: error.message,
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         console.log("Unsuccessful");
         console.log(error.message);
       }
@@ -411,13 +428,46 @@ export default function AnnounceACompany() {
       .then((u) => {
         console.log(u);
         setSending(false);
-        if (u["data"].success) alert("Email sent successfully");
-        else alert("Something went wrong :( try again later");
+        if (u["data"].success) {
+          setModalHandler({
+            status: true,
+            msg: "Email sent successfully",
+            func: () => {
+              setModalHandler({
+                status: false,
+                msg: "",
+                func: null,
+              });
+            },
+          });
+        } else {
+          setModalHandler({
+            status: true,
+            msg: "Something went wrong :( try again later",
+            func: () => {
+              setModalHandler({
+                status: false,
+                msg: "",
+                func: null,
+              });
+            },
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
         setSending(false);
-        alert("Something went wrong :( try again later");
+        setModalHandler({
+          status: true,
+          msg: "Something went wrong :( try again later",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
       });
   };
 
@@ -427,7 +477,17 @@ export default function AnnounceACompany() {
     const to = [];
 
     if (subject.length == 0 || description.length == 0) {
-      alert("Fill all the fields");
+      setModalHandler({
+        status: true,
+        msg: "Fill all the fields",
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
@@ -435,7 +495,18 @@ export default function AnnounceACompany() {
       let hash = {};
 
       if (SearchBar1.value.length == 0) {
-        alert("Add atleast one company");
+        setModalHandler({
+          status: true,
+          msg: "Add atleast one company",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
+
         return;
       }
 
@@ -450,7 +521,17 @@ export default function AnnounceACompany() {
       }
     } else if (selectStudent) {
       if (SearchBar2.value.length == 0) {
-        alert("Add atleast one Student");
+        setModalHandler({
+          status: true,
+          msg: "Add atleast one Student",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         return;
       }
 
@@ -466,12 +547,32 @@ export default function AnnounceACompany() {
       console.log(engineeYear.value);
 
       if (branches.value.length == 0) {
-        alert("Select atleast one branch");
+        setModalHandler({
+          status: true,
+          msg: "Select atleast one branch",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         return;
       }
 
       if (engineeYear.value.length == 0) {
-        alert("Select atleast one engineering year");
+        setModalHandler({
+          status: true,
+          msg: "Select atleast one engineering year",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         return;
       }
 
@@ -527,6 +628,7 @@ export default function AnnounceACompany() {
         <div>
           {sending ? <BackDropUI /> : null}
           <CssBaseline />
+          {modalHandler.status ? <ModalUI data={modalHandler} /> : null}
           <div style={{ height: m1 ? "70px" : "40px" }}></div>
           <main style={{ display: "flex", justifyContent: "center" }}>
             <Paper
