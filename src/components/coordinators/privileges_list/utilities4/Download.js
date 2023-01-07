@@ -189,7 +189,7 @@ export default function DownloadCSV(props) {
     if (!students || !applications) {
       fetchTheStudents();
       fetchTheApplications();
-      return;
+      return 0;
     }
 
     const studs = [];
@@ -208,7 +208,7 @@ export default function DownloadCSV(props) {
 
     if (studs && studs.length === 0) {
       alert(`No students have applied for ${props.data.company.name}`);
-      return;
+      return 0;
     }
     const temp_data = [];
     const temp_heading = [];
@@ -523,6 +523,7 @@ export default function DownloadCSV(props) {
     };
 
     setReport(repo);
+    return 1;
   };
 
   return (

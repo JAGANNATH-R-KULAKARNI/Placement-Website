@@ -73,7 +73,7 @@ export default function VerticalLinearStepper(props) {
                     <Button
                       variant="contained"
                       onClick={() => {
-                        props.getReport();
+                        if (!props.getReport()) return;
                         handleNext();
                       }}
                       sx={{ mt: 1, mr: 1 }}

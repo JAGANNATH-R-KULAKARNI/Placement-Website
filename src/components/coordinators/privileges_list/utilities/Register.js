@@ -105,6 +105,13 @@ export default function Register(props) {
 
     setSending(true);
 
+    const types_status = {
+      Mass: 1,
+      Core: 2,
+      Dream: 3,
+      "Open Dream": 4,
+      nyd: 0,
+    };
     const uploadData = {
       name: name,
       ctc: !ctcDisclosed ? ctc : "---",
@@ -126,6 +133,7 @@ export default function Register(props) {
       eligible_colleges: eligibleColleges,
       eligible_years: eligibleYears,
       logo: companyLogo,
+      type_status: types_status[type],
     };
 
     console.log("Upload Data Bro");
@@ -346,9 +354,9 @@ export default function Register(props) {
                       }}
                       label="Company Type"
                     >
-                      <MenuItem value="nyd">
+                      {/* <MenuItem value="nyd">
                         <em>Not yet disclosed</em>
-                      </MenuItem>
+                      </MenuItem> */}
                       <MenuItem value="Mass">Mass</MenuItem>
                       <MenuItem value="Core">Core</MenuItem>
                       <MenuItem value="Dream">Dream</MenuItem>

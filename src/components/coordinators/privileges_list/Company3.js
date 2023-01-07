@@ -63,11 +63,11 @@ export default function AnnounceACompany(props) {
           registerModalHandler={() => setRegisterModal(!registerModal)}
         />
       ) : null}
-      {view && company ? (
+      {view && company && props.fCompanies ? (
         <CompanyViewUI
           setView={setView}
           setCompany={setCompany}
-          company={company}
+          company={props.companiesHash[company.id]}
         />
       ) : null}
       {m1 ? (

@@ -176,7 +176,7 @@ export default function Register(props) {
       route_id: uniid + t,
       time_created: t,
       url:
-        window.location.href.substr(0, window.location.href.length - 11) +
+        window.location.href.substr(0, window.location.href.length - 5) +
         "company/" +
         uniid +
         t,
@@ -323,6 +323,7 @@ export default function Register(props) {
               {dialog ? (
                 <DialogUI
                   company={props.company}
+                  receipients={props.receipients}
                   link={link}
                   ecc={props.ecc}
                   eyy={props.eyy}

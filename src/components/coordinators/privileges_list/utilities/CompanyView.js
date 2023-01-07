@@ -44,6 +44,7 @@ export default function FullScreenDialog(props) {
   const [updateFormData, setUpdateFormData] = React.useState(null);
   const [active, setActive] = React.useState(0);
   const [inactive, setInactive] = React.useState(0);
+  const [receipients, setReceipients] = React.useState("");
 
   async function timeSince(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
@@ -190,11 +191,60 @@ export default function FullScreenDialog(props) {
     }
   }
 
+  async function fetchRecipients() {
+    const { data, error } = await supabase
+      .from("students")
+      .select("*")
+      .in("college", props.company.eligible_colleges)
+      .in("year", props.company.eligible_years)
+      .in("branch", props.company.eligible_branches)
+      .gte("cgpa", props.company.min_cgpa)
+      .in("gender", props.company.gender == 0 ? [1, 2] : [props.company.gender])
+      .gte("tenth_percentage", props.company.min_in_ten)
+      .gte("twelth_percentage", props.company.min_in_twelve)
+      .lte("max_year_education_gap", props.company.max_year_education_gap)
+      .lt("type_status1", props.company.type_status);
+
+    if (data) {
+      console.log("Students");
+      console.log(data);
+
+      let temp = "";
+
+      for (let i = 0; i < data.length; i++) {
+        if (!data[i].current_backlogs) {
+          if (i != data.length - 1) {
+            temp = temp + data[i].email + ",";
+          } else {
+            temp = temp + data[i].email;
+          }
+        } else if (
+          data[i].current_backlogs &&
+          props.company.active_backlogs_allowed
+        ) {
+          if (i != data.length - 1) {
+            temp = temp + data[i].email + ",";
+          } else {
+            temp = temp + data[i].email;
+          }
+        } else if (
+          data[i].current_backlogs &&
+          !props.company.active_backlogs_allowed
+        ) {
+        }
+      }
+
+      console.log("TEMP");
+      console.log(temp);
+      setReceipients(temp);
+    }
+  }
   React.useEffect(() => {
     setInterval(() => {
       calcInfo();
       fetchForms();
     }, 1000);
+    fetchRecipients();
   }, []);
 
   return (
@@ -205,20 +255,29 @@ export default function FullScreenDialog(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        {updateFormStatus && updateFormData ? (
+        {updateFormStatus &&
+        updateFormData &&
+        props.company &&
+        receipients.length > 0 ? (
           <UpdateFormUI
+            company={props.company}
+            ecc={ecc}
+            eyy={eyy}
+            ebb={ebb}
+            receipients={receipients}
             registerModalHandler={() => {
               setUpdateFormStatus(!updateFormStatus);
             }}
             data={updateFormData}
           />
         ) : null}
-        {openForm && props.company ? (
+        {openForm && props.company && receipients.length > 0 ? (
           <CreateFormUI
             company={props.company}
             ecc={ecc}
             eyy={eyy}
             ebb={ebb}
+            receipients={receipients}
             registerModalHandler={() => {
               setOpenForm(!openForm);
             }}
@@ -343,14 +402,19 @@ export default function FullScreenDialog(props) {
                   borderRadius: "20px",
                   backgroundColor: "#007F7F",
                   fontWeight: 600,
+                  fontSize: receipients.length == 0 ? "9px" : "13px",
+                  color: "white",
                 }}
                 onClick={() => {
                   setOpenForm(true);
                 }}
                 size="small"
                 disableElevation
+                disabled={receipients.length == 0}
               >
-                Create Form
+                {receipients.length == 0
+                  ? "No students are Eligible"
+                  : "Create Form"}
               </Button>
             )}
             <div style={{ width: "8%" }}></div>
@@ -408,6 +472,7 @@ export default function FullScreenDialog(props) {
                               textDecoration: "underline",
                             }}
                             onClick={() => {
+                              console.log(item);
                               setUpdateFormData(item);
                               setUpdateFormStatus(true);
                             }}
@@ -475,11 +540,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -488,7 +553,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Package : {props.company.ctc} LPA
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -504,11 +569,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -519,7 +584,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Eligible Colleges : {ecc}
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -535,11 +600,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -547,7 +612,7 @@ export default function FullScreenDialog(props) {
                 style={{ marginTop: "0px", marginRight: "10px" }}
               />
               <span style={{ marginTop: "2px" }}> Eligible Years : {eyy}</span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -563,11 +628,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -576,7 +641,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Eligible Branches : {ebb}
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -592,11 +657,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -608,7 +673,7 @@ export default function FullScreenDialog(props) {
                 Tentative Interview Date :{" "}
                 {props.company.tentative_interview_dates.substr(0, 15)}
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -624,11 +689,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -639,7 +704,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Minimum CGPA : {props.company.min_cgpa} Pointer
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -657,11 +722,11 @@ export default function FullScreenDialog(props) {
             <div style={{ width: "5%" }}></div>
             <div style={{ width: "90%" }}>
               {" "}
-              <p
+              <h4
                 style={{
                   marginTop: "0px",
                   fontSize: "15px",
-                  fontWeight: 100,
+                  fontWeight: 400,
                   display: "flex",
                 }}
               >
@@ -674,7 +739,7 @@ export default function FullScreenDialog(props) {
                     ? "Female Candidates Only"
                     : "Male Candidates Only"}
                 </span>
-              </p>
+              </h4>
             </div>
 
             <div style={{ width: "5%" }}></div>
@@ -691,11 +756,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -706,7 +771,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Minimum in 10th : {props.company.min_in_ten}%
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -722,11 +787,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -737,7 +802,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Minimum in 12th : {props.company.min_in_twelve}
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -753,11 +818,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -768,7 +833,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Max Year Education Gap : {props.company.max_year_education_gap}
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -784,11 +849,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -800,7 +865,7 @@ export default function FullScreenDialog(props) {
                 Active backlogs are{" "}
                 {props.company.active_backlogs_allowed ? "" : "not "} allowed
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -816,11 +881,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -832,7 +897,7 @@ export default function FullScreenDialog(props) {
                 History of backlogs are{" "}
                 {props.company.history_backlogs_allowed ? "" : "not "} allowed
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -858,16 +923,16 @@ export default function FullScreenDialog(props) {
             >
               Description
             </h4>
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
               {props.company.description}
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
