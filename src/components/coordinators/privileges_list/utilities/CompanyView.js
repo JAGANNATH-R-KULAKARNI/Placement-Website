@@ -475,11 +475,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -488,7 +488,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Package : {props.company.ctc} LPA
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -504,11 +504,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -519,7 +519,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Eligible Colleges : {ecc}
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -535,11 +535,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -547,7 +547,7 @@ export default function FullScreenDialog(props) {
                 style={{ marginTop: "0px", marginRight: "10px" }}
               />
               <span style={{ marginTop: "2px" }}> Eligible Years : {eyy}</span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -563,11 +563,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -576,7 +576,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Eligible Branches : {ebb}
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -592,11 +592,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -608,7 +608,7 @@ export default function FullScreenDialog(props) {
                 Tentative Interview Date :{" "}
                 {props.company.tentative_interview_dates.substr(0, 15)}
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -624,11 +624,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -639,7 +639,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Minimum CGPA : {props.company.min_cgpa} Pointer
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -657,11 +657,11 @@ export default function FullScreenDialog(props) {
             <div style={{ width: "5%" }}></div>
             <div style={{ width: "90%" }}>
               {" "}
-              <p
+              <h4
                 style={{
                   marginTop: "0px",
                   fontSize: "15px",
-                  fontWeight: 100,
+                  fontWeight: 400,
                   display: "flex",
                 }}
               >
@@ -674,7 +674,7 @@ export default function FullScreenDialog(props) {
                     ? "Female Candidates Only"
                     : "Male Candidates Only"}
                 </span>
-              </p>
+              </h4>
             </div>
 
             <div style={{ width: "5%" }}></div>
@@ -691,11 +691,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -706,7 +706,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Minimum in 10th : {props.company.min_in_ten}%
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -722,11 +722,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -737,7 +737,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Minimum in 12th : {props.company.min_in_twelve}
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -753,11 +753,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -768,7 +768,7 @@ export default function FullScreenDialog(props) {
                 {" "}
                 Max Year Education Gap : {props.company.max_year_education_gap}
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -784,11 +784,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -800,7 +800,7 @@ export default function FullScreenDialog(props) {
                 Active backlogs are{" "}
                 {props.company.active_backlogs_allowed ? "" : "not "} allowed
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -816,11 +816,11 @@ export default function FullScreenDialog(props) {
           <div style={{ width: "5%" }}></div>
           <div style={{ width: "90%" }}>
             {" "}
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
@@ -832,7 +832,7 @@ export default function FullScreenDialog(props) {
                 History of backlogs are{" "}
                 {props.company.history_backlogs_allowed ? "" : "not "} allowed
               </span>
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
@@ -858,16 +858,16 @@ export default function FullScreenDialog(props) {
             >
               Description
             </h4>
-            <p
+            <h4
               style={{
                 marginTop: "0px",
                 fontSize: "15px",
-                fontWeight: 100,
+                fontWeight: 400,
                 display: "flex",
               }}
             >
               {props.company.description}
-            </p>
+            </h4>
           </div>
 
           <div style={{ width: "5%" }}></div>
