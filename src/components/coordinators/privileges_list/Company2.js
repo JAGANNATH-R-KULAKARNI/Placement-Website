@@ -132,7 +132,7 @@ export default function AnnounceACompany() {
 
       setCompaniesHash(hash);
       setFCompanies(temp);
-      console.log(times);
+
       setTimes(times);
       setCompanies(temp);
     }

@@ -37,6 +37,9 @@ import RegisterUI from "./privileges_list/utilities2/Register";
 import RegisterUI2 from "./privileges_list/utilities/Register";
 import EmailUI from "./privileges_list/Email";
 import { supabase } from "../../Supabase";
+import useSWR from "swr";
+import Skeleton from "@mui/material/Skeleton";
+import Company3UI from "./privileges_list/Company4";
 
 const theme = createTheme();
 
@@ -48,6 +51,16 @@ export default function Privileges() {
   const [registerModal2, setRegisterModal2] = React.useState(false);
   const [companies, setCompanies] = React.useState([]);
   const [openEmail, setOpenEmail] = React.useState(false);
+  const [searchData, setSearchData] = React.useState([]);
+  const [stuResults, setStuResults] = React.useState([]);
+  const [comResults, setComResults] = React.useState([]);
+  const [comResultsHash, setComResultsHash] = React.useState(null);
+  const [comResultsTimes, setComResultsTimes] = React.useState(null);
+  const [cda, setCda] = React.useState(null);
+  const [sda, setSda] = React.useState(null);
+
+  const studentsData = useSWR("/api/endpoint", fetchSearchData);
+  // const companiesData = useSWR("/api/endpoint", fetchCompaniesData);
 
   const powers = [
     {
@@ -90,6 +103,160 @@ export default function Privileges() {
     },
   ];
 
+  async function fetchSearchData(argc) {
+    const { data, error } = await supabase.from("students").select("*");
+    const companiesData = await supabase.from("companies").select("*");
+
+    if (data && companiesData && companiesData.data) {
+      setCda(companiesData.data);
+      setSda(data);
+
+      console.log("Students");
+      console.log(data);
+      let temp = [];
+      let hash = {};
+
+      for (let i = 0; i < data.length; i++) {
+        if (!hash[data[i].email] && data[i].email.length > 0) {
+          temp.push({
+            name: data[i].email,
+          });
+
+          hash[data[i].email] = true;
+        }
+
+        if (!hash[data[i].name] && data[i].name.length > 0) {
+          temp.push({
+            name: data[i].name,
+          });
+
+          hash[data[i].name] = true;
+        }
+
+        if (
+          !hash[data[i].parent_phone_num] &&
+          data[i].parent_phone_num.length > 0
+        ) {
+          temp.push({
+            name: data[i].parent_phone_num,
+          });
+
+          hash[data[i].parent_phone_num] = true;
+        }
+
+        if (!hash[data[i].phone_num] && data[i].phone_num.length > 0) {
+          temp.push({
+            name: data[i].phone_num,
+          });
+
+          hash[data[i].phone_num] = true;
+        }
+
+        if (!hash[data[i].usn] && data[i].usn.length > 0) {
+          temp.push({
+            name: data[i].usn,
+          });
+
+          hash[data[i].usn] = true;
+        }
+      }
+
+      for (let i = 0; i < companiesData.data.length; i++) {
+        if (
+          !hash[companiesData.data[i].name] &&
+          companiesData.data[i].name.length > 0 &&
+          companiesData.data[i].id != 0
+        ) {
+          hash[companiesData.data[i].name] = true;
+
+          temp.push({
+            name: companiesData.data[i].name,
+          });
+        }
+      }
+
+      setSearchData(temp);
+    }
+  }
+
+  async function timeSince(date) {
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+      return Math.floor(interval) + " year";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
+  }
+
+  async function searchResultsHandler(keyword) {
+    if (!cda || !sda) return;
+
+    console.log("Inside search results handler");
+    console.log(keyword);
+    let st = [];
+    let co = [];
+
+    for (let i = 0; i < sda.length; i++) {
+      if (
+        (sda[i] &&
+          sda[i].name &&
+          sda[i].name.toLowerCase().includes(keyword.toLowerCase())) ||
+        (sda[i] &&
+          sda[i].email &&
+          sda[i].email.toLowerCase().includes(keyword.toLowerCase())) ||
+        (sda[i] &&
+          sda[i].usn &&
+          sda[i].usn.toLowerCase().includes(keyword.toLowerCase())) ||
+        (sda[i] &&
+          sda[i].phone_num &&
+          sda[i].phone_num.toLowerCase().includes(keyword.toLowerCase())) ||
+        (sda[i] &&
+          sda[i].parent_phone_num &&
+          sda[i].parent_phone_num.toLowerCase().includes(keyword.toLowerCase()))
+      ) {
+        st.push(sda[i]);
+      }
+    }
+
+    let comHash = {};
+    let times = [];
+    for (let i = 0; i < cda.length; i++) {
+      if (
+        cda[i] &&
+        cda[i].name &&
+        cda[i].name.toLowerCase().includes(keyword.toLowerCase())
+      ) {
+        co.push(cda[i]);
+        comHash[cda[i].id] = cda[i];
+        times.push(await timeSince(new Date(parseInt(cda[i].time_posted))));
+      }
+    }
+    console.log(st);
+    console.log(co);
+
+    setComResults(co);
+    setComResultsHash(comHash);
+    setComResultsTimes(times);
+  }
+
   async function fetchTheCompanies() {
     const { data, error } = await supabase
       .from("companies")
@@ -106,6 +273,7 @@ export default function Privileges() {
 
   React.useEffect(() => {
     fetchTheCompanies();
+    fetchSearchData("jag");
   }, []);
 
   return (
@@ -161,9 +329,31 @@ export default function Privileges() {
               marginTop: "25px",
             }}
           >
-            <SearchUI />
+            {searchData && searchData.length > 0 ? (
+              <SearchUI
+                data={searchData}
+                searchResultsHandler={searchResultsHandler}
+              />
+            ) : (
+              <div>
+                <Skeleton variant="rounded" width="320px" height={60} />
+              </div>
+            )}
           </div>
         </div>
+        {comResults &&
+        comResults.length > 0 &&
+        comResultsHash &&
+        comResultsTimes &&
+        comResultsTimes.length > 0 ? (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Company3UI
+              fCompanies={comResults}
+              times={comResultsTimes}
+              companiesHash={comResultsHash}
+            />
+          </div>
+        ) : null}
         <div
           style={{
             width: "100%",
