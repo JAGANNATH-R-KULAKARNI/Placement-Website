@@ -64,7 +64,16 @@ export default function VerticalLinearStepper(props) {
                             handleReset();
                           }, 1000);
                         }}
-                        sx={{ mt: 1, mr: 1 }}
+                        sx={{
+                          mt: 1,
+                          mr: 1,
+                          backgroundColor: "#017E7E",
+                          textTransform: "capitalize",
+                          borderRadius: "20px",
+                          paddingLeft: "20px",
+                          paddingRight: "20px",
+                        }}
+                        disableElevation
                       >
                         Download
                       </Button>
@@ -74,9 +83,19 @@ export default function VerticalLinearStepper(props) {
                       variant="contained"
                       onClick={() => {
                         if (!props.getReport()) return;
+
                         handleNext();
                       }}
-                      sx={{ mt: 1, mr: 1 }}
+                      sx={{
+                        mt: 1,
+                        mr: 1,
+                        backgroundColor: "#017E7E",
+                        textTransform: "capitalize",
+                        borderRadius: "20px",
+                        paddingLeft: "20px",
+                        paddingRight: "20px",
+                      }}
+                      disableElevation
                     >
                       Generate
                     </Button>
@@ -84,7 +103,12 @@ export default function VerticalLinearStepper(props) {
                   <Button
                     disabled={index === 0}
                     onClick={handleBack}
-                    sx={{ mt: 1, mr: 1 }}
+                    sx={{
+                      mt: 1,
+                      mr: 1,
+                      color: "#017E7E",
+                      textTransform: "capitalize",
+                    }}
                   >
                     Back
                   </Button>

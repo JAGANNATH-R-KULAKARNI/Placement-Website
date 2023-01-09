@@ -51,6 +51,7 @@ import Fab from "@mui/material/Fab";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import UpdateUI from "../utilities/Update";
 import handshakemobile from "../../../images/handshakemobile.jpg";
+import ModalUI from "../../../Dialog";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -77,6 +78,11 @@ export default function Register(props) {
   const [dialog, setDialog] = React.useState(false);
   const [link, setLink] = React.useState("");
   const [model, setModel] = React.useState(false);
+  const [modalHandler, setModalHandler] = React.useState({
+    status: false,
+    msg: "",
+    func: null,
+  });
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -128,12 +134,32 @@ export default function Register(props) {
     }
 
     if (end - start <= 0) {
-      alert("Invalid Start and end time");
+      setModalHandler({
+        status: true,
+        msg: `Invalid Start and end time`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
     if (!control) {
-      alert("Select the checkbox");
+      setModalHandler({
+        status: true,
+        msg: `Select the checkbox`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
@@ -226,7 +252,17 @@ export default function Register(props) {
 
     if (error) {
       setLoading(false);
-      alert(error.message);
+      setModalHandler({
+        status: true,
+        msg: error.message,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
     }
   }
 
@@ -266,6 +302,7 @@ export default function Register(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
+        {modalHandler.status ? <ModalUI data={modalHandler} /> : null}
         <div>
           {/* <NavBarUI handleClose={handleClose} /> */}
           <IconButton

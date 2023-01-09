@@ -25,7 +25,7 @@ const Input = styled("input")(({ theme }) => ({
 }));
 
 const Listbox = styled("ul")(({ theme }) => ({
-  width: "100%",
+  width: "93%",
   margin: 0,
   padding: 0,
   zIndex: 1,
@@ -34,7 +34,7 @@ const Listbox = styled("ul")(({ theme }) => ({
   backgroundColor: theme.palette.mode === "light" ? "#fff" : "#000",
   overflow: "auto",
   maxHeight: 300,
-  marginLeft: "-1%",
+  marginLeft: "1%",
   border: "1px solid rgba(0,0,0,.25)",
   "& li.Mui-focused": {
     // backgroundColor: "#C38F70",
@@ -76,14 +76,14 @@ export default function UseAutocomplete(props) {
   } = useAutocomplete({
     id: "use-autocomplete-demo",
     // options: props.items,
-    options: [{ name: "jag" }, { name: "ben" }, { name: "lo" }],
+    options: props.data,
     getOptionLabel: (option) => option.name,
   });
 
   React.useEffect(() => {
     // props.setSres(focused);
-    // if (value) props.searchResultsHandler(value.name);
-
+    if (value) props.searchResultsHandler(value.name);
+    console.log("clicked");
     setTimeout(() => {
       setLoading(false);
     }, 3000);
@@ -101,10 +101,12 @@ export default function UseAutocomplete(props) {
         <div
           onChange={(e) => {
             setVal(e.target.value);
-            // if (e.target.value.length >= 3)
+            // if (e.target.value.length >= 3) {
             //   props.searchResultsHandler(e.target.value);
-            // else {
-            //   props.setKeyword(e.target.value);
+            //   console.log("Calling");
+            // } else {
+            //   // props.setKeyword(e.target.value);
+            //   console.log("Baby words");
             // }
           }}
           style={{
@@ -151,7 +153,7 @@ export default function UseAutocomplete(props) {
               {...getOptionProps({ option, index })}
               style={{
                 marginBottom: "7px",
-                marginLeft: "4.75%",
+                marginLeft: "4.5%",
                 marginTop: index == 0 ? "10px" : "0px",
               }}
             >

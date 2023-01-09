@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ModalUI from "../../../Dialog";
 import Slide from "@mui/material/Slide";
 import NavBarUI from "../../../NavBar4";
 import Paper from "@mui/material/Paper";
@@ -73,6 +74,11 @@ export default function Register(props) {
   const [initialize, setInitialize] = React.useState(false);
   const [sending, setSending] = React.useState(false);
   const [companyId, setCompanyId] = React.useState(0);
+  const [modalHandler, setModalHandler] = React.useState({
+    status: false,
+    msg: "",
+    func: null,
+  });
 
   React.useEffect(() => {
     if (!initialize) {
@@ -100,19 +106,69 @@ export default function Register(props) {
   });
   const registerCompany = async () => {
     if (name.length == 0) {
-      alert("Name is required");
+      setModalHandler({
+        status: true,
+        msg: `Name is required`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (!ctcDisclosed && ctc <= 0) {
-      alert("CTC should be valid or else disable");
+      setModalHandler({
+        status: true,
+        msg: `CTC should be valid or else disable`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (type.length == 0) {
-      alert("Type of company is required");
+      setModalHandler({
+        status: true,
+        msg: `Type of company is required`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (!intDateDisclosure && intDate.length == 0) {
-      alert("Tentative dates are required or else disable");
+      setModalHandler({
+        status: true,
+        msg: `Tentative dates are required or else disable`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     } else if (eligibleBranches.length == 0) {
-      alert("If no branches are eligible, then why the company is coming ? ");
+      setModalHandler({
+        status: true,
+        msg: `If no branches are eligible, then why the company is coming ?`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
@@ -158,14 +214,35 @@ export default function Register(props) {
       console.log("Success");
       console.log(data);
       setSending(false);
-      alert("Successfully Updated");
+      setModalHandler({
+        status: true,
+        msg: `Successfully Updated`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
     }
 
     if (error) {
       console.log("Error");
       console.log(error);
       setSending(false);
-      alert(error.message);
+
+      setModalHandler({
+        status: true,
+        msg: error.message,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
     }
   };
 
@@ -212,7 +289,17 @@ export default function Register(props) {
       }
 
       if (error) {
-        alert("Something went wrong :( try again");
+        setModalHandler({
+          status: true,
+          msg: "Something went wrong :( try again",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         console.log("Unsuccessful");
         console.log(error.message);
       }
@@ -229,6 +316,7 @@ export default function Register(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
+        {modalHandler.status ? <ModalUI data={modalHandler} /> : null}
         {sending ? <BackDropUI /> : false}
         <div>
            <IconButton
@@ -334,7 +422,7 @@ export default function Register(props) {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           value={ctcDisclosed}
                           onChange={(e) => {
                             setCTCDisclosed(e.target.checked);
@@ -403,7 +491,7 @@ export default function Register(props) {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={intDateDisclosure}
                           onChange={(e) => {
                             setIntDateDisclosure(e.target.checked);
@@ -535,7 +623,7 @@ export default function Register(props) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                             checked={backlogs}
                             onChange={(e) => {
                               setBacklogs(e.target.checked);
@@ -561,7 +649,7 @@ export default function Register(props) {
                             onChange={(e) => {
                               setArears(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="History of Backlogs allowed ?"
@@ -587,7 +675,7 @@ export default function Register(props) {
                                 setGender(0);
                               }
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Female Candidates Only ?"
@@ -612,7 +700,7 @@ export default function Register(props) {
                                 setGender(0);
                               }
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Male Candidates Only ?"
@@ -647,7 +735,7 @@ export default function Register(props) {
                     }}
                   >
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       component="label"
                       style={{ width: "76%",
                       textTransform: "capitalize",
@@ -657,6 +745,7 @@ export default function Register(props) {
                       fontWeight: 600,
                       border: "2px solid #007F7F", }}
                       // onClick={handleOpenPicker}
+                      disableElevation
                       startIcon={<AttachFileIcon />}
                     >
                       {uploading ? "Uploading...Wait" : "Upload JD (optional)"}

@@ -12,7 +12,17 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { CSVLink } from "react-csv";
 import { supabase } from "../../../../Supabase";
 import ButtonsUI from "./Buttons";
-import { ContentPasteSearchOutlined } from "@mui/icons-material";
+import {
+  ConstructionOutlined,
+  ContentPasteSearchOutlined,
+} from "@mui/icons-material";
+import handshakemobile from "../../../images/handshakemobile.jpg";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import MailIcon from "@mui/icons-material/Mail";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import DialogUI from "../../../Dialog";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -144,6 +154,12 @@ export default function DownloadCSV(props) {
 
   const [students, setStudents] = React.useState(null);
 
+  const [modalHandler, setModalHandler] = React.useState({
+    status: false,
+    msg: "",
+    func: null,
+  });
+
   async function fetchTheStudents() {
     const { data, error } = await supabase.from("students").select("*");
 
@@ -207,7 +223,14 @@ export default function DownloadCSV(props) {
     console.log(studs);
 
     if (studs && studs.length === 0) {
-      alert(`No students have applied for ${props.data.company.name}`);
+      setModalHandler({
+        status: true,
+        msg: `No students have applied for ${props.data.company.name}`,
+        func: () => {
+          handleClose();
+        },
+      });
+
       return 0;
     }
     const temp_data = [];
@@ -534,57 +557,51 @@ export default function DownloadCSV(props) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
+        {modalHandler.status ? <DialogUI data={modalHandler} /> : null}
         <div
-          style={{
-            backgroundImage: `url(${bg})`,
-            backgroundAttachment: "fixed",
-          }}
+        // style={{
+        //   backgroundImage: `url(${bg})`,
+        //   backgroundAttachment: "fixed",
+        // }}
         >
-          <NavBarUI handleClose={handleClose} />
-          <div style={{ height: "100px" }}></div>
+          {/* <NavBarUI handleClose={handleClose} /> */}
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            style={{
+              marginLeft: "10px",
+              marginTop: "10px",
+              color: "white",
+            }}
+          >
+            <CloseIcon style={{ fontSize: "30px" }} />
+          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-58px",
+            }}
+          >
+            <img
+              src={handshakemobile}
+              style={{ width: "100%", height: "auto" }}
+              alt="Hand shake"
+            />
+          </div>
           <div>
-            <Paper
-              variant="outlined"
+            <h1
               style={{
-                borderBottomLeftRadius: "50px",
-                borderBottomRightRadius: "50px",
+                textAlign: "center",
+                marginTop: m1 ? "50px" : "25px",
+                fontSize: m1 ? "45px" : "35px",
               }}
-              elevation={10}
             >
-              <h1
-                style={{
-                  textAlign: "center",
-                  marginTop: m1 ? "50px" : "25px",
-                  fontSize: m1 ? "45px" : "35px",
-                }}
-              >
-                Download CSV
-              </h1>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "-30px",
-                }}
-              >
-                <h4
-                  style={{
-                    fontSize: m1 ? "17px" : "12px",
-                    color: "black",
-                    fontWeight: 500,
-                    textAlign: "center",
-                    width: "80%",
-                  }}
-                >
-                  <i>
-                    “Select the fields you want to download. When you check a
-                    field, that field data will be in the csv file. Its your
-                    choice”
-                  </i>
-                </h4>
-              </div>
-            </Paper>
-            <br />
+              Download CSV
+            </h1>
+
             <div style={{ width: "100%", paddingLeft: "5%" }}>
               <Paper
                 style={{
@@ -622,7 +639,7 @@ export default function DownloadCSV(props) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                             checked={name}
                             onChange={(e) => {
                               setName(e.target.checked);
@@ -650,7 +667,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setUsn(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="USN"
@@ -673,7 +690,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setEmail(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Email"
@@ -696,7 +713,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setCGPA(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Total CGPA"
@@ -720,7 +737,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setResume(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Resume"
@@ -743,7 +760,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setDOB(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Date of birth"
@@ -766,7 +783,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setBranch(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Engineering Branch"
@@ -789,7 +806,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setSection(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Section"
@@ -812,7 +829,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setGender(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Gender"
@@ -836,7 +853,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setTenthPercentage(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="10th Percentage"
@@ -859,7 +876,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setTwelthPercentage(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="12th Percentage"
@@ -882,7 +899,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setDiplomoPercentage(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Diplomo Percentage"
@@ -906,7 +923,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setYear(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Engineering year"
@@ -929,7 +946,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setCurrArears(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Current arears"
@@ -952,7 +969,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setClearArears(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Cleared arears"
@@ -975,7 +992,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setCurrBacklogs(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Current Backlogs"
@@ -998,7 +1015,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setClearBacklogs(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Cleared Backlogs"
@@ -1021,7 +1038,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setPhnum(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Phone number"
@@ -1045,7 +1062,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setGap(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Education gap"
@@ -1068,7 +1085,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setCaste(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Caste Category"
@@ -1091,7 +1108,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setTenthBoard(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="10th Board"
@@ -1114,7 +1131,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setTenthPassed(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="10th Passed Year"
@@ -1137,7 +1154,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setTwelthBoard(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="12th Board"
@@ -1160,7 +1177,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setTwelthPassed(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="12th Passed Year"
@@ -1183,7 +1200,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setDiplomoBoard(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Diplomo Board"
@@ -1206,7 +1223,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setDiplomoPassed(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Diplomo passed year"
@@ -1229,7 +1246,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setHomeAddress(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Home Address"
@@ -1252,7 +1269,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setPerAddr(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Permenent Address"
@@ -1275,7 +1292,7 @@ export default function DownloadCSV(props) {
                             onChange={(e) => {
                               setCreadits(e.target.checked);
                             }}
-                            style={{ color: "#541554" }}
+                            style={{ color: "#017E7E" }}
                           />
                         }
                         label="Total Credits Earned"

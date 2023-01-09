@@ -26,6 +26,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SpinnerUI from "./utilities/Spinner";
 import Button from "@mui/material/Button";
 import BackDropUI from "./utilities3/Backdrop";
+import ModalUI from "../../Dialog";
 
 const Root = styled("div")(
   ({ theme }) => `
@@ -51,16 +52,13 @@ const InputWrapper = styled("div")(
   padding: 1px;
   display: flex;
   flex-wrap: wrap;
-
   &:hover {
     border-color: ${theme.palette.mode === "dark" ? "#177ddc" : "#40a9ff"};
   }
-
   &.focused {
     border-color: ${theme.palette.mode === "dark" ? "#177ddc" : "#40a9ff"};
     box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
   }
-
   & input {
     background-color: ${theme.palette.mode === "dark" ? "#141414" : "#fff"};
     color: ${
@@ -112,18 +110,15 @@ const StyledTag = styled(Tag)(
   padding: 0 4px 0 10px;
   outline: 0;
   overflow: hidden;
-
   &:focus {
     border-color: ${theme.palette.mode === "dark" ? "#177ddc" : "#40a9ff"};
     background-color: ${theme.palette.mode === "dark" ? "#003b57" : "#e6f7ff"};
   }
-
   & span {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-
   & svg {
     font-size: 12px;
     cursor: pointer;
@@ -145,33 +140,26 @@ const Listbox = styled("ul")(
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 1;
-
   & li {
     padding: 5px 12px;
     display: flex;
-
     & span {
       flex-grow: 1;
     }
-
     & svg {
       color: transparent;
     }
   }
-
   & li[aria-selected='true'] {
     background-color: ${theme.palette.mode === "dark" ? "#2b2b2b" : "#fafafa"};
     font-weight: 600;
-
     & svg {
       color: #1890ff;
     }
   }
-
   & li.${autocompleteClasses.focused} {
     background-color: ${theme.palette.mode === "dark" ? "#003b57" : "#e6f7ff"};
     cursor: pointer;
-
     & svg {
       color: currentColor;
     }
@@ -224,6 +212,12 @@ export default function AnnounceACompany() {
   const [uploading, setUploading] = React.useState(false);
   const [sending, setSending] = React.useState(false);
 
+  const [modalHandler, setModalHandler] = React.useState({
+    status: false,
+    msg: "",
+    func: null,
+  });
+
   const handleUpload = async (e) => {
     console.log("files upload bro");
     if (!e.target.files) {
@@ -265,7 +259,17 @@ export default function AnnounceACompany() {
       }
 
       if (error) {
-        alert("Something went wrong :( try again");
+        setModalHandler({
+          status: true,
+          msg: error.message,
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         console.log("Unsuccessful");
         console.log(error.message);
       }
@@ -411,13 +415,46 @@ export default function AnnounceACompany() {
       .then((u) => {
         console.log(u);
         setSending(false);
-        if (u["data"].success) alert("Email sent successfully");
-        else alert("Something went wrong :( try again later");
+        if (u["data"].success) {
+          setModalHandler({
+            status: true,
+            msg: "Email sent successfully",
+            func: () => {
+              setModalHandler({
+                status: false,
+                msg: "",
+                func: null,
+              });
+            },
+          });
+        } else {
+          setModalHandler({
+            status: true,
+            msg: "Something went wrong :( try again later",
+            func: () => {
+              setModalHandler({
+                status: false,
+                msg: "",
+                func: null,
+              });
+            },
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
         setSending(false);
-        alert("Something went wrong :( try again later");
+        setModalHandler({
+          status: true,
+          msg: "Something went wrong :( try again later",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
       });
   };
 
@@ -427,7 +464,17 @@ export default function AnnounceACompany() {
     const to = [];
 
     if (subject.length == 0 || description.length == 0) {
-      alert("Fill all the fields");
+      setModalHandler({
+        status: true,
+        msg: "Fill all the fields",
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
@@ -435,7 +482,18 @@ export default function AnnounceACompany() {
       let hash = {};
 
       if (SearchBar1.value.length == 0) {
-        alert("Add atleast one company");
+        setModalHandler({
+          status: true,
+          msg: "Add atleast one company",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
+
         return;
       }
 
@@ -450,7 +508,17 @@ export default function AnnounceACompany() {
       }
     } else if (selectStudent) {
       if (SearchBar2.value.length == 0) {
-        alert("Add atleast one Student");
+        setModalHandler({
+          status: true,
+          msg: "Add atleast one Student",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         return;
       }
 
@@ -466,12 +534,32 @@ export default function AnnounceACompany() {
       console.log(engineeYear.value);
 
       if (branches.value.length == 0) {
-        alert("Select atleast one branch");
+        setModalHandler({
+          status: true,
+          msg: "Select atleast one branch",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         return;
       }
 
       if (engineeYear.value.length == 0) {
-        alert("Select atleast one engineering year");
+        setModalHandler({
+          status: true,
+          msg: "Select atleast one engineering year",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         return;
       }
 
@@ -522,29 +610,27 @@ export default function AnnounceACompany() {
   };
 
   return (
-    <div
-    style={{
-      backgroundColor: "#F5F8F9",
-    }}>
+    <div>
       {data ? (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-           
-          
-            
+        <div>
+          {sending ? <BackDropUI /> : null}
+          <CssBaseline />
+          {modalHandler.status ? <ModalUI data={modalHandler} /> : null}
+          <div style={{ height: m1 ? "70px" : "40px" }}></div>
+          <main style={{ display: "flex", justifyContent: "center" }}>
             <Paper
               style={{
-                width: "95%",
-                padding: "5%",
+                marginTop: "0px",
+                borderRadius: "40px",
                 display: "flex",
                 justifyContent: "center",
-                borderRadius: "10px",
+                width: "95%",
               }}
-              elevation={1}
             >
               <div
                 style={{
                   width: "100%",
-                  marginTop: "15px",
+                  marginTop: "0px",
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "center" }}>
@@ -568,11 +654,6 @@ export default function AnnounceACompany() {
                       label="Subject"
                       variant="standard"
                       style={{ width: "100%" }}
-                      sx={{
-                        input: {
-                          borderBottom: "2px solid #017E7E",
-                        },
-                      }}
                       placeholder="Goldman Sachs shortlists"
                       value={subject}
                       onChange={(e) => {
@@ -596,18 +677,12 @@ export default function AnnounceACompany() {
                       multiline
                       rows={4}
                       value={description}
-                      style={{ width: "100%" }}
-                      sx={{
-                        input: {
-                          borderBottom: "2px solid #017E7E",
-                        },
-                      }}
                       onChange={(e) => {
                         setDescription(e.target.value);
                       }}
                       variant="standard"
                       placeholder="All of the GS selects, assemble near placement office"
-                     
+                      style={{ width: "100%" }}
                     />
                   </div>
                 </div>
@@ -625,7 +700,7 @@ export default function AnnounceACompany() {
                       control={
                         <Checkbox
                           defaultChecked
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={wholeCollege}
                           onChange={(e) => {
                             setWholeCollege(e.target.checked);
@@ -658,7 +733,7 @@ export default function AnnounceACompany() {
                       control={
                         <Checkbox
                           defaultChecked
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={particularBranch}
                           onChange={(e) => {
                             setParticularBranch(e.target.checked);
@@ -794,7 +869,7 @@ export default function AnnounceACompany() {
                       control={
                         <Checkbox
                           defaultChecked
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={selectCompany}
                           onChange={(e) => {
                             setSelectCompany(e.target.checked);
@@ -878,7 +953,7 @@ export default function AnnounceACompany() {
                       control={
                         <Checkbox
                           defaultChecked
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={selectStudent}
                           onChange={(e) => {
                             setSelectStudent(e.target.checked);
@@ -957,14 +1032,16 @@ export default function AnnounceACompany() {
                   }}
                 >
                   <Button
+                    variant="outlined"
                     component="label"
-                    style={{ width: "76%",
-                    textTransform: "capitalize",
-                   
-                    color: "#007F7F",
-                    backgroundColor : "white",
-                    fontWeight: 600,
-                    border: "2px solid #007F7F", }}
+                    style={{
+                      color: "#017E7E",
+                      fontWeight: 700,
+                      backgroundColor: "white",
+                      border: "2px solid #017E7E",
+                      borderRadius: "20px",
+                      textTransform: "capitalize",
+                    }}
                     // onClick={handleOpenPicker}
                     startIcon={<AttachFileIcon />}
                   >
@@ -1041,13 +1118,10 @@ export default function AnnounceACompany() {
                     <Button
                       variant="contained"
                       style={{
-                        
-                        width: "56%",
-                textTransform: "capitalize",
-                borderRadius: "20px",
-                backgroundColor: "#007F7F",
-                fontWeight: 600,
-                marginBottom: "-15px",
+                        backgroundColor: "#017E7E",
+                        width: "100%",
+                        height: "50px",
+                        borderRadius: "16px",
                       }}
                       onClick={handleFilter}
                       // onClick={submitHandler}
@@ -1059,10 +1133,8 @@ export default function AnnounceACompany() {
                 <div style={{ height: "50px" }}></div>
               </div>
             </Paper>
-            
             <div style={{ height: "70px" }}></div>
-           
-            
+          </main>
         </div>
       ) : (
         <div

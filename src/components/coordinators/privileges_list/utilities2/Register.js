@@ -36,10 +36,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import { ContentPasteGoSharp } from "@mui/icons-material";
 import SeacrUI from "./Search2";
 import BackdropUI from "./Backdrop";
-
-import BackDropUI from "./Backdrop";
 import DateUI from "./Date";
 import handshakemobile from "../../../images/handshakemobile.jpg";
+import ModalUI from "../../../Dialog";
+
+import BackDropUI from "./Backdrop";
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -82,10 +85,25 @@ const[college,setCollege]=React.useState(0);
 
 
   const [sending, setSending] = React.useState(false);
+  const [modalHandler, setModalHandler] = React.useState({
+    status: false,
+    msg: "",
+    func: null,
+  });
 
   const registerCompany = async () => {
     if (!policy) {
-      alert("Please accept the Terms & Conditions");
+      setModalHandler({
+        status: true,
+        msg: `Please accept the Terms & Conditions`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
@@ -110,22 +128,62 @@ const[college,setCollege]=React.useState(0);
       address[0].length == 0 ||
       address[1].length == 0
     ) {
-      alert("All fields should be filled");
+      setModalHandler({
+        status: true,
+        msg: `All fields should be filled`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
     if (company == 0 && company2 != 0) {
-      alert("Fill the first field as your first company");
+      setModalHandler({
+        status: true,
+        msg: `Fill the first field as your first company`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
     if (company && company2 && company == company2) {
-      alert("You cant get two offers in the same company :|");
+      setModalHandler({
+        status: true,
+        msg: `You cant get two offers in the same company :|`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
     if (cgpa == "") {
-      alert("Total CGPa should be filled");
+      setModalHandler({
+        status: true,
+        msg: `Total CGPA should be filled`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       return;
     }
 
@@ -184,14 +242,36 @@ const[college,setCollege]=React.useState(0);
     if (data) {
       console.log("Success");
       console.log(data);
-      alert("Successfully Uploaded");
+
+      setModalHandler({
+        status: true,
+        msg: `Successfully Uploaded`,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
       props.registerModalHandler();
     }
 
     if (error) {
       console.log("Error");
       console.log(error);
-      alert(error.message);
+
+      setModalHandler({
+        status: true,
+        msg: error.message,
+        func: () => {
+          setModalHandler({
+            status: false,
+            msg: "",
+            func: null,
+          });
+        },
+      });
     }
   };
 
@@ -268,19 +348,21 @@ const[college,setCollege]=React.useState(0);
       }
 
       if (error) {
-        alert("Something went wrong :( try again");
+        setModalHandler({
+          status: true,
+          msg: "Something went wrong :( try again",
+          func: () => {
+            setModalHandler({
+              status: false,
+              msg: "",
+              func: null,
+            });
+          },
+        });
         console.log("Unsuccessful");
         console.log(error.message);
       }
     }
-
-    // if (count == 0) {
-    //   alert("Uploaded Successfully");
-    // } else if (count == e.target.files.length) {
-    //   alert("Something went wrong :( try again");
-    // } else {
-    //   alert("All files are not uploaded :( try again");
-    // }
 
     setUploading(false);
   };
@@ -293,9 +375,10 @@ const[college,setCollege]=React.useState(0);
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-          {sending ? <BackDropUI /> : false}
-         
-          <div>
+        {sending ? <BackdropUI /> : null}
+        {modalHandler.status ? <ModalUI data={modalHandler} /> : null}
+        <div>
+          {/* <NavBarUI handleClose={handleClose} /> */}
           <IconButton
             edge="start"
             color="inherit"
@@ -322,15 +405,15 @@ const[college,setCollege]=React.useState(0);
               alt="Hand shake"
             />
           </div>
-          <div
-            style={{
-              backgroundColor: "#F5F8F9",
-            }}
-          >
-           
-            <br />
-            <div style={{ display: "flex", justifyContent: "center" }}>
-               <Paper
+          <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "30px",
+              }}
+            >
+              <Paper
                 style={{
                   width: "95%",
                   padding: "5%",
@@ -407,7 +490,7 @@ const[college,setCollege]=React.useState(0);
                       <FormControlLabel
                         control={
                           <Checkbox
-                            style={{ color: "#541554",}}
+                            style={{ color: "#017E7E" }}
                             checked={ccontrol}
                             onChange={(e) => {
                               setCControl(e.target.checked);
@@ -1135,19 +1218,68 @@ const[college,setCollege]=React.useState(0);
                         borderBottom: "2px solid #017E7E",
                       },
                     }}
-                    value={resume[0]}
-                    onChange={(e) => {
-                      const temp = [...resume];
-                      temp[0] = e.target.value;
-                      setResume(temp);
-                    }}
                   /> 
 
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "30px",
+                    }}
+                  >
+                    <Button
+                      variant="outlined"
+                      component="label"
+                      style={{
+                        color: "#017E7E",
+                        fontWeight: 700,
+                        border: "1px solid #017E7E",
+                        textTransform: "capitalize",
+                        borderRadius: "20px",
+                      }}
+
+                      // onClick={handleOpenPicker}
+                    >
+                      {uploading ? "Uploading...Wait" : "Upload Resume"}
+
+                      <input
+                        hidden
+                        multiple
+                        type="file"
+                        onChange={(e) => {
+                          console.log(e);
+                          handleUpload(e);
+                        }}
+                      />
+                    </Button>
+                  </div>
+                  <br />
+                  {uploading ? (
+                    <div>
+                      <SpinnerUI />
+                    </div>
+                  ) : null}
+                  <br />
+                  {urls &&
+                    urls.map((item) => {
+                      return (
+                        <iframe
+                          src={item}
+                          style={{
+                            width: m1 ? "10%" : "50%",
+                            height: "100px",
+                            overflow: "hidden",
+                          }}
+                          scrolling="no"
+                          key={item}
+                        ></iframe>
+                      );
+                    })}
                   <FormGroup>
                     <FormControlLabel
                       control={
                         <Checkbox
-                          style={{ color: "#541554" }}
+                          style={{ color: "#017E7E" }}
                           checked={policy}
                           onChange={(e) => {
                             setPolicy(e.target.checked);
@@ -1173,13 +1305,10 @@ const[college,setCollege]=React.useState(0);
                     <Button
                       variant="contained"
                       style={{
-                        
-                        width: "56%",
-                textTransform: "capitalize",
-                borderRadius: "20px",
-                backgroundColor: "#007F7F",
-                fontWeight: 600,
-                marginBottom: "10px",
+                        backgroundColor: "#017E7E",
+                        width: "100%",
+                        height: "50px",
+                        borderRadius: "16px",
                       }}
                       onClick={registerCompany}
                     >
