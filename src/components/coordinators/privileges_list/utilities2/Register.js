@@ -126,7 +126,8 @@ const[college,setCollege]=React.useState(0);
       branch.length == 0 ||
       section.length == 0 ||
       address[0].length == 0 ||
-      address[1].length == 0
+      address[1].length == 0 ||
+      resume[0].length == 0
     ) {
       setModalHandler({
         status: true,
@@ -230,6 +231,7 @@ const[college,setCollege]=React.useState(0);
       company2: company2,
       type_status1: companyType,
       type_status2: company2Type,
+      documents:resume,
     };
 
     console.log("Upload Data Bro");
@@ -252,9 +254,10 @@ const[college,setCollege]=React.useState(0);
             msg: "",
             func: null,
           });
+          setOpen(false);
+          props.registerModalHandler();
         },
       });
-      props.registerModalHandler();
     }
 
     if (error) {
@@ -1218,63 +1221,16 @@ const[college,setCollege]=React.useState(0);
                         borderBottom: "2px solid #017E7E",
                       },
                     }}
+                    value={resume[0]}
+                    onChange={(e) => {
+                      const temp=[...resume];
+                      temp[0]=e.target.value;
+                      setResume(temp);
+                    }}
                   /> 
 
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "30px",
-                    }}
-                  >
-                    <Button
-                      variant="outlined"
-                      component="label"
-                      style={{
-                        color: "#017E7E",
-                        fontWeight: 700,
-                        border: "1px solid #017E7E",
-                        textTransform: "capitalize",
-                        borderRadius: "20px",
-                      }}
-
-                      // onClick={handleOpenPicker}
-                    >
-                      {uploading ? "Uploading...Wait" : "Upload Resume"}
-
-                      <input
-                        hidden
-                        multiple
-                        type="file"
-                        onChange={(e) => {
-                          console.log(e);
-                          handleUpload(e);
-                        }}
-                      />
-                    </Button>
-                  </div>
-                  <br />
-                  {uploading ? (
-                    <div>
-                      <SpinnerUI />
-                    </div>
-                  ) : null}
-                  <br />
-                  {urls &&
-                    urls.map((item) => {
-                      return (
-                        <iframe
-                          src={item}
-                          style={{
-                            width: m1 ? "10%" : "50%",
-                            height: "100px",
-                            overflow: "hidden",
-                          }}
-                          scrolling="no"
-                          key={item}
-                        ></iframe>
-                      );
-                    })}
+                 
+                 
                   <FormGroup>
                     <FormControlLabel
                       control={
