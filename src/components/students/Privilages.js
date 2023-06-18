@@ -45,22 +45,22 @@ export default function Privileges(props) {
       goto: "/home/companies",
       junior: true,
     },
-    {
-      text: "Interview experiences",
-      subtext: "Read about the past interview experiences",
-      image:
-        "https://images.unsplash.com/photo-1579444741963-5ae219cfe27c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9ybXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      goto: "/home/interviews",
-      junior: true,
-    },
-    {
-      text: "Stats",
-      subtext: "See the placement stats of our college",
-      image:
-        "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Z3JhcGh8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-      goto: "/admin/companies",
-      junior: true,
-    },
+    // {
+    //   text: "Interview experiences",
+    //   subtext: "Read about the past interview experiences",
+    //   image:
+    //     "https://images.unsplash.com/photo-1579444741963-5ae219cfe27c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9ybXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+    //   goto: "/home/interviews",
+    //   junior: true,
+    // },
+    // {
+    //   text: "Stats",
+    //   subtext: "See the placement stats of our college",
+    //   image:
+    //     "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Z3JhcGh8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    //   goto: "/admin/companies",
+    //   junior: true,
+    // },
   ];
 
   async function fetchStudentDetails() {
@@ -87,7 +87,7 @@ export default function Privileges(props) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div style={{ height: m1 ? "70px" : "40px" }}></div>
+
       <main>
         <Box
           sx={{
@@ -99,27 +99,18 @@ export default function Privileges(props) {
           }}
         >
           <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
+            <div
               style={{
-                fontFamily: "inherit",
-                fontSize: m1 ? "60px" : "30px",
-                fontWeight: 700,
                 display: "flex",
                 justifyContent: "center",
+                color: "black",
               }}
             >
-              <b> Verified </b>
-              <div style={{ width: "10px" }}></div>
+              {/* <h2 style={{ textAlign: "center" }}>Verified</h2> */}
               <svg
                 className="checkmark"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 52 52"
-                style={{ marginTop: m1 ? "20px" : "1px" }}
               >
                 <circle
                   className="checkmark__circle"
@@ -134,7 +125,7 @@ export default function Privileges(props) {
                   d="M14.1 27.2l7.1 7.2 16.7-16.8"
                 />
               </svg>
-            </Typography>
+            </div>
             <Typography
               variant="h5"
               align="center"
@@ -150,7 +141,9 @@ export default function Privileges(props) {
                   {props.data && props.data.user_metadata.full_name}
                   {student.length === 1 ? " (" + student[0].usn + ")" : ""}
                 </b>
-                , you have successfully logged in with{" "}
+                , you have successfully logged in{" "}
+                {student.length > 0 ? "" : "as "}{" "}
+                {student.length > 0 ? "" : <b>GUEST</b>} with{" "}
                 <b>{props.data && props.data.email}</b>.{" "}
                 {student.length > 0
                   ? "Keep your resume updated before applying to eligible companies."
@@ -162,11 +155,11 @@ export default function Privileges(props) {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                marginTop: "20px",
+                marginTop: "0px",
                 marginBottom: "-30px",
               }}
             >
-              {student.length === 1 ? (
+              {/* {student.length === 1 ? (
                 <div
                   style={{
                     width: "50%",
@@ -201,8 +194,8 @@ export default function Privileges(props) {
                     </a>
                   </div>
                 </div>
-              ) : null}
-              <div style={{ width: "50%" }}>
+              ) : null} */}
+              <div style={{ width: "80%" }}>
                 {student.length === 1 ? (
                   <Fab
                     variant="extended"
@@ -210,13 +203,13 @@ export default function Privileges(props) {
                     color="primary"
                     aria-label="add"
                     style={{
-                      backgroundColor: "black",
+                      backgroundColor: "#017E7E",
                       width: "100%",
                       marginBottom: "15px",
                       marginTop: m1 ? "50px" : "17px",
                     }}
                     onClick={() => {
-                      navigate("/profile");
+                      navigate("/home/profile");
                     }}
                   >
                     {student[0].gender == 2 ? (
@@ -232,7 +225,12 @@ export default function Privileges(props) {
                   size="medium"
                   color="primary"
                   aria-label="add"
-                  style={{ backgroundColor: "black", width: "100%" }}
+                  style={{
+                    backgroundColor: "white",
+                    width: "100%",
+                    color: "#017E7E",
+                    border: "2px solid #017E7E",
+                  }}
                   onClick={() => {
                     window.location.reload();
                   }}

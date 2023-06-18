@@ -111,13 +111,16 @@ function App() {
       data ? (
         <NavBarUI logOut={logOut} data={data} />
       ) : null}
-      {location &&
-      location.pathname !== "/" &&
-      location.pathname !== "/admin" &&
-      data ? (
+      {(location &&
+        location.pathname !== "/" &&
+        location.pathname !== "/admin" &&
+        location.pathname == "/home") ||
+      (location.pathname == "/home/profile" && data) ? (
         <NavBarUI3 logOut={logOut} data={data} />
       ) : null}
-      <div style={{ height: "120px" }}></div>
+      <div
+        style={{ height: location.pathname != "/home" ? "120px" : "15px" }}
+      ></div>
       <Routes>
         <Route path="/home" element={<HomeUI />} />
         <Route path="/signin" element={<SignInUI />} />

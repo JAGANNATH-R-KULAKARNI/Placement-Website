@@ -175,9 +175,7 @@ function Footer() {
                     e.target.style.color = "white";
                     e.target.style.textDecoration = "none";
                   }}
-                  onClick={() => {
-                    alert("here");
-                  }}
+                  onClick={() => {}}
                 >
                   {"Placements"}
                 </li>
@@ -256,6 +254,54 @@ function Footer() {
                     }}
                   >
                     Niraj Sharma
+                  </li>
+                </a>
+                <a
+                  href="https://in.linkedin.com/in/lohith-c-b9203a54"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  {" "}
+                  <li
+                    style={{
+                      fontSize: m1 ? "15px" : "14px",
+                    }}
+                    onMouseOver={(e) => {
+                      e.target.style.color = "#fcbf02";
+                      e.target.style.textDecoration = "underline";
+                      e.target.style.cursor = "pointer";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = "white";
+                      e.target.style.textDecoration = "none";
+                    }}
+                  >
+                    Lohith C
+                  </li>
+                </a>
+                <a
+                  href="https://in.linkedin.com/in/prajwal-benedict-a-048511186"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  {" "}
+                  <li
+                    style={{
+                      fontSize: m1 ? "15px" : "14px",
+                    }}
+                    onMouseOver={(e) => {
+                      e.target.style.color = "#fcbf02";
+                      e.target.style.textDecoration = "underline";
+                      e.target.style.cursor = "pointer";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = "white";
+                      e.target.style.textDecoration = "none";
+                    }}
+                  >
+                    Benedict Prajwal
                   </li>
                 </a>
               </ul>

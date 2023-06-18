@@ -52,6 +52,7 @@ export default function AnnounceACompany(props) {
     Dream: "#2E7D32",
     "Open Dream": "#FFD700",
   };
+
   React.useEffect(() => {
     setWidth(caro.current.scrollWidth - caro.current.offsetWidth);
   }, []);

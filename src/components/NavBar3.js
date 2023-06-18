@@ -12,7 +12,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const ResponsiveAppBar = (props) => {
   const m1 = useMediaQuery("(min-width:600px)");
@@ -22,11 +21,11 @@ const ResponsiveAppBar = (props) => {
     <AppBar
       position="fixed"
       style={{
-        backgroundColor: "#541554",
+        backgroundColor: "#017E7E",
         color: "white",
         fontFamily: "inherit",
-        paddingTop: "10px",
-        paddingBottom: "10px",
+        paddingTop: m1 ? "10px" : "3px",
+        paddingBottom: m1 ? "10px" : "0px",
       }}
       elevation={0}
     >
@@ -34,14 +33,14 @@ const ResponsiveAppBar = (props) => {
         <Toolbar disableGutters>
           <div
             onClick={() => {
-              navigate("/admin");
+              navigate("/home");
             }}
           >
             <img
               src={logo}
               alt="Logo"
               style={{
-                width: m1 ? "50px" : "30px",
+                width: m1 ? "50px" : "35px",
                 height: "auto",
                 backgroundColor: "white",
                 padding: "5px",
@@ -56,68 +55,35 @@ const ResponsiveAppBar = (props) => {
           <h3
             style={{
               color: "white",
-              fontSize: m1 ? "25px" : "18px",
+              fontSize: m1 ? "25px" : "20px",
               marginLeft: m1 ? "30px" : "19px",
             }}
             className="hoverr2"
+            onClick={() => {
+              navigate("/home");
+            }}
           >
-            {m1 ? (
-              <Button
-                variant="contained"
-                style={{
-                  backgroundColor: "black",
-                  fontWeight: 700,
-                  borderRadius: "12px",
-                  marginLeft: "50px",
-                }}
-                startIcon={
-                  <IconButton onClick={null} sx={{ p: 0, color: "white" }}>
-                    <ArrowBackIcon />
-                  </IconButton>
-                }
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                Go Back
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                style={{
-                  fontSize: "10px",
-                  marginLeft: "20px",
-                  backgroundColor: "black",
-                }}
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                Go Back
-              </Button>
-            )}
+            {m1 ? "Training & Placements Cell" : <span>Placements</span>}
           </h3>
 
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "none" },
-              marginLeft: "25px",
+              marginLeft: "40px",
             }}
           >
-            <Badge
-              badgeContent={3}
-              color="success"
-              style={{ marginTop: "8px" }}
-            >
-              <NotificationsIcon />
-            </Badge>
             <Button
               variant="contained"
               style={{
-                fontSize: "10px",
+                fontSize: "12px",
                 marginLeft: "20px",
-                backgroundColor: "green",
+                backgroundColor: "#017E7E",
+                border: "2px solid white",
+                textTransform: "capitalize",
+                fontWeight: 700,
+                borderRadius: "20px",
+                marginTop: "-5px",
               }}
               startIcon={
                 <IconButton onClick={null} sx={{ p: 0 }}>

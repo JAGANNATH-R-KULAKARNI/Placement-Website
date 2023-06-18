@@ -1,20 +1,18 @@
 import React from "react";
-import NavBarUI from "./NavBar";
-import nie from "./images/nie.jpg";
-import nie2 from "./images/nie2.jpg";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import StepperUI from "./utilities/Stepper";
 import { supabase } from "../Supabase";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import PrivilagesUI from "./coordinators/Privilages";
 import Skeleton from "@mui/material/Skeleton";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Cookies from "js-cookie";
-import PrivilegesUI from "./students/Privilages";
+import { Cookie } from "@mui/icons-material";
 
-export default function Home() {
-  const m1 = useMediaQuery("(min-width:600px)");
+export default function Admin() {
   const navigate = useNavigate();
   const location = useLocation();
+  const m1 = useMediaQuery("(min-width:600px)");
+
   const [data, setData] = React.useState(null);
 
   async function fetchTheProfile() {
@@ -38,14 +36,12 @@ export default function Home() {
     setInterval(() => {
       fetchTheProfile();
     }, 1000);
-  });
+  }, []);
 
   return (
-    <div style={{ color: "white", marginTop: m1 ? "0px" : "00px" }}>
+    <div>
       {data ? (
-        <div>
-          <PrivilegesUI data={data} />
-        </div>
+        <PrivilagesUI />
       ) : (
         <div
           style={{
@@ -58,7 +54,11 @@ export default function Home() {
           <div style={{ width: "100%" }}>
             <Skeleton
               variant="text"
-              sx={{ fontSize: "1rem", backgroundColor: "white" }}
+              sx={{
+                fontSize: "1rem",
+                backgroundColor: "white",
+                marginTop: "80px",
+              }}
               width={m1 ? "50%" : "80%"}
               height={100}
             />

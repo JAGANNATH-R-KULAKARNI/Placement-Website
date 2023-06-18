@@ -94,7 +94,7 @@ export default function AnnounceACompany(props) {
           }}
         >
           Recent Registered Companies{" "}
-          <span
+          {/* <span
             style={{
               color: "#017E7E",
               textDecoration: "underline",
@@ -103,7 +103,7 @@ export default function AnnounceACompany(props) {
             onClick={() => {}}
           >
             View More
-          </span>
+          </span> */}
         </h4>
       )}
 
