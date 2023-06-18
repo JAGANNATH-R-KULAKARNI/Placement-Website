@@ -119,7 +119,12 @@ function App() {
         <NavBarUI3 logOut={logOut} data={data} />
       ) : null}
       <div
-        style={{ height: location.pathname != "/home" ? "120px" : "15px" }}
+        style={{
+          height:
+            location.pathname != "/home" && location.pathname != "/home/profile"
+              ? "120px"
+              : "15px",
+        }}
       ></div>
       <Routes>
         <Route path="/home" element={<HomeUI />} />

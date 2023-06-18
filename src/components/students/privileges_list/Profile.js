@@ -8,6 +8,33 @@ import Typography from "@mui/material/Typography";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import DialogUI from "./utilities2/Dialog";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import {
+  MDBCol,
+  MDBContainer,
+  MDBRow,
+  MDBCard,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBBtn,
+  MDBTypography,
+  MDBIcon,
+} from "mdb-react-ui-kit";
+import CardMedia from "@mui/material/CardMedia";
+import upbg from "../../images/upbg.png";
 
 export default function AnnounceACompany() {
   const m1 = useMediaQuery("(min-width:600px)");
@@ -15,6 +42,13 @@ export default function AnnounceACompany() {
   const location = useLocation();
 
   const [data, setData] = React.useState(null);
+  const [acc, setAcc] = React.useState([]);
+  const [accF, setAccF] = React.useState([]);
+  const [model, setModel] = React.useState(false);
+
+  const toggleModel = () => {
+    setModel(!model);
+  };
 
   async function fetchTheProfile() {
     const data = await supabase.auth.user();
@@ -25,10 +59,46 @@ export default function AnnounceACompany() {
     }
   }
 
+  async function fetchTheStudentsF() {
+    const data = await supabase.auth.user();
+    const stuData = await supabase
+      .from("students")
+      .select("*,companies(*)")
+      .eq("email", data.email);
+
+    if (stuData.data) {
+      console.log("stuData.data");
+      console.log(stuData.data);
+      setAcc(stuData.data);
+    }
+  }
+  async function fetchTheStudents() {
+    const data = await supabase.auth.user();
+    const temp = [];
+
+    if (data) {
+      for (let i = 0; i < acc.length; i++) {
+        if (data) {
+          if (data.email === acc[i].email) temp.push(acc[i]);
+        } else {
+          temp.push(acc[i]);
+        }
+      }
+      console.log("student profile");
+      console.log(temp);
+      setAccF(temp);
+    } else {
+      console.log("wrong");
+    }
+  }
+
   React.useEffect(() => {
     setInterval(() => {
       fetchTheProfile();
     }, 1000);
+    if (acc.length == 0) {
+      fetchTheStudentsF();
+    }
   });
 
   return (
@@ -36,7 +106,7 @@ export default function AnnounceACompany() {
       {data ? (
         <div>
           <CssBaseline />
-          <div style={{ height: m1 ? "70px" : "40px" }}></div>
+          {/* <div style={{ height: m1 ? "70px" : "40px" }}></div> */}
           <main>
             <Box
               sx={{
@@ -47,39 +117,119 @@ export default function AnnounceACompany() {
                 borderBottomLeftRadius: "50px",
               }}
             >
+              <img
+                src={upbg}
+                style={{ width: "100%", height: "auto", marginTop: "-80px" }}
+                alt=""
+              />
+              <h2
+                style={{
+                  marginLeft: "7%",
+                  marginRight: "7%",
+                  textAlign: "left",
+                  marginTop: "-150px",
+                  color: "white",
+                  fontSize: "20px",
+                }}
+              >
+                Unlocking potential and paving the path to success !
+              </h2>
               <Container maxWidth="sm">
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  color="text.primary"
-                  gutterBottom
-                  style={{
-                    fontFamily: "inherit",
-                    fontSize: m1 ? "60px" : "50px",
-                    fontWeight: 500,
-                  }}
-                >
-                  Profile
-                </Typography>
-                <Typography
-                  variant="h5"
+                <div
+                  className="vh-100"
                   align="center"
                   color="text.secondary"
-                  paragraph
+                  //paragraph
                   style={{
                     fontSize: m1 ? "17px" : "16px",
                     marginBottom: "-17px",
                   }}
                 >
-                  <i>
-                    “Keep your resume updated before applying for any company.
-                    If any of the details is incorrect, please contact placement
-                    coordinators”
-                  </i>
-                </Typography>
+                  <MDBContainer className="container py-5 h-100">
+                    <MDBRow className="justify-content-center align-items-center h-100">
+                      <MDBCol md="12" xl="4">
+                        <MDBCard style={{ borderRadius: "15px" }}>
+                          <MDBCardBody className="text-center">
+                            <div className="mt-3 mb-4">
+                              {acc[0].gender == 2 ? (
+                                <MDBCardImage
+                                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+                                  className="rounded-circle"
+                                  fluid
+                                  style={{ width: "100px" }}
+                                />
+                              ) : (
+                                <MDBCardImage
+                                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                                  className="rounded-circle"
+                                  fluid
+                                  style={{ width: "100px" }}
+                                />
+                              )}
+                            </div>
+                            <MDBTypography tag="h4">
+                              {acc[0].name}
+                            </MDBTypography>
+                            <MDBCardText className="text-muted mb-4">
+                              {acc[0].email} <span className="mx-2">|</span>{" "}
+                              {acc[0].usn}
+                            </MDBCardText>
+
+                            <Button
+                              variant="contained"
+                              align="center"
+                              style={{
+                                color: "white",
+                                borderRadius: "15px",
+                                textTransform: "capitalize",
+                                fontSize: "18px",
+                                backgroundColor: "#007F7F",
+                              }}
+                              onClick={toggleModel}
+                            >
+                              Update Details
+                            </Button>
+                            <div className="d-flex justify-content-between text-center mt-2 mb-2">
+                              <div>
+                                <MDBCardText className="mb-1 h5" tag="h4">
+                                  {acc[0].year}th
+                                </MDBCardText>
+                                <MDBCardText className="small text-muted mb-0">
+                                  Year
+                                </MDBCardText>
+                              </div>
+                              <div>
+                                <MDBCardText className="mb-1 h5" tag="h4">
+                                  {acc[0].branch}
+                                </MDBCardText>
+                                <MDBCardText className="small text-muted mb-0">
+                                  Branch
+                                </MDBCardText>
+                              </div>
+                              <div>
+                                <MDBCardText className="mb-1 h5" tag="h4">
+                                  {acc[0].section}
+                                </MDBCardText>
+                                <MDBCardText className="small text-muted mb-5">
+                                  Section
+                                </MDBCardText>
+                              </div>
+                            </div>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBContainer>
+                </div>
               </Container>
             </Box>
+            {model && acc.length > 0 ? (
+              <DialogUI
+                data={acc[0]}
+                //data={item}
+                toggleModel={toggleModel}
+              />
+            ) : null}
           </main>
         </div>
       ) : (

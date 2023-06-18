@@ -26,6 +26,7 @@ import { supabase } from "../../Supabase";
 import FaceIcon from "@mui/icons-material/Face";
 import Face2Icon from "@mui/icons-material/Face2";
 import pdfi from "../images/pdf.png";
+import Company2UI from "./privileges_list2/Company2";
 
 const theme = createTheme();
 
@@ -242,8 +243,18 @@ export default function Privileges(props) {
             </div>
           </Container>
         </Box>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "30px",
+          }}
+        >
+          <Company2UI />
+        </div>
 
-        <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
+        {/* <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
           <Grid container spacing={4}>
             {powers.map((power) => (
               <Grid item key={power} xs={12} sm={6} md={4}>
@@ -297,7 +308,7 @@ export default function Privileges(props) {
               </Grid>
             ))}
           </Grid>
-        </Container>
+        </Container> */}
       </main>
     </ThemeProvider>
   );
