@@ -160,42 +160,6 @@ export default function Privileges(props) {
                 marginBottom: "-30px",
               }}
             >
-              {/* {student.length === 1 ? (
-                <div
-                  style={{
-                    width: "50%",
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "-10px",
-                  }}
-                >
-                  <div>
-                    <a
-                      href={student && student[0].documents[0]}
-                      style={{ justifyContent: "center", display: "flex" }}
-                    >
-                      <img
-                        src={pdfi}
-                        alt="filei"
-                        style={{ width: "80%", height: "auto" }}
-                      />
-                    </a>
-                    <a
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                        textAlign: "center",
-                        marginTop: m1 ? "-20px" : "-10px",
-                        color: "black",
-                      }}
-                      href={student && student[0].documents[0]}
-                    >
-                      Resume
-                    </a>
-                  </div>
-                </div>
-              ) : null} */}
               <div style={{ width: "80%" }}>
                 {student.length === 1 ? (
                   <Fab
@@ -243,16 +207,18 @@ export default function Privileges(props) {
             </div>
           </Container>
         </Box>
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "30px",
-          }}
-        >
-          <Company2UI />
-        </div>
+        {student && student.length ? (
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "30px",
+            }}
+          >
+            <Company2UI />
+          </div>
+        ) : null}
 
         {/* <Container sx={{ py: 8, marginTop: "-30px" }} maxWidth="md">
           <Grid container spacing={4}>
